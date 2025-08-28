@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>Demo Pixel BR</title>
+  <script>window.PIXELBR_COLLECTOR_URL = "http://localhost:8080/collect";</script>
+  <script src="./pixel_br.js?id=USER123&product=PROD567"></script>
+</head>
+<body>
+  <h1>Demo Pixel BR</h1>
+  <p>Esta página dispara automaticamente <code>page_view</code> na carga.</p>
+  <button onclick="PixelBR.track('lead', { email: 'teste@exemplo.com', phone: '+55 11 99999-0000' })">Disparar Lead</button>
+  <button onclick="PixelBR.track('purchase', { custom_data: { value: 197.00, currency: 'BRL', order_id: 'ABC-999' } })">Disparar Purchase</button>
+  <p>Consent: <button onclick="PixelBR.consentGrant()">Grant</button> <button onclick="PixelBR.consentDeny()">Deny</button></p>
+</body>
+</html>

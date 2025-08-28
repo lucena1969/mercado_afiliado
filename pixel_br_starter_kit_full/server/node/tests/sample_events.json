@@ -1,0 +1,52 @@
+[
+  {
+    "event_name": "page_view",
+    "event_time": 1724313600,
+    "event_id": "TEST-PV-0001",
+    "source_url": "https://minhasite.com/",
+    "user_data": {
+      "ua": "UA_TEST"
+    },
+    "consent": "granted"
+  },
+  {
+    "event_name": "lead",
+    "event_time": 1724313601,
+    "event_id": "TEST-LEAD-0001",
+    "source_url": "https://minhasite.com/ebook",
+    "user_data": {
+      "em": "teste@exemplo.com",
+      "ph": "+55 (11) 99999-0000",
+      "ua": "UA_TEST"
+    },
+    "custom_data": {
+      "value": 0,
+      "currency": "BRL"
+    },
+    "consent": "granted"
+  },
+  {
+    "event_name": "purchase",
+    "event_time": 1724313602,
+    "event_id": "TEST-PUR-0001",
+    "source_url": "https://minhasite.com/checkout/sucesso",
+    "user_data": {
+      "em": "comprador@exemplo.com",
+      "ph": "11999990000",
+      "ua": "UA_TEST"
+    },
+    "custom_data": {
+      "value": 197.0,
+      "currency": "BRL",
+      "order_id": "PED-001"
+    },
+    "consent": "granted"
+  },
+  {
+    "event_name": "lead",
+    "event_time": 1724313603,
+    "event_id": "TEST-NOCONSENT-0001",
+    "source_url": "https://minhasite.com/form",
+    "consent": "denied"
+  }
+]

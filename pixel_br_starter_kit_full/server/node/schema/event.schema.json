@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PixelBREvent",
+  "type": "object",
+  "required": [
+    "event_name",
+    "event_time",
+    "event_id",
+    "source_url"
+  ],
+  "properties": {
+    "event_name": {
+      "type": "string",
+      "enum": [
+        "page_view",
+        "click",
+        "lead",
+        "purchase",
+        "custom"
+      ]
+    },
+    "event_time": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "event_id": {
+      "type": "string",
+      "minLength": 6
+    },
+    "user_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "product_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "utm": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "medium": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "campaign": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "content": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "term": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "user_data": {
+      "type": "object",
+      "properties": {
+        "em": {
+          "type": "string"
+        },
+        "ph": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "ua": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "custom_data": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "currency": {
+          "type": "string"
+        },
+        "order_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "consent": {
+      "type": "string",
+      "enum": [
+        "granted",
+        "denied"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

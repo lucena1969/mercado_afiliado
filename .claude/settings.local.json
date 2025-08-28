@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(rm:*)",
+      "Bash(unzip:*)",
+      "Bash(powershell Compress-Archive:*)",
+      "Bash(powershell:*)",
+      "Bash(xcopy:*)",
+      "Bash(copy \"C:\\xampp\\htdocs\\mercado_afiliado\\config\\database.php\" \"C:\\xampp\\htdocs\\mercado_afiliado_hostinger\\config\\database.php\")",
+      "Bash(robocopy:*)",
+      "Bash(cmd /c \"xcopy \"\"C:\\xampp\\htdocs\\mercado_afiliado\\app\"\" \"\"C:\\xampp\\htdocs\\mercado_afiliado_hostinger\\app\"\" /E /I /Y\")",
+      "Bash(%SystemRoot%System32robocopy.exe \"C:\\xampp\\htdocs\\mercado_afiliado\\app\" \"C:\\xampp\\htdocs\\mercado_afiliado_hostinger\\app\" /E)",
+      "Read(/C:\\xampp\\htdocs\\mercado_afiliado_hostinger\\app\\models/**)",
+      "Read(/C:\\xampp\\htdocs\\mercado_afiliado_hostinger/**)",
+      "Read(/C:\\xampp\\htdocs\\mercado_afiliado_hostinger/**)",
+      "Read(/C:\\xampp\\htdocs\\mercado_afiliado_hostinger/**)",
+      "Read(/C:\\xampp\\htdocs\\mercado_afiliado_hostinger/**)",
+      "Read(/C:\\xampp\\htdocs\\mercado_afiliado_hostinger/**)",
+      "Bash(php:*)"
+    ],
+    "deny": [],
+    "ask": [],
+    "additionalDirectories": [
+      "C:\\xampp\\htdocs\\mercado_afiliado_hostinger\\templates\\integrations",
+      "C:\\xampp\\htdocs"
+    ]
+  }
+}

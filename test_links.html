@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <title>Teste de Links - Mercado Afiliado</title>
+</head>
+<body>
+  <h1>Teste de Navegação</h1>
+  
+  <p>Links simples:</p>
+  <a href="https://mercadoafiliado.com.br/register">Link simples para Register</a><br><br>
+  <a href="https://mercadoafiliado.com.br/login">Link simples para Login</a><br><br>
+  
+  <p>Links com classes (como no site):</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="https://mercadoafiliado.com.br/register">Comece agora</a>
+    <a class="btn btn-ghost" href="https://mercadoafiliado.com.br/login">Ver demo</a>
+  </div>
+  
+  <p>Teste com target blank:</p>
+  <a href="https://mercadoafiliado.com.br/register" target="_blank">Register (nova aba)</a><br><br>
+  
+  <script>
+    // Debug: verificar se há JavaScript interferindo
+    document.addEventListener('click', function(e) {
+      console.log('Click detectado em:', e.target);
+      console.log('Link href:', e.target.href);
+    });
+  </script>
+</body>
+</html>

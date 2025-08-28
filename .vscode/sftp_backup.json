@@ -1,0 +1,33 @@
+{
+    "name": "Hostinger - Alternativa 1",
+    "host": "ftp.hostinger.com",
+    "protocol": "ftp",
+    "port": 21,
+    "username": "u590097272",
+    "password": "Numse!2020",
+    "remotePath": "/domains/mercadoafiliado.com.br/public_html",
+    "uploadOnSave": false
+}
+
+// Alternativa 2: SFTP
+{
+    "name": "Hostinger - SFTP", 
+    "host": "147.93.38.49",
+    "protocol": "sftp",
+    "port": 22,
+    "username": "u590097272",
+    "password": "Numse!2020",
+    "remotePath": "/public_html"
+}
+
+// Alternativa 3: FTP Passivo
+{
+    "name": "Hostinger - Passivo",
+    "host": "147.93.38.49", 
+    "protocol": "ftp",
+    "port": 21,
+    "username": "u590097272",
+    "password": "Numse!2020",
+    "remotePath": "/public_html",
+    "passive": true
+}

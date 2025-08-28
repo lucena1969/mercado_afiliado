@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  collector:
+    build: ./server/node
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    volumes:
+      - ./server/node/data:/app/data
