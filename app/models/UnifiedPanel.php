@@ -10,8 +10,7 @@ class UnifiedPanel {
 
     public function __construct($db) {
         $this->conn = $db;
-        // Remover dependência do Sale model por enquanto
-        // $this->sale_model = new Sale($db);
+        $this->sale_model = new Sale($db);
     }
 
     /**
@@ -125,15 +124,17 @@ class UnifiedPanel {
     }
 
     /**
-     * Análise de UTMs consolidada (versão simplificada)
+     * Análise de UTMs consolidada
      */
     public function getUTMAnalysis($user_id, $period_days = 30) {
-        // Retornar array vazio por enquanto para evitar erro
-        return [
-            'source' => [],
-            'medium' => [],
-            'campaign' => []
-        ];
+        $utm_types = ['source', 'medium', 'campaign'];
+        $results = [];
+        
+        foreach ($utm_types as $utm_type) {
+            $results[$utm_type] = $this->sale_model->getTopUTMs($user_id, $utm_type, $period_days);
+        }
+        
+        return $results;
     }
 
     /**

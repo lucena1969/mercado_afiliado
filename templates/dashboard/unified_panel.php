@@ -1,7 +1,7 @@
 <?php
 // Incluir configurações
 $root_path = dirname(dirname(__DIR__));
-require_once $root_path . '/config/app.php';
+// Config já incluído pelo router
 
 // Verificar autenticação mais simples
 if (!isset($_SESSION['user']) || empty($_SESSION['user']['id'])) {
@@ -544,3 +544,4 @@ try {
     </script>
 </body>
 </html>
+       

@@ -1,13 +1,9 @@
 <?php
-// Verificar autenticação
-require_once '../config/app.php';
-require_once '../app/controllers/AuthController.php';
-
+// Verificar autenticação (config já incluído pelo router)
 $auth = new AuthController();
 $auth->requireAuth();
 
-// Buscar dados do usuário e assinatura
-require_once '../config/database.php';
+// Buscar dados do usuário e assinatura (database já incluído)
 $database = new Database();
 $db = $database->getConnection();
 $subscription = new Subscription($db);

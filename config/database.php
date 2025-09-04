@@ -1,14 +1,14 @@
 <?php
 /**
- * Configuração do Banco de Dados
- * Mercado Afiliado
+ * Configuração do Banco de Dados MySQL
+ * Mercado Afiliado - Produção
  */
 
 class Database {
-    private $host = 'localhost'; // Substitua pelo host do seu provedor
+    private $host = 'localhost';
     private $db_name = 'u590097272_mercado_afilia';
-    private $username = 'u590097272_lucena1969'; // Substitua pelo usuário do banco
-    private $password = 'Numse!2020'; // Adicione a senha do banco
+    private $username = 'u590097272_lucena1969';
+    private $password = 'Numse!2020';
     private $conn;
 
     public function getConnection() {

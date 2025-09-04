@@ -3,7 +3,7 @@
  * Controller de Autenticação
  */
 
-require_once '../config/database.php';
+// A configuração do banco já está incluída via autoload no config/app.php
 
 use League\OAuth2\Client\Provider\Google;
 use League\OAuth2\Client\Provider\Facebook;
@@ -173,10 +173,48 @@ class AuthController {
         }
     }
 
-    // Facebook OAuth - REMOVIDO
+    // Facebook OAuth
     public function facebookLogin() {
-        $this->redirectWithError('/login', 'Login com Facebook foi removido. Use Google ou login tradicional.');
-        return;
+        // Verificar se a classe Facebook OAuth existe
+        if (!class_exists('League\OAuth2\Client\Provider\Facebook')) {
+            $this->redirectWithError('/login', 'Dependências OAuth não encontradas. Contate o suporte.');
+            return;
+        }
+
+        // Verificar se as credenciais estão configuradas
+        if (empty(FACEBOOK_CLIENT_ID) || empty(FACEBOOK_CLIENT_SECRET)) {
+            $this->redirectWithError('/login', 'Credenciais Facebook não configuradas.');
+            return;
+        }
+
+        $provider = new Facebook([
+            'clientId' => FACEBOOK_CLIENT_ID,
+            'clientSecret' => FACEBOOK_CLIENT_SECRET,
+            'redirectUri' => FACEBOOK_REDIRECT_URI,
+            'graphApiVersion' => 'v18.0',
+        ]);
+
+        if (!isset($_GET['code'])) {
+            $authUrl = $provider->getAuthorizationUrl([
+                'scope' => ['email', 'public_profile']
+            ]);
+            $_SESSION['oauth2state'] = $provider->getState();
+            header('Location: ' . $authUrl);
+            exit;
+        } elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
+            unset($_SESSION['oauth2state']);
+            $this->redirectWithError('/login', 'Estado OAuth inválido.');
+        } else {
+            try {
+                $token = $provider->getAccessToken('authorization_code', [
+                    'code' => $_GET['code']
+                ]);
+                $user = $provider->getResourceOwner($token);
+                $this->processOAuthUser('facebook', $user->toArray());
+            } catch (Exception $e) {
+                $this->redirectWithError('/login', 'Erro na autenticação: ' . $e->getMessage());
+            }
+        }
     }
 
     // Processar usuário OAuth
@@ -190,6 +228,10 @@ class AuthController {
             $name = $userData['name'] ?? '';
             $providerId = $userData['sub'] ?? $userData['id'] ?? '';
             $avatar = $userData['picture'] ?? '';
+        } elseif ($provider === 'facebook') {
+            $name = $userData['name'] ?? '';
+            $providerId = $userData['id'] ?? '';
+            $avatar = isset($userData['picture']['data']['url']) ? $userData['picture']['data']['url'] : '';
         }
 
         if (empty($email) || empty($providerId)) {

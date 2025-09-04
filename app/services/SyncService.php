@@ -306,19 +306,50 @@ class SyncService {
                 throw new Exception('Integração não encontrada');
             }
 
+            // Log detalhado para debug
+            error_log("SyncService: Testando conexão para integração ID: {$integration_id}");
+            error_log("SyncService: Plataforma: {$integration_data['platform']}");
+            error_log("SyncService: API Key: " . (empty($integration_data['api_key']) ? '(vazio)' : substr($integration_data['api_key'], 0, 10) . '...'));
+            error_log("SyncService: API Secret: " . (empty($integration_data['api_secret']) ? '(vazio)' : substr($integration_data['api_secret'], 0, 20) . '...'));
+
             $service = $this->createPlatformService($integration_data);
             
-            if ($service->validateCredentials()) {
+            // Capturar qualquer erro específico durante validação
+            $validation_start = microtime(true);
+            $is_valid = $service->validateCredentials();
+            $validation_time = round((microtime(true) - $validation_start) * 1000, 2);
+            
+            error_log("SyncService: Validação levou {$validation_time}ms");
+            error_log("SyncService: Resultado da validação: " . ($is_valid ? 'VÁLIDA' : 'INVÁLIDA'));
+            
+            if ($is_valid) {
                 $this->integration->updateStatus($integration_id, 'active');
                 return ['success' => true, 'message' => 'Conexão válida'];
             } else {
-                $this->integration->updateStatus($integration_id, 'error', 'Credenciais inválidas');
-                return ['success' => false, 'error' => 'Credenciais inválidas'];
+                $error_msg = 'Credenciais inválidas';
+                
+                // Para Hotmart, adicionar informação específica
+                if ($integration_data['platform'] === 'hotmart') {
+                    if (empty($integration_data['api_key']) && !empty($integration_data['api_secret'])) {
+                        $error_msg .= ' (usando Basic token)';
+                    } else if (!empty($integration_data['api_key']) && !empty($integration_data['api_secret'])) {
+                        $error_msg .= ' (usando OAuth)';
+                    } else {
+                        $error_msg .= ' (credenciais incompletas)';
+                    }
+                }
+                
+                $this->integration->updateStatus($integration_id, 'error', $error_msg);
+                return ['success' => false, 'error' => $error_msg];
             }
 
         } catch (Exception $e) {
-            $this->integration->updateStatus($integration_id, 'error', $e->getMessage());
-            return ['success' => false, 'error' => $e->getMessage()];
+            $error_msg = $e->getMessage();
+            error_log("SyncService: Exceção durante teste de conexão: " . $error_msg);
+            error_log("SyncService: Stack trace: " . $e->getTraceAsString());
+            
+            $this->integration->updateStatus($integration_id, 'error', $error_msg);
+            return ['success' => false, 'error' => $error_msg];
         }
     }
 }

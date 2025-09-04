@@ -16,6 +16,8 @@ if (strpos($path, '/api/auth/register') !== false) {
     $action = 'register';
 } elseif (strpos($path, '/api/auth/login') !== false) {
     $action = 'login';
+} elseif (strpos($path, '/api/auth/logout') !== false) {
+    $action = 'logout';
 } else {
     // Fallback: pegar a última parte da URL
     $parts = explode('/', trim($path, '/'));
@@ -33,6 +35,10 @@ switch ($action) {
         
     case 'register':
         $authController->register();
+        break;
+        
+    case 'logout':
+        $authController->logout();
         break;
         
     default:

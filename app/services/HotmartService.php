@@ -6,12 +6,22 @@
 class HotmartService {
     private $api_key;
     private $api_secret;
+    private $basic_token;
     private $base_url = 'https://developers.hotmart.com';
     private $access_token;
     
     public function __construct($api_key, $api_secret) {
         $this->api_key = $api_key;
         $this->api_secret = $api_secret;
+        
+        // Se api_secret começa com "Basic ", é o token Basic da Hotmart
+        if (strpos($api_secret, 'Basic ') === 0) {
+            $this->basic_token = $api_secret;
+            // Log para debug
+            error_log("HotmartService: Basic token detectado: " . substr($api_secret, 0, 20) . "...");
+        } else {
+            error_log("HotmartService: Usando OAuth - API Key: $api_key, API Secret: " . substr($api_secret, 0, 10) . "...");
+        }
     }
 
     // Autenticar na API da Hotmart
@@ -22,14 +32,9 @@ class HotmartService {
 
         $url = $this->base_url . '/security/oauth/token';
         
-        $data = [
-            'grant_type' => 'client_credentials',
-            'client_id' => $this->api_key,
-            'client_secret' => $this->api_secret
-        ];
-
-        $response = $this->makeRequest('POST', $url, $data, [
-            'Content-Type: application/json',
+        // Hotmart usa Basic Auth no header, não body JSON
+        $response = $this->makeRequest('POST', $url, 'grant_type=client_credentials', [
+            'Content-Type: application/x-www-form-urlencoded',
             'Authorization: Basic ' . base64_encode($this->api_key . ':' . $this->api_secret)
         ]);
 
@@ -38,30 +43,31 @@ class HotmartService {
             return $this->access_token;
         }
 
-        throw new Exception('Falha na autenticação com Hotmart: ' . json_encode($response));
+        throw new Exception('Falha na autenticação com Hotmart: ' . (is_array($response) ? json_encode($response) : $response));
     }
 
     // Buscar produtos do afiliado
     public function getProducts($page = 1, $page_size = 20) {
-        $token = $this->authenticate();
-        
         $url = $this->base_url . '/payments/api/v1/subscriptions?' . http_build_query([
             'page' => $page,
             'page_size' => $page_size
         ]);
 
-        $response = $this->makeRequest('GET', $url, null, [
-            'Authorization: Bearer ' . $token,
-            'Content-Type: application/json'
-        ]);
+        $headers = ['Content-Type: application/json'];
+        
+        if ($this->basic_token) {
+            $headers[] = 'Authorization: ' . $this->basic_token;
+        } else {
+            $token = $this->authenticate();
+            $headers[] = 'Authorization: Bearer ' . $token;
+        }
 
+        $response = $this->makeRequest('GET', $url, null, $headers);
         return $response;
     }
 
     // Buscar vendas (transações)
     public function getSales($start_date, $end_date, $page = 1, $page_size = 20) {
-        $token = $this->authenticate();
-        
         $url = $this->base_url . '/payments/api/v1/sales/history?' . http_build_query([
             'start_date' => $start_date, // YYYY-MM-DD
             'end_date' => $end_date,
@@ -70,11 +76,16 @@ class HotmartService {
             'transaction_status' => 'APPROVED'
         ]);
 
-        $response = $this->makeRequest('GET', $url, null, [
-            'Authorization: Bearer ' . $token,
-            'Content-Type: application/json'
-        ]);
+        $headers = ['Content-Type: application/json'];
+        
+        if ($this->basic_token) {
+            $headers[] = 'Authorization: ' . $this->basic_token;
+        } else {
+            $token = $this->authenticate();
+            $headers[] = 'Authorization: Bearer ' . $token;
+        }
 
+        $response = $this->makeRequest('GET', $url, null, $headers);
         return $response;
     }
 
@@ -89,10 +100,114 @@ class HotmartService {
     // Validar credenciais
     public function validateCredentials() {
         try {
+            // Se temos Basic token, testar direto com uma requisição simples
+            if ($this->basic_token) {
+                error_log("HotmartService: Validando com Basic token...");
+                return $this->testBasicAuth();
+            }
+            
+            // Senão, usar OAuth
+            error_log("HotmartService: Validando com OAuth...");
             $token = $this->authenticate();
-            return !empty($token);
+            $is_valid = !empty($token);
+            error_log("HotmartService: OAuth " . ($is_valid ? 'válido' : 'inválido'));
+            return $is_valid;
         } catch (Exception $e) {
-            return false;
+            // Log do erro para debug
+            error_log("Hotmart validateCredentials error: " . $e->getMessage());
+            // Re-throw a exceção para que o SyncService possa capturar a mensagem específica
+            throw $e;
+        }
+    }
+    
+    // Testar autenticação Basic
+    private function testBasicAuth() {
+        // Testar diferentes endpoints para encontrar um que funcione
+        $test_urls = [
+            // Endpoint de vendas (mais provável de funcionar)
+            $this->base_url . '/payments/api/v1/sales/history?page=1&page_size=1&start_date=2024-01-01&end_date=2024-01-02',
+            // Endpoint de assinaturas 
+            $this->base_url . '/payments/api/v1/subscriptions?page=1&page_size=1',
+            // Endpoint mais simples de informações da conta
+            $this->base_url . '/payments/api/v1/sales/summary?start_date=2024-01-01&end_date=2024-01-02'
+        ];
+        
+        error_log("HotmartService: Iniciando teste Basic auth com " . count($test_urls) . " endpoints");
+        error_log("HotmartService: Basic token: " . substr($this->basic_token, 0, 30) . "...");
+        
+        $last_error = null;
+        
+        foreach ($test_urls as $index => $url) {
+            try {
+                error_log("HotmartService: Tentativa " . ($index + 1) . "/" . count($test_urls) . " - URL: $url");
+                
+                // Fazer request
+                $ch = curl_init();
+                curl_setopt_array($ch, [
+                    CURLOPT_URL => $url,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_HTTPHEADER => [
+                        'Authorization: ' . $this->basic_token,
+                        'Content-Type: application/json'
+                    ],
+                    CURLOPT_SSL_VERIFYPEER => false,
+                    CURLOPT_USERAGENT => 'MercadoAfiliado/1.0'
+                ]);
+
+                $response = curl_exec($ch);
+                $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                $error = curl_error($ch);
+                $curl_info = curl_getinfo($ch);
+                curl_close($ch);
+
+                error_log("HotmartService: Tentativa " . ($index + 1) . " - HTTP Code: $http_code");
+                error_log("HotmartService: Response: " . substr($response, 0, 300));
+                
+                if ($error) {
+                    error_log("HotmartService: cURL Error: $error");
+                    $last_error = new Exception("Erro de conexão com Hotmart: $error");
+                    continue; // Tenta próximo endpoint
+                }
+
+                // 200-299 são códigos de sucesso
+                if ($http_code >= 200 && $http_code < 300) {
+                    error_log("HotmartService: ✅ Credenciais Basic válidas! (Endpoint " . ($index + 1) . ")");
+                    return true;
+                }
+                
+                // Para outros códigos, continua testando outros endpoints
+                error_log("HotmartService: Tentativa " . ($index + 1) . " falhou com HTTP $http_code");
+                
+                // Tentar decodificar resposta JSON
+                $json_response = json_decode($response, true);
+                if ($json_response !== null && (isset($json_response['error']) || isset($json_response['message']))) {
+                    $error_detail = $json_response['error'] ?? $json_response['message'] ?? 'Erro desconhecido';
+                    error_log("HotmartService: Erro específico da API: $error_detail");
+                }
+                
+                // Salvar erro específico baseado no código HTTP
+                if ($http_code == 401) {
+                    $last_error = new Exception("Token Basic inválido ou expirado (HTTP 401)");
+                } else if ($http_code == 403) {
+                    $last_error = new Exception("Token Basic sem permissão para acessar dados (HTTP 403)");
+                } else {
+                    $last_error = new Exception("Erro na API Hotmart (HTTP $http_code): " . substr($response, 0, 100));
+                }
+                
+            } catch (Exception $e) {
+                error_log("HotmartService: Exceção na tentativa " . ($index + 1) . ": " . $e->getMessage());
+                $last_error = $e;
+                continue; // Tenta próximo endpoint
+            }
+        }
+        
+        // Se chegou aqui, todos os endpoints falharam
+        error_log("HotmartService: ❌ Todos os endpoints falharam");
+        if ($last_error) {
+            throw $last_error;
+        } else {
+            throw new Exception("Falha na validação do token Basic em todos os endpoints testados");
         }
     }
 
@@ -161,7 +276,13 @@ class HotmartService {
         if ($method === 'POST') {
             curl_setopt($ch, CURLOPT_POST, true);
             if ($data) {
-                curl_setopt($ch, CURLOPT_POSTFIELDS, is_array($data) ? json_encode($data) : $data);
+                // Se data é string, usar como está (form-urlencoded)
+                // Se data é array, converter para JSON
+                if (is_string($data)) {
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                } else {
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+                }
             }
         }
 
@@ -175,7 +296,9 @@ class HotmartService {
         }
 
         if ($http_code >= 400) {
-            throw new Exception('Erro HTTP ' . $http_code . ': ' . $response);
+            $error_msg = 'Erro HTTP ' . $http_code . ': ' . $response;
+            error_log("HotmartService makeRequest error: " . $error_msg);
+            throw new Exception($error_msg);
         }
 
         return json_decode($response, true);

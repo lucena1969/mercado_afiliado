@@ -27,7 +27,7 @@ class User {
     // Criar usuário
     public function create() {
         $query = "INSERT INTO " . $this->table_name . " 
-                  SET uuid=:uuid, name=:name, email=:email, password=:password, phone=:phone";
+                  (uuid, name, email, password, phone) VALUES (:uuid, :name, :email, :password, :phone)";
         
         $stmt = $this->conn->prepare($query);
         
@@ -139,16 +139,29 @@ class User {
     // Atualizar dados OAuth
     public function updateOAuthData($userId, $provider, $providerId, $avatar = '') {
         $column = $provider . '_id';
-        $query = "UPDATE " . $this->table_name . " SET 
-                  {$column} = :provider_id, 
-                  avatar = COALESCE(NULLIF(:avatar, ''), avatar),
-                  updated_at = NOW() 
-                  WHERE id = :user_id";
         
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":provider_id", $providerId);
-        $stmt->bindParam(":avatar", $avatar);
-        $stmt->bindParam(":user_id", $userId);
+        if (!empty($avatar)) {
+            $query = "UPDATE " . $this->table_name . " SET 
+                      {$column} = :provider_id, 
+                      avatar = :avatar,
+                      updated_at = NOW()
+                      WHERE id = :user_id";
+            
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":provider_id", $providerId);
+            $stmt->bindParam(":avatar", $avatar);
+            $stmt->bindParam(":user_id", $userId);
+        } else {
+            $query = "UPDATE " . $this->table_name . " SET 
+                      {$column} = :provider_id,
+                      updated_at = NOW()
+                      WHERE id = :user_id";
+            
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":provider_id", $providerId);
+            $stmt->bindParam(":user_id", $userId);
+        }
+        
         return $stmt->execute();
     }
 }

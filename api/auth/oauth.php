@@ -1,10 +1,10 @@
 <?php
 /**
  * API OAuth - Rotas de autenticação social
+ * IMPORTANTE: config/app.php já é incluído pelo router
  */
 
-require_once '../../config/app.php';
-
+// AuthController já está disponível via autoload do config/app.php
 $authController = new AuthController();
 
 // Obter a rota atual

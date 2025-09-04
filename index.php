@@ -186,26 +186,12 @@
     <div class="container foot">
       <small>© 2025 Mercado Afiliado</small>
       <nav class="links" aria-label="Links de rodapé">
-        <a href="/privacy">Privacidade</a>
-        <a href="/terms">Termos</a>
-        <a href="/contact">Contato</a>
+        <a href="privacidade.html">Privacidade</a>
+        <a href="termos.html">Termos</a>
+        <a href="contato.html">Contato</a>
       </nav>
     </div>
   </footer>
-
-  <script>
-    // Debug: verificar cliques nos botões
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('Página carregada');
-      
-      const buttons = document.querySelectorAll('.btn');
-      buttons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          console.log('Botão clicado:', this.textContent, 'URL:', this.href);
-        });
-      });
-    });
-  </script>
 
 </body>
 </html>

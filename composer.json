@@ -5,7 +5,8 @@
     "require": {
         "php": "^7.4|^8.0",
         "league/oauth2-google": "^4.0",
-        "league/oauth2-facebook": "^2.2"
+        "league/oauth2-facebook": "^2.2",
+        "phpmailer/phpmailer": "^6.8"
     },
     "autoload": {
         "psr-4": {
@@ -18,4 +19,6 @@
             "php": "7.4"
         }
     }
+    
+    
 }

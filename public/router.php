@@ -3,14 +3,8 @@
  * Sistema de roteamento simples para o Mercado Afiliado
  */
 
-// Definir as constantes básicas se não estiverem definidas
-if (!defined('BASE_URL')) {
-    define('BASE_URL', '');
-}
-
-if (!defined('APP_NAME')) {
-    define('APP_NAME', 'Mercado Afiliado');
-}
+// Incluir configurações da aplicação
+require_once dirname(__DIR__) . '/config/app.php';
 
 // Iniciar sessão se ainda não foi iniciada
 if (session_status() === PHP_SESSION_NONE) {
@@ -22,7 +16,7 @@ $root_path = dirname(__DIR__);
 
 // Auto-load simples das classes
 function autoload_classes($class_name) {
-    global $root_path;
+    $root_path = dirname(__DIR__);
     
     $paths = [
         $root_path . '/app/models/' . $class_name . '.php',
@@ -40,17 +34,18 @@ function autoload_classes($class_name) {
 
 spl_autoload_register('autoload_classes');
 
-// Obter a URL requisitada
-$request_uri = $_SERVER['REQUEST_URI'];
-$base_path = dirname($_SERVER['SCRIPT_NAME']);
-
-// Remover o caminho base e query string
-$route = str_replace($base_path, '', $request_uri);
-$route = strtok($route, '?'); // Remove query string
-$route = trim($route, '/');
+// Obter a rota da URL ou parâmetro GET
+$route = '';
+if (isset($_GET['route'])) {
+    $route = $_GET['route'];
+} else {
+    $request_uri = $_SERVER['REQUEST_URI'];
+    $route = parse_url($request_uri, PHP_URL_PATH);
+    $route = trim($route, '/');
+}
 
 // Se a rota estiver vazia, mostrar a landing page
-if (empty($route) || $route === 'index.php') {
+if (empty($route)) {
     include __DIR__ . '/index.php';
     exit;
 }
@@ -59,17 +54,17 @@ if (empty($route) || $route === 'index.php') {
 $routes = [
     'register' => $root_path . '/templates/auth/register.php',
     'login' => $root_path . '/templates/auth/login.php',
+    'logout' => $root_path . '/templates/auth/logout.php',
     'dashboard' => $root_path . '/templates/dashboard/index.php',
+    'unified-panel' => $root_path . '/templates/dashboard/unified_panel.php',
     'integrations' => $root_path . '/templates/integrations/index.php',
     'integrations/add' => $root_path . '/templates/integrations/add.php',
     'integrations/test' => $root_path . '/templates/integrations/test.php',
     'pixel' => $root_path . '/templates/pixel/index.php',
     'pixel/events' => $root_path . '/templates/pixel/events.php',
     'pixel/event-details' => $root_path . '/templates/pixel/event-details.php',
-    // Rotas OAuth Google
-    'auth/google' => $root_path . '/api/auth/oauth_manual.php',
-    'auth/google/callback' => $root_path . '/api/auth/oauth_manual.php',
-    // Template de login manual
+    'auth/google' => $root_path . '/api/auth/oauth.php',
+    'auth/google/callback' => $root_path . '/api/auth/oauth.php',
     'login-manual' => $root_path . '/templates/auth/login_manual.php',
 ];
 
@@ -101,6 +96,7 @@ function handle_api_route($route) {
         'auth' => $root_path . '/api/auth.php',
         'auth/register' => $root_path . '/api/auth.php',
         'auth/login' => $root_path . '/api/auth.php',
+        'auth/logout' => $root_path . '/api/auth.php',
         'webhooks' => $root_path . '/api/webhooks.php',
         'pixel/collect' => $root_path . '/api/pixel/collect.php',
     ];

@@ -1,127 +1,62 @@
 <?php
-// ---- Boot / Autenticação ----
-require_once '../config/app.php';
+// Verificar autenticação
+// Config já incluído pelo router
 require_once '../app/controllers/AuthController.php';
-
-// Models e DB
-require_once '../config/database.php';
-require_once '../app/models/Integration.php';
-
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
 
 $auth = new AuthController();
 $auth->requireAuth();
 
-$user_data = $_SESSION['user'] ?? null;
-if (!$user_data || empty($user_data['id'])) {
-    // Fallback defensivo
-    header('Location: ' . BASE_URL . '/logout');
-    exit;
-}
+$user_data = $_SESSION['user'];
 
-// ---- Instâncias compartilhadas ----
-$database     = new Database();
-$db           = $database->getConnection();
-$integration  = new Integration($db);
-
-// ---- Processamento do formulário ----
+// Processar formulário se enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitização básica
-    $platform   = isset($_POST['platform']) ? strtolower(trim($_POST['platform'])) : '';
-    $name       = isset($_POST['name']) ? trim($_POST['name']) : '';
-    $api_key    = isset($_POST['api_key']) ? trim($_POST['api_key']) : '';
-    $api_secret = isset($_POST['api_secret']) ? trim($_POST['api_secret']) : '';
-
-    $should_create = false;
-
-    // Verificar limite de integrações por plano
+    require_once '../config/database.php';
+    $database = new Database();
+    $db = $database->getConnection();
+    $integration = new Integration($db);
+    
+    // Verificar se pode criar mais integrações
     if (!$integration->canCreateIntegration($user_data['id'])) {
         $_SESSION['error_message'] = 'Limite de integrações atingido para seu plano atual.';
     } else {
-        // Verificações básicas
-        if ($platform === '' || $name === '') {
-            $_SESSION['error_message'] = 'Preencha todos os campos obrigatórios.';
+        // Verificar se já existe integração para essa plataforma
+        $existing = $integration->findByPlatformAndUser($_POST['platform'], $user_data['id']);
+        if ($existing) {
+            $_SESSION['error_message'] = 'Você já possui uma integração configurada para ' . ucfirst($_POST['platform']) . '. Apenas uma integração por plataforma é permitida.';
         } else {
-            // Permitir apenas plataformas conhecidas (defesa extra)
-            $allowed = ['hotmart','monetizze','eduzz','braip'];
-            if (!in_array($platform, $allowed, true)) {
-                $_SESSION['error_message'] = 'Plataforma inválida.';
-            } else {
-                // Checar se já existe integração para a plataforma do usuário
-                $existing = $integration->findByPlatformAndUser($platform, $user_data['id']);
-                if ($existing) {
-                    $_SESSION['error_message'] = 'Você já possui uma integração configurada para ' . ucfirst($platform) . '. Apenas uma integração por plataforma é permitida.';
+            // Criar integração
+            $integration->user_id = $user_data['id'];
+            $integration->platform = $_POST['platform'];
+            $integration->name = $_POST['name'];
+            $integration->api_key = $_POST['api_key'];
+            $integration->api_secret = $_POST['api_secret'] ?? null;
+            $integration->config_json = json_encode(['created_via' => 'manual']);
+            
+            try {
+                if ($integration->create()) {
+                    $_SESSION['success_message'] = 'Integração criada com sucesso! URL do webhook: ' . $integration->webhook_url;
+                    header('Location: ' . BASE_URL . '/integrations');
+                    exit;
                 } else {
-                    // Preparar entidade
-                    $integration->user_id   = (int)$user_data['id'];
-                    $integration->platform  = $platform;
-                    $integration->name      = $name;
-
-                    if ($platform === 'hotmart') {
-                        // Para Hotmart, aceitar Basic token no API Secret OU credenciais OAuth
-                        if ($api_key === '' && $api_secret === '') {
-                            $_SESSION['error_message'] = 'Para Hotmart, forneça pelo menos o Basic token no campo API Secret ou as credenciais OAuth.';
-                        } else {
-                            $integration->api_key     = $api_key !== '' ? $api_key : null;
-                            $integration->api_secret  = $api_secret !== '' ? $api_secret : null;
-                            $integration->config_json = json_encode(['created_via' => 'manual'], JSON_UNESCAPED_UNICODE);
-                            $should_create = true;
-                        }
-                    } else {
-                        // Outras plataformas exigem API Key
-                        if ($api_key === '') {
-                            $_SESSION['error_message'] = 'API Key é obrigatória para esta plataforma.';
-                        } else {
-                            $integration->api_key     = $api_key;
-                            $integration->api_secret  = $api_secret !== '' ? $api_secret : null;
-                            $integration->config_json = json_encode(['created_via' => 'manual'], JSON_UNESCAPED_UNICODE);
-                            $should_create = true;
-                        }
-                    }
+                    $_SESSION['error_message'] = 'Erro ao criar integração. Tente novamente.';
+                }
+            } catch (PDOException $e) {
+                if ($e->getCode() == '23000') {
+                    $_SESSION['error_message'] = 'Já existe uma integração para essa plataforma. Apenas uma integração por plataforma é permitida.';
+                } else {
+                    $_SESSION['error_message'] = 'Erro no banco de dados: ' . $e->getMessage();
                 }
             }
         }
     }
-
-    // Criar se validado
-    if ($should_create) {
-        try {
-            if ($integration->create()) {
-                $_SESSION['success_message'] = 'Integração criada com sucesso! URL do webhook: ' . ($integration->webhook_url ?? '');
-                header('Location: ' . BASE_URL . '/integrations');
-                exit;
-            }
-            $_SESSION['error_message'] = 'Erro ao criar integração. Tente novamente.';
-        } catch (PDOException $e) {
-            if ($e->getCode() === '23000') {
-                $_SESSION['error_message'] = 'Já existe uma integração para essa plataforma. Apenas uma integração por plataforma é permitida.';
-            } else {
-                $_SESSION['error_message'] = 'Erro no banco de dados: ' . $e->getMessage();
-            }
-        }
-    }
 }
-
-// ---- Carregar plataformas já configuradas para desabilitar no select ----
-$existing_integrations = [];
-try {
-    $existing_integrations = $integration->getByUser($user_data['id']);
-} catch (Throwable $e) {
-    // Evita quebrar a página se houver falha de consulta
-    $existing_integrations = [];
-}
-$used_platforms = array_map(static function ($row) {
-    return isset($row['platform']) ? strtolower((string)$row['platform']) : '';
-}, $existing_integrations);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Integração - <?= htmlspecialchars(APP_NAME, ENT_QUOTES, 'UTF-8') ?></title>
+    <title>Nova Integração - <?= APP_NAME ?></title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
 </head>
 <body style="background: #f9fafb;">
@@ -149,17 +84,11 @@ $used_platforms = array_map(static function ($row) {
         </div>
 
         <!-- Mensagens -->
-        <?php if (!empty($_SESSION['error_message'])): ?>
+        <?php if (isset($_SESSION['error_message'])): ?>
             <div class="alert alert-error">
-                <?= htmlspecialchars($_SESSION['error_message'], ENT_QUOTES, 'UTF-8') ?>
+                <?= htmlspecialchars($_SESSION['error_message']) ?>
             </div>
             <?php unset($_SESSION['error_message']); ?>
-        <?php endif; ?>
-        <?php if (!empty($_SESSION['success_message'])): ?>
-            <div class="alert alert-success">
-                <?= htmlspecialchars($_SESSION['success_message'], ENT_QUOTES, 'UTF-8') ?>
-            </div>
-            <?php unset($_SESSION['success_message']); ?>
         <?php endif; ?>
 
         <!-- Formulário -->
@@ -168,7 +97,7 @@ $used_platforms = array_map(static function ($row) {
                 <h2>Configurar integração</h2>
             </div>
             <div class="card-body">
-                <form method="POST" autocomplete="off" novalidate>
+                <form method="POST">
                     <div class="form-group">
                         <label for="platform" class="form-label">Plataforma *</label>
                         <select id="platform" name="platform" class="form-input" required onchange="updatePlatformInfo()">
@@ -186,7 +115,7 @@ $used_platforms = array_map(static function ($row) {
                     </div>
 
                     <div class="form-group">
-                        <label for="api_key" class="form-label" id="api_key_label">API Key *</label>
+                        <label for="api_key" class="form-label">API Key *</label>
                         <input type="text" id="api_key" name="api_key" class="form-input" placeholder="Sua chave da API" required>
                         <div id="api_key_help" style="font-size: var(--font-size-sm); color: var(--color-gray); margin-top: 0.5rem;">
                             Selecione uma plataforma para ver instruções específicas
@@ -246,21 +175,15 @@ $used_platforms = array_map(static function ($row) {
                 apiKeyHelp.textContent = 'Selecione uma plataforma para ver instruções específicas';
                 apiSecretGroup.style.display = 'none';
                 instructions.style.display = 'none';
-                // Reset do label/required do campo
-                const apiKeyInput = document.getElementById('api_key');
-                const apiKeyLabel = document.getElementById('api_key_label');
-                apiKeyLabel.textContent = 'API Key *';
-                apiKeyInput.required = true;
-                apiKeyInput.placeholder = 'Sua chave da API';
                 return;
             }
 
             const platformInfo = {
                 hotmart: {
-                    apiKeyLabel: 'Client ID (ou deixe vazio se usar Basic)',
-                    apiKeyHelp: 'Você receberá 3 credenciais: Client ID, Client Secret e Basic. Use qualquer uma das opções abaixo.',
+                    apiKeyLabel: 'Client ID da Hotmart',
+                    apiKeyHelp: 'Encontre em: Hotmart > Ferramentas > Integrações > API',
                     needsSecret: true,
-                    instructions: '<strong>📍 Como configurar (2 opções):</strong><br><br><strong>OPÇÃO 1 - Usar Basic Token (Recomendado):</strong><br>• API Key: pode deixar vazio<br>• API Secret: cole o token "Basic abc123..." completo<br><br><strong>OPÇÃO 2 - Usar OAuth:</strong><br>• API Key: cole o Client ID<br>• API Secret: cole o Client Secret (sem "Basic ")<br><br><strong>Onde encontrar:</strong><br>Hotmart > Ferramentas > Integrações > API > Gerar credenciais'
+                    instructions: '<strong>📍 Como configurar:</strong><br>1. Acesse Hotmart > Ferramentas > Integrações<br>2. Clique em "API" e depois "Gerar credenciais"<br>3. Copie o Client ID e Client Secret<br>4. Configure os webhooks para receber eventos automaticamente'
                 },
                 monetizze: {
                     apiKeyLabel: 'API Key da Monetizze',
@@ -284,19 +207,7 @@ $used_platforms = array_map(static function ($row) {
 
             const info = platformInfo[platform];
             if (info) {
-                const apiKeyInput = document.getElementById('api_key');
-                const apiKeyLabel = document.getElementById('api_key_label');
-
-                if (platform === 'hotmart') {
-                    apiKeyLabel.textContent = info.apiKeyLabel;
-                    apiKeyInput.required = false;
-                    apiKeyInput.placeholder = "Opcional - deixe vazio se usar Basic token";
-                } else {
-                    apiKeyLabel.textContent = info.apiKeyLabel + ' *';
-                    apiKeyInput.required = true;
-                    apiKeyInput.placeholder = "Sua chave da API";
-                }
-
+                document.querySelector('label[for="api_key"]').textContent = info.apiKeyLabel + ' *';
                 apiKeyHelp.textContent = info.apiKeyHelp;
                 apiSecretGroup.style.display = info.needsSecret ? 'block' : 'none';
                 instructionsContent.innerHTML = info.instructions;
@@ -304,20 +215,22 @@ $used_platforms = array_map(static function ($row) {
             }
         }
 
-        // Plataformas já usadas (vindo do PHP)
-        const existingPlatforms = <?=
-            json_encode(array_values(array_filter($used_platforms)), JSON_UNESCAPED_UNICODE)
+        // Obter plataformas já configuradas
+        const existingPlatforms = <?php 
+            // Buscar integrações existentes para validação frontend
+            $existing_integrations = $integration->getByUser($user_data['id']);
+            $used_platforms = array_column($existing_integrations, 'platform');
+            echo json_encode($used_platforms);
         ?>;
-
+        
         // Desabilitar opções já utilizadas
         const platformSelect = document.getElementById('platform');
         const options = platformSelect.querySelectorAll('option');
+        
         options.forEach(option => {
-            if (option.value && existingPlatforms.includes(option.value.toLowerCase())) {
+            if (option.value && existingPlatforms.includes(option.value)) {
                 option.disabled = true;
-                if (!option.text.includes('(Já configurada)')) {
-                    option.text = option.text + ' (Já configurada)';
-                }
+                option.text = option.text + ' (Já configurada)';
             }
         });
 

@@ -1,4 +1,19 @@
 <?php
+/**
+ * Template de Login - Versão Corrigida
+ * Mercado Afiliado
+ * 
+ * IMPORTANTE: Este arquivo não deve incluir config/app.php pois já é incluído pelo router
+ */
+
+// Definir constantes se não existirem (proteção contra erro)
+if (!defined('BASE_URL')) {
+    define('BASE_URL', 'https://mercadoafiliado.com.br');
+}
+if (!defined('APP_NAME')) {
+    define('APP_NAME', 'Mercado Afiliado');
+}
+
 // Redirecionar se já estiver logado
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
     header('Location: ' . BASE_URL . '/dashboard');
@@ -11,7 +26,8 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - <?= APP_NAME ?></title>
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/style.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body style="background: #f9fafb;">
     <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem;">
@@ -40,7 +56,10 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 
                     <form action="<?= BASE_URL ?>/api/auth/login" method="POST">
                         <div class="form-group">
-                            <label for="email" class="form-label">E-mail</label>
+                            <label for="email" class="form-label">
+                                <i data-lucide="mail" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                                E-mail
+                            </label>
                             <input 
                                 type="email" 
                                 id="email" 
@@ -53,7 +72,10 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
                         </div>
 
                         <div class="form-group">
-                            <label for="password" class="form-label">Senha</label>
+                            <label for="password" class="form-label">
+                                <i data-lucide="lock" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                                Senha
+                            </label>
                             <input 
                                 type="password" 
                                 id="password" 
@@ -71,12 +93,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
                             </label>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i data-lucide="log-in" style="width: 18px; height: 18px;"></i>
                             Entrar
                         </button>
                     </form>
 
-                    <?php if (class_exists('League\OAuth2\Client\Provider\Google')): ?>
+                    <?php if (defined('GOOGLE_CLIENT_ID') && !empty(GOOGLE_CLIENT_ID) && GOOGLE_CLIENT_ID !== 'teste-google-id'): ?>
                     <!-- Divisor OR -->
                     <div style="display: flex; align-items: center; margin: 1.5rem 0; color: var(--color-gray); font-size: 0.875rem;">
                         <hr style="flex: 1; border: none; border-top: 1px solid #e5e7eb; margin: 0;">
@@ -86,7 +109,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 
                     <!-- Botão Google OAuth -->
                     <div style="margin-bottom: 1.5rem;">
-                        <?php if (class_exists('League\OAuth2\Client\Provider\Google') && !empty(GOOGLE_CLIENT_ID)): ?>
                         <a href="<?= BASE_URL ?>/auth/google" 
                            style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.75rem; 
                                   padding: 0.875rem 1rem; border: 1px solid #e5e7eb; border-radius: 8px; 
@@ -100,31 +122,9 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
                             </svg>
                             Continuar com Google
                         </a>
-                        <?php endif; ?>
                     </div>
                     <?php endif; ?>
 
                     <div style="text-align: center; margin-top: 1rem;">
                         <a href="#" style="color: var(--color-primary); text-decoration: none; font-size: 0.875rem;">
-                            Esqueceu sua senha?
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Link para registro -->
-            <div style="text-align: center; margin-top: 1.5rem; color: var(--color-gray);">
-                Não tem uma conta? 
-                <a href="<?= BASE_URL ?>/register" style="color: var(--color-primary); text-decoration: none; font-weight: 600;">
-                    Teste grátis por 14 dias
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Auto-focus no primeiro campo
-        document.getElementById('email').focus();
-    </script>
-</body>
-</html>
+       

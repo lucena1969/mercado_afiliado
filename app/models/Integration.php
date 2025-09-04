@@ -183,6 +183,23 @@ class Integration {
         return $stmt->execute();
     }
 
+    // Atualizar credenciais da integração
+    public function updateCredentials($id, $name, $api_key, $api_secret = null, $webhook_token = null) {
+        $query = "UPDATE " . $this->table_name . " 
+                  SET name = :name, api_key = :api_key, api_secret = :api_secret, 
+                      webhook_token = :webhook_token, updated_at = NOW() 
+                  WHERE id = :id";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":api_key", $api_key);
+        $stmt->bindParam(":api_secret", $api_secret);
+        $stmt->bindParam(":webhook_token", $webhook_token);
+        $stmt->bindParam(":id", $id);
+        
+        return $stmt->execute();
+    }
+
     // Deletar integração
     public function delete($id, $user_id) {
         $query = "DELETE FROM " . $this->table_name . " 
