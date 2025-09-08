@@ -56,10 +56,10 @@ $stats = $sale->getUserStats($user_data['id'], 30);
         <aside class="sidebar">
             <ul class="sidebar-menu">
                 <li><a href="<?= BASE_URL ?>/dashboard">📊 Dashboard</a></li>
+                <li><a href="<?= BASE_URL ?>/unified-panel">📈 Painel Unificado</a></li>
                 <li><a href="<?= BASE_URL ?>/integrations" class="active">🔗 IntegraSync</a></li>
-                <li><a href="#" onclick="showComingSoon('Painel Unificado')">📈 Painel Unificado</a></li>
-                <li><a href="#" onclick="showComingSoon('Link Maestro')">🎯 Link Maestro</a></li>
-                <li><a href="#" onclick="showComingSoon('Pixel BR')">📊 Pixel BR</a></li>
+                <li><a href="<?= BASE_URL ?>/link-maestro">🎯 Link Maestro</a></li>
+                <li><a href="<?= BASE_URL ?>/pixel">🎯 Pixel BR</a></li>
                 <li><a href="#" onclick="showComingSoon('Alerta Queda')">🚨 Alerta Queda</a></li>
                 <li><a href="#" onclick="showComingSoon('CAPI Bridge')">🌉 CAPI Bridge</a></li>
                 <li><a href="#" onclick="showComingSoon('Cohort Reembolso')">💰 Cohort Reembolso</a></li>
@@ -453,6 +453,12 @@ $stats = $sale->getUserStats($user_data['id'], 30);
         let currentDeleteIntegrationId = null;
 
         function showComingSoon(feature) {
+            // Se for Link Maestro, redirecionar em vez de mostrar alerta
+            if (feature.toLowerCase().includes('link') && feature.toLowerCase().includes('maestro')) {
+                const baseUrl = window.location.origin + '/mercado_afiliado';
+                window.location.href = baseUrl + '/link-maestro';
+                return;
+            }
             alert('🚧 ' + feature + ' será implementado na próxima etapa!\n\nEstamos construindo isso agora. Em breve você poderá configurar suas integrações.');
         }
 

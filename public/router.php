@@ -14,25 +14,8 @@ if (session_status() === PHP_SESSION_NONE) {
 // Incluir classes necessárias
 $root_path = dirname(__DIR__);
 
-// Auto-load simples das classes
-function autoload_classes($class_name) {
-    $root_path = dirname(__DIR__);
-    
-    $paths = [
-        $root_path . '/app/models/' . $class_name . '.php',
-        $root_path . '/app/controllers/' . $class_name . '.php',
-        $root_path . '/config/' . $class_name . '.php'
-    ];
-    
-    foreach ($paths as $path) {
-        if (file_exists($path)) {
-            require_once $path;
-            return;
-        }
-    }
-}
-
-spl_autoload_register('autoload_classes');
+// Incluir configuração principal que contém o autoloader
+require_once dirname(__DIR__) . '/config/app.php';
 
 // Obter a rota da URL ou parâmetro GET
 $route = '';
@@ -50,6 +33,18 @@ if (empty($route)) {
     exit;
 }
 
+// Verificar se é rota de redirecionamento do Link Maestro (/l/codigo)
+if (preg_match('/^l\/([a-zA-Z0-9]+)$/', $route, $matches)) {
+    $short_code = $matches[1];
+    
+    // Incluir o controller
+    require_once $root_path . '/app/controllers/LinkMaestroController.php';
+    
+    $controller = new LinkMaestroController();
+    $controller->redirect($short_code);
+    exit;
+}
+
 // Definir as rotas disponíveis
 $routes = [
     'register' => $root_path . '/templates/auth/register.php',
@@ -63,9 +58,12 @@ $routes = [
     'pixel' => $root_path . '/templates/pixel/index.php',
     'pixel/events' => $root_path . '/templates/pixel/events.php',
     'pixel/event-details' => $root_path . '/templates/pixel/event-details.php',
+    'link-maestro' => $root_path . '/templates/link_maestro/index.php',
     'auth/google' => $root_path . '/api/auth/oauth.php',
     'auth/google/callback' => $root_path . '/api/auth/oauth.php',
     'login-manual' => $root_path . '/templates/auth/login_manual.php',
+    'subscribe' => $root_path . '/templates/payment/subscribe.php',
+    'payment/success' => $root_path . '/templates/payment/success.php',
 ];
 
 // Verificar se a rota existe
@@ -99,6 +97,12 @@ function handle_api_route($route) {
         'auth/logout' => $root_path . '/api/auth.php',
         'webhooks' => $root_path . '/api/webhooks.php',
         'pixel/collect' => $root_path . '/api/pixel/collect.php',
+        'create-payment' => $root_path . '/api/create-payment.php',
+        'link-maestro/create' => $root_path . '/api/link-maestro.php',
+        'link-maestro/links' => $root_path . '/api/link-maestro.php',
+        'link-maestro/templates' => $root_path . '/api/link-maestro.php',
+        'link-maestro/analytics' => $root_path . '/api/link-maestro.php',
+        'link-maestro/presets' => $root_path . '/api/link-maestro.php',
     ];
 
     // Rotas OAuth

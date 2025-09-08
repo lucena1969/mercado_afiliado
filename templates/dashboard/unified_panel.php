@@ -325,7 +325,7 @@ try {
                 <li><a href="<?= BASE_URL ?>/dashboard">📊 Dashboard</a></li>
                 <li><a href="<?= BASE_URL ?>/unified-panel" class="active">📈 Painel Unificado</a></li>
                 <li><a href="<?= BASE_URL ?>/integrations">🔗 IntegraSync</a></li>
-                <li><a href="#" onclick="showComingSoon('Link Maestro')">🎯 Link Maestro</a></li>
+                <li><a href="<?= BASE_URL ?>/link-maestro">🎯 Link Maestro</a></li>
                 <li><a href="<?= BASE_URL ?>/pixel">🎯 Pixel BR</a></li>
                 <li><a href="#" onclick="showComingSoon('Alerta Queda')">🚨 Alerta Queda</a></li>
                 <li><a href="#" onclick="showComingSoon('CAPI Bridge')">🌉 CAPI Bridge</a></li>

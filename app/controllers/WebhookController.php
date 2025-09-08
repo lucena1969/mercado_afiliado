@@ -8,6 +8,7 @@ class WebhookController {
     private $integration;
     private $sale;
     private $product;
+    private $productSubscription;
     private $syncLog;
 
     public function __construct() {
@@ -16,6 +17,7 @@ class WebhookController {
         $this->integration = new Integration($this->conn);
         $this->sale = new Sale($this->conn);
         $this->product = new Product($this->conn);
+        $this->productSubscription = new ProductSubscription($this->conn);
         $this->syncLog = new SyncLog($this->conn);
     }
 
@@ -176,65 +178,143 @@ class WebhookController {
             $service = $this->createPlatformService($platform, $integration_data);
             
             // Processar webhook específico da plataforma
-            $sale_data = $service->processWebhook($payload);
+            $webhook_data = $service->processWebhook($payload);
             
-            // Buscar ou criar produto se necessário
-            $product_id = null;
-            if (isset($sale_data['external_product_id'])) {
-                $product_id = $this->ensureProduct($integration_data['id'], $sale_data, $service);
-            }
-            
-            // Criar ou atualizar venda
-            $sale = new Sale($this->conn);
-            $sale->integration_id = $integration_data['id'];
-            $sale->product_id = $product_id;
-            $sale->external_sale_id = $sale_data['external_sale_id'];
-            $sale->customer_name = $sale_data['customer_name'];
-            $sale->customer_email = $sale_data['customer_email'];
-            $sale->customer_document = $sale_data['customer_document'];
-            $sale->amount = $sale_data['amount'];
-            $sale->commission_amount = $sale_data['commission_amount'];
-            $sale->currency = $sale_data['currency'];
-            $sale->status = $sale_data['status'];
-            $sale->payment_method = $sale_data['payment_method'];
-            $sale->utm_source = $sale_data['utm_source'];
-            $sale->utm_medium = $sale_data['utm_medium'];
-            $sale->utm_campaign = $sale_data['utm_campaign'];
-            $sale->utm_content = $sale_data['utm_content'];
-            $sale->utm_term = $sale_data['utm_term'];
-            $sale->conversion_date = $sale_data['conversion_date'];
-            $sale->approval_date = $sale_data['approval_date'];
-            $sale->refund_date = $sale_data['refund_date'];
-            $sale->metadata_json = $sale_data['metadata_json'];
-
-            // Verificar se é criação ou atualização
-            $existing_sale = $sale->findByExternalId($integration_data['id'], $sale_data['external_sale_id']);
-            $is_new = !$existing_sale;
-            
-            $success = $sale->createOrUpdate();
-            
-            if ($success) {
-                // Atualizar último sync da integração
-                $this->integration->updateLastSync($integration_data['id']);
-                
-                return [
-                    'success' => true,
-                    'created' => $is_new,
-                    'updated' => !$is_new,
-                    'sale_id' => $sale->id,
-                    'event_type' => $this->extractEventType($platform, $payload)
-                ];
+            // Verificar se é assinatura ou venda
+            if (isset($webhook_data['type']) && $webhook_data['type'] === 'subscription') {
+                return $this->processSubscriptionEvent($integration_data, $webhook_data, $payload, $platform);
             } else {
-                return [
-                    'success' => false,
-                    'error' => 'Falha ao salvar venda no banco de dados'
-                ];
+                return $this->processSaleEvent($integration_data, $webhook_data, $payload, $service, $platform);
             }
 
         } catch (Exception $e) {
             return [
                 'success' => false,
                 'error' => $e->getMessage()
+            ];
+        }
+    }
+
+    // Processar evento de venda (método original)
+    private function processSaleEvent($integration_data, $sale_data, $payload, $service, $platform) {
+        // Buscar ou criar produto se necessário
+        $product_id = null;
+        if (isset($sale_data['external_product_id'])) {
+            $product_id = $this->ensureProduct($integration_data['id'], $sale_data, $service);
+        }
+        
+        // Criar ou atualizar venda
+        $sale = new Sale($this->conn);
+        $sale->integration_id = $integration_data['id'];
+        $sale->product_id = $product_id;
+        $sale->external_sale_id = $sale_data['external_sale_id'];
+        $sale->customer_name = $sale_data['customer_name'];
+        $sale->customer_email = $sale_data['customer_email'];
+        $sale->customer_document = $sale_data['customer_document'];
+        $sale->amount = $sale_data['amount'];
+        $sale->commission_amount = $sale_data['commission_amount'];
+        $sale->currency = $sale_data['currency'];
+        $sale->status = $sale_data['status'];
+        $sale->payment_method = $sale_data['payment_method'];
+        $sale->utm_source = $sale_data['utm_source'];
+        $sale->utm_medium = $sale_data['utm_medium'];
+        $sale->utm_campaign = $sale_data['utm_campaign'];
+        $sale->utm_content = $sale_data['utm_content'];
+        $sale->utm_term = $sale_data['utm_term'];
+        $sale->conversion_date = $sale_data['conversion_date'];
+        $sale->approval_date = $sale_data['approval_date'];
+        $sale->refund_date = $sale_data['refund_date'];
+        $sale->metadata_json = $sale_data['metadata_json'];
+
+        // Verificar se é criação ou atualização
+        $existing_sale = $sale->findByExternalId($integration_data['id'], $sale_data['external_sale_id']);
+        $is_new = !$existing_sale;
+        
+        $success = $sale->createOrUpdate();
+        
+        if ($success) {
+            // Atualizar último sync da integração
+            $this->integration->updateLastSync($integration_data['id']);
+            
+            return [
+                'success' => true,
+                'created' => $is_new,
+                'updated' => !$is_new,
+                'sale_id' => $sale->id,
+                'event_type' => $this->extractEventType($platform, $payload)
+            ];
+        } else {
+            return [
+                'success' => false,
+                'error' => 'Falha ao salvar venda no banco de dados'
+            ];
+        }
+    }
+
+    // Processar evento de assinatura (novo método)
+    private function processSubscriptionEvent($integration_data, $subscription_data, $payload, $platform) {
+        // Buscar ou criar produto se necessário
+        $product_id = null;
+        if (isset($subscription_data['external_product_id'])) {
+            $product_data = [
+                'external_product_id' => $subscription_data['external_product_id'],
+                'product_name' => $subscription_data['product_name']
+            ];
+            $product_id = $this->ensureProduct($integration_data['id'], $product_data, null);
+        }
+        
+        // Criar ou atualizar assinatura
+        $subscription = new ProductSubscription($this->conn);
+        $subscription->integration_id = $integration_data['id'];
+        $subscription->product_id = $product_id;
+        $subscription->external_subscription_id = $subscription_data['external_subscription_id'];
+        $subscription->external_subscriber_code = $subscription_data['external_subscriber_code'];
+        $subscription->external_plan_id = $subscription_data['external_plan_id'];
+        $subscription->subscriber_name = $subscription_data['subscriber_name'];
+        $subscription->subscriber_email = $subscription_data['subscriber_email'];
+        $subscription->subscriber_phone_ddd = $subscription_data['subscriber_phone_ddd'];
+        $subscription->subscriber_phone_number = $subscription_data['subscriber_phone_number'];
+        $subscription->subscriber_cell_ddd = $subscription_data['subscriber_cell_ddd'];
+        $subscription->subscriber_cell_number = $subscription_data['subscriber_cell_number'];
+        $subscription->plan_name = $subscription_data['plan_name'];
+        $subscription->status = $subscription_data['status'];
+        $subscription->actual_recurrence_value = $subscription_data['actual_recurrence_value'];
+        $subscription->currency = $subscription_data['currency'];
+        $subscription->cancellation_date = $subscription_data['cancellation_date'];
+        $subscription->date_next_charge = $subscription_data['date_next_charge'];
+        $subscription->metadata_json = $subscription_data['metadata_json'];
+
+        // Verificar se é criação ou atualização
+        $existing_subscription = $subscription->findByExternalId(
+            $integration_data['id'], 
+            $subscription_data['external_subscription_id']
+        );
+        $is_new = !$existing_subscription;
+        $previous_status = $existing_subscription ? $existing_subscription['status'] : null;
+        
+        $success = $subscription->createOrUpdate();
+        
+        if ($success) {
+            // Log do evento de assinatura
+            if ($subscription->id) {
+                $event_type = $subscription_data['status'] === 'cancelled' ? 'cancelled' : 'created';
+                $subscription->logEvent($event_type, $previous_status, $subscription_data['status'], $subscription_data);
+            }
+            
+            // Atualizar último sync da integração
+            $this->integration->updateLastSync($integration_data['id']);
+            
+            return [
+                'success' => true,
+                'created' => $is_new,
+                'updated' => !$is_new,
+                'subscription_id' => $subscription->id,
+                'event_type' => $this->extractEventType($platform, $payload)
+            ];
+        } else {
+            return [
+                'success' => false,
+                'error' => 'Falha ao salvar assinatura no banco de dados'
             ];
         }
     }

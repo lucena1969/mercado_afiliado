@@ -283,9 +283,19 @@ class SyncService {
     private function createPlatformService($integration_data) {
         switch ($integration_data['platform']) {
             case 'hotmart':
+                // Para Hotmart, precisamos dos 3 parâmetros: client_id, client_secret e basic_token
+                // Se api_secret contém "Basic ", é o basic_token; senão usar webhook_token
+                $basic_token = null;
+                if (strpos($integration_data['api_secret'], 'Basic ') === 0) {
+                    $basic_token = $integration_data['api_secret'];
+                } elseif (!empty($integration_data['webhook_token'])) {
+                    $basic_token = $integration_data['webhook_token'];
+                }
+                
                 return new HotmartService(
-                    $integration_data['api_key'],
-                    $integration_data['api_secret']
+                    $integration_data['api_key'],      // client_id
+                    $integration_data['api_secret'],   // client_secret
+                    $basic_token                       // basic_token
                 );
             case 'monetizze':
                 return new MonetizzeService($integration_data['api_key']);

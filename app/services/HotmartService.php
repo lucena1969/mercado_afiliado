@@ -10,18 +10,22 @@ class HotmartService {
     private $base_url = 'https://developers.hotmart.com';
     private $access_token;
     
-    public function __construct($api_key, $api_secret) {
-        $this->api_key = $api_key;
-        $this->api_secret = $api_secret;
+    public function __construct($client_id, $client_secret, $basic_token = null) {
+        $this->api_key = $client_id;
         
-        // Se api_secret começa com "Basic ", é o token Basic da Hotmart
-        if (strpos($api_secret, 'Basic ') === 0) {
-            $this->basic_token = $api_secret;
-            // Log para debug
-            error_log("HotmartService: Basic token detectado: " . substr($api_secret, 0, 20) . "...");
+        // Se api_secret na verdade contém o Basic token, ajustar
+        if (strpos($client_secret, 'Basic ') === 0) {
+            $this->basic_token = $client_secret;
+            $this->api_secret = null; // Não temos o client_secret real
+            error_log("HotmartService: Detectado Basic token em api_secret");
         } else {
-            error_log("HotmartService: Usando OAuth - API Key: $api_key, API Secret: " . substr($api_secret, 0, 10) . "...");
+            $this->api_secret = $client_secret;
+            $this->basic_token = $basic_token;
         }
+        
+        error_log("HotmartService: Inicializado - Client ID: $client_id, " . 
+                 "Basic Token: " . ($this->basic_token ? substr($this->basic_token, 0, 20) . "..." : "não fornecido") . ", " .
+                 "Client Secret: " . ($this->api_secret ? "fornecido" : "não fornecido"));
     }
 
     // Autenticar na API da Hotmart
@@ -30,27 +34,45 @@ class HotmartService {
             return $this->access_token;
         }
 
-        $url = $this->base_url . '/security/oauth/token';
-        
-        // Hotmart usa Basic Auth no header, não body JSON
-        $response = $this->makeRequest('POST', $url, 'grant_type=client_credentials', [
-            'Content-Type: application/x-www-form-urlencoded',
-            'Authorization: Basic ' . base64_encode($this->api_key . ':' . $this->api_secret)
-        ]);
-
-        if ($response && isset($response['access_token'])) {
-            $this->access_token = $response['access_token'];
-            return $this->access_token;
+        if (!$this->basic_token) {
+            throw new Exception('Token Basic é obrigatório para autenticação OAuth2');
         }
 
-        throw new Exception('Falha na autenticação com Hotmart: ' . (is_array($response) ? json_encode($response) : $response));
+        // Se temos client_secret, usar OAuth2 completo
+        if ($this->api_secret) {
+            // URL com parâmetros conforme documentação oficial
+            $url = $this->base_url . '/security/oauth/token?' . http_build_query([
+                'grant_type' => 'client_credentials',
+                'client_id' => $this->api_key,
+                'client_secret' => $this->api_secret
+            ]);
+            
+            $response = $this->makeRequest('POST', $url, null, [
+                'Content-Type: application/json',
+                'Authorization: ' . $this->basic_token
+            ]);
+
+            if ($response && isset($response['access_token'])) {
+                $this->access_token = $response['access_token'];
+                error_log("HotmartService: Access token obtido com sucesso via OAuth2");
+                return $this->access_token;
+            }
+
+            throw new Exception('Falha na autenticação OAuth2 com Hotmart: ' . (is_array($response) ? json_encode($response) : $response));
+        } else {
+            // Se só temos Basic token, não podemos gerar access_token
+            // Vamos retornar null para que os métodos usem Basic diretamente
+            error_log("HotmartService: Usando apenas Basic token (sem OAuth2)");
+            return null;
+        }
     }
 
     // Buscar produtos do afiliado
     public function getProducts($page = 1, $page_size = 20) {
         $url = $this->base_url . '/payments/api/v1/subscriptions?' . http_build_query([
             'page' => $page,
-            'page_size' => $page_size
+            'page_size' => $page_size,
+            'status' => 'active'
         ]);
 
         $headers = ['Content-Type: application/json'];
@@ -68,12 +90,12 @@ class HotmartService {
 
     // Buscar vendas (transações)
     public function getSales($start_date, $end_date, $page = 1, $page_size = 20) {
-        $url = $this->base_url . '/payments/api/v1/sales/history?' . http_build_query([
+        $url = $this->base_url . '/payments/api/v1/sales?' . http_build_query([
             'start_date' => $start_date, // YYYY-MM-DD
             'end_date' => $end_date,
             'page' => $page,
             'page_size' => $page_size,
-            'transaction_status' => 'APPROVED'
+            'status' => 'APPROVED'
         ]);
 
         $headers = ['Content-Type: application/json'];
@@ -122,14 +144,25 @@ class HotmartService {
     
     // Testar autenticação Basic
     private function testBasicAuth() {
-        // Testar diferentes endpoints para encontrar um que funcione
+        // Primeiro tentar obter access token
+        try {
+            $token = $this->authenticate();
+            if ($token) {
+                error_log("HotmartService: ✅ Autenticação OAuth2 bem-sucedida!");
+                return true;
+            }
+        } catch (Exception $e) {
+            error_log("HotmartService: Erro na autenticação OAuth2: " . $e->getMessage());
+        }
+
+        // Se OAuth falhou, tentar endpoints diretos com Basic token
         $test_urls = [
-            // Endpoint de vendas (mais provável de funcionar)
-            $this->base_url . '/payments/api/v1/sales/history?page=1&page_size=1&start_date=2024-01-01&end_date=2024-01-02',
-            // Endpoint de assinaturas 
-            $this->base_url . '/payments/api/v1/subscriptions?page=1&page_size=1',
-            // Endpoint mais simples de informações da conta
-            $this->base_url . '/payments/api/v1/sales/summary?start_date=2024-01-01&end_date=2024-01-02'
+            // Endpoint de assinaturas (mais provável de funcionar)
+            $this->base_url . '/payments/api/v1/subscriptions?page=1&page_size=1&status=active',
+            // Endpoint de vendas 
+            $this->base_url . '/payments/api/v1/sales?page=1&page_size=1&start_date=2024-01-01&end_date=2024-12-31&status=APPROVED',
+            // Endpoint de sumário de vendas
+            $this->base_url . '/payments/api/v1/sales/summary?start_date=2024-01-01&end_date=2024-12-31'
         ];
         
         error_log("HotmartService: Iniciando teste Basic auth com " . count($test_urls) . " endpoints");
@@ -233,6 +266,27 @@ class HotmartService {
             case 'PURCHASE_CHARGEBACK':
                 return $this->mapSaleData($data, 'chargeback');
                 
+            case 'PURCHASE_CANCELED':
+                return $this->mapSaleData($data, 'cancelled');
+                
+            case 'PURCHASE_EXPIRED':
+                return $this->mapSaleData($data, 'expired');
+                
+            case 'PURCHASE_BILLET_PRINTED':
+                return $this->mapSaleData($data, 'pending');
+                
+            case 'PURCHASE_PROTEST':
+                return $this->mapSaleData($data, 'dispute');
+                
+            case 'PURCHASE_DELAYED':
+                return $this->mapSaleData($data, 'delayed');
+                
+            case 'PURCHASE_OUT_OF_SHOPPING_CART':
+                return $this->mapAbandonedCartData($data, 'abandoned');
+                
+            case 'SUBSCRIPTION_CANCELLATION':
+                return $this->mapSubscriptionData($data, 'cancelled');
+                
             default:
                 throw new Exception('Tipo de evento não suportado: ' . $event_type);
         }
@@ -256,6 +310,58 @@ class HotmartService {
             'external_product_id' => $data['product']['id'] ?? null,
             'product_name' => $data['product']['name'] ?? null,
             'utm_source' => $data['affiliations'][0]['source'] ?? null,
+            'metadata_json' => json_encode($data)
+        ];
+    }
+
+    // Mapear dados de assinatura para formato padrão
+    private function mapSubscriptionData($data, $status) {
+        return [
+            'type' => 'subscription',
+            'external_subscription_id' => $data['subscription']['id'] ?? null,
+            'external_subscriber_code' => $data['subscriber']['code'] ?? null,
+            'external_plan_id' => $data['subscription']['plan']['id'] ?? null,
+            'subscriber_name' => $data['subscriber']['name'] ?? null,
+            'subscriber_email' => $data['subscriber']['email'] ?? null,
+            'subscriber_phone_ddd' => $data['subscriber']['phone']['dddPhone'] ?? null,
+            'subscriber_phone_number' => $data['subscriber']['phone']['phone'] ?? null,
+            'subscriber_cell_ddd' => $data['subscriber']['phone']['dddCell'] ?? null,
+            'subscriber_cell_number' => $data['subscriber']['phone']['cell'] ?? null,
+            'plan_name' => $data['subscription']['plan']['name'] ?? null,
+            'status' => $status,
+            'actual_recurrence_value' => $data['actual_recurrence_value'] ?? null,
+            'currency' => 'BRL', // Hotmart sempre em BRL para assinaturas
+            'cancellation_date' => $data['cancellation_date'] ? date('Y-m-d H:i:s', $data['cancellation_date'] / 1000) : null,
+            'date_next_charge' => $data['date_next_charge'] ? date('Y-m-d H:i:s', $data['date_next_charge'] / 1000) : null,
+            'external_product_id' => $data['product']['id'] ?? null,
+            'product_name' => $data['product']['name'] ?? null,
+            'metadata_json' => json_encode($data)
+        ];
+    }
+
+    // Mapear dados de carrinho abandonado para formato padrão
+    private function mapAbandonedCartData($data, $status) {
+        // Carrinho abandonado não tem transação, então usar timestamp + product_id
+        $external_sale_id = 'abandoned_' . time() . '_' . ($data['product']['id'] ?? 'unknown');
+        
+        return [
+            'external_sale_id' => $external_sale_id,
+            'customer_name' => $data['buyer']['name'] ?? null,
+            'customer_email' => $data['buyer']['email'] ?? null,
+            'customer_document' => null, // Carrinho abandonado não tem documento
+            'amount' => 0, // Carrinho abandonado não tem valor final
+            'commission_amount' => 0,
+            'currency' => 'BRL',
+            'status' => $status,
+            'payment_method' => null, // Não chegou ao pagamento
+            'conversion_date' => date('Y-m-d H:i:s'),
+            'approval_date' => null,
+            'refund_date' => null,
+            'external_product_id' => $data['product']['id'] ?? null,
+            'product_name' => $data['product']['name'] ?? null,
+            'utm_source' => $data['affiliate'] ? 'hotmart_affiliate' : null,
+            'utm_medium' => 'abandoned_cart',
+            'utm_campaign' => $data['offer']['code'] ?? null,
             'metadata_json' => json_encode($data)
         ];
     }
@@ -308,7 +414,7 @@ class HotmartService {
     public function getSaleDetails($transaction_id) {
         $token = $this->authenticate();
         
-        $url = $this->base_url . '/payments/api/v1/sales/history/' . $transaction_id;
+        $url = $this->base_url . '/payments/api/v1/sales/' . $transaction_id;
 
         $response = $this->makeRequest('GET', $url, null, [
             'Authorization: Bearer ' . $token,

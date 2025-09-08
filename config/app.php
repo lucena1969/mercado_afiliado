@@ -23,7 +23,7 @@ if (session_status() === PHP_SESSION_NONE) {
 date_default_timezone_set('America/Sao_Paulo');
 
 // Configurações de erro (desenvolvimento)
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_WARNING);
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_WARNING);
 ini_set('display_errors', 1);
 
 // Headers de segurança
@@ -31,25 +31,29 @@ header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
 header('X-XSS-Protection: 1; mode=block');
 
-// Autoload classes
-spl_autoload_register(function ($class) {
-    $paths = [
-        APP_ROOT . '/app/models/',
-        APP_ROOT . '/app/controllers/',
-        APP_ROOT . '/app/middleware/',
-        APP_ROOT . '/app/services/',
-        APP_ROOT . '/app/utils/',
-        APP_ROOT . '/config/'
-    ];
-    
-    foreach ($paths as $path) {
-        $file = $path . $class . '.php';
-        if (file_exists($file)) {
-            require_once $file;
-            return;
+// Autoload classes - verificar se não está já registrado
+if (!function_exists('mercado_afiliado_autoloader')) {
+    function mercado_afiliado_autoloader($class) {
+        $paths = [
+            APP_ROOT . '/app/models/',
+            APP_ROOT . '/app/controllers/',
+            APP_ROOT . '/app/middleware/',
+            APP_ROOT . '/app/services/',
+            APP_ROOT . '/app/utils/',
+            APP_ROOT . '/config/'
+        ];
+        
+        foreach ($paths as $path) {
+            $file = $path . $class . '.php';
+            if (file_exists($file)) {
+                require_once $file;
+                return;
+            }
         }
     }
-});
+    
+    spl_autoload_register('mercado_afiliado_autoloader');
+}
 
 // Incluir Database class manualmente se necessário
 require_once APP_ROOT . '/config/database.php';
