@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<!-- saved from url=(0092)https://srv1883-files.hstgr.io/ded5c87df5bf8736/files/public_html/api/integration_config.php -->
+<html lang="pt_BR" class="dark" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="ace-twilight">.ace-twilight .ace_gutter {
+  background: #232323;
+  color: #E2E2E2
+}
+
+.ace-twilight .ace_print-margin {
+  width: 1px;
+  background: #232323
+}
+
+.ace-twilight {
+  background-color: #141414;
+  color: #F8F8F8
+}
+
+.ace-twilight .ace_cursor {
+  color: #A7A7A7
+}
+
+.ace-twilight .ace_marker-layer .ace_selection {
+  background: rgba(221, 240, 255, 0.20)
+}
+
+.ace-twilight.ace_multiselect .ace_selection.ace_start {
+  box-shadow: 0 0 3px 0px #141414;
+}
+
+.ace-twilight .ace_marker-layer .ace_step {
+  background: rgb(102, 82, 0)
+}
+
+.ace-twilight .ace_marker-layer .ace_bracket {
+  margin: -1px 0 0 -1px;
+  border: 1px solid rgba(255, 255, 255, 0.25)
+}
+
+.ace-twilight .ace_marker-layer .ace_active-line {
+  background: rgba(255, 255, 255, 0.031)
+}
+
+.ace-twilight .ace_gutter-active-line {
+  background-color: rgba(255, 255, 255, 0.031)
+}
+
+.ace-twilight .ace_marker-layer .ace_selected-word {
+  border: 1px solid rgba(221, 240, 255, 0.20)
+}
+
+.ace-twilight .ace_invisible {
+  color: rgba(255, 255, 255, 0.25)
+}
+
+.ace-twilight .ace_keyword,
+.ace-twilight .ace_meta {
+  color: #CDA869
+}
+
+.ace-twilight .ace_constant,
+.ace-twilight .ace_constant.ace_character,
+.ace-twilight .ace_constant.ace_character.ace_escape,
+.ace-twilight .ace_constant.ace_other,
+.ace-twilight .ace_heading,
+.ace-twilight .ace_markup.ace_heading,
+.ace-twilight .ace_support.ace_constant {
+  color: #CF6A4C
+}
+
+.ace-twilight .ace_invalid.ace_illegal {
+  color: #F8F8F8;
+  background-color: rgba(86, 45, 86, 0.75)
+}
+
+.ace-twilight .ace_invalid.ace_deprecated {
+  text-decoration: underline;
+  font-style: italic;
+  color: #D2A8A1
+}
+
+.ace-twilight .ace_support {
+  color: #9B859D
+}
+
+.ace-twilight .ace_fold {
+  background-color: #AC885B;
+  border-color: #F8F8F8
+}
+
+.ace-twilight .ace_support.ace_function {
+  color: #DAD085
+}
+
+.ace-twilight .ace_list,
+.ace-twilight .ace_markup.ace_list,
+.ace-twilight .ace_storage {
+  color: #F9EE98
+}
+
+.ace-twilight .ace_entity.ace_name.ace_function,
+.ace-twilight .ace_meta.ace_tag {
+  color: #AC885B
+}
+
+.ace-twilight .ace_string {
+  color: #8F9D6A
+}
+
+.ace-twilight .ace_string.ace_regexp {
+  color: #E9C062
+}
+
+.ace-twilight .ace_comment {
+  font-style: italic;
+  color: #5F5A60
+}
+
+.ace-twilight .ace_variable {
+  color: #7587A6
+}
+
+.ace-twilight .ace_xml-pe {
+  color: #494949
+}
+
+.ace-twilight .ace_indent-guide {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWMQERFpYLC1tf0PAAgOAnPnhxyiAAAAAElFTkSuQmCC) right repeat-y
+}
+
+.ace-twilight .ace_indent-guide-active {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQIW2PQ1dX9zzBz5sz/ABCcBFFentLlAAAAAElFTkSuQmCC) right repeat-y;
+}
+
+/*# sourceURL=ace/css/ace-twilight */</style><style id="ace-chrome">.ace-chrome .ace_gutter {
+  background: #ebebeb;
+  color: #333;
+  overflow : hidden;
+}
+
+.ace-chrome .ace_print-margin {
+  width: 1px;
+  background: #e8e8e8;
+}
+
+.ace-chrome {
+  background-color: #FFFFFF;
+  color: black;
+}
+
+.ace-chrome .ace_cursor {
+  color: black;
+}
+
+.ace-chrome .ace_invisible {
+  color: rgb(191, 191, 191);
+}
+
+.ace-chrome .ace_constant.ace_buildin {
+  color: rgb(88, 72, 246);
+}
+
+.ace-chrome .ace_constant.ace_language {
+  color: rgb(88, 92, 246);
+}
+
+.ace-chrome .ace_constant.ace_library {
+  color: rgb(6, 150, 14);
+}
+
+.ace-chrome .ace_invalid {
+  background-color: rgb(153, 0, 0);
+  color: white;
+}
+
+.ace-chrome .ace_fold {
+}
+
+.ace-chrome .ace_support.ace_function {
+  color: rgb(60, 76, 114);
+}
+
+.ace-chrome .ace_support.ace_constant {
+  color: rgb(6, 150, 14);
+}
+
+.ace-chrome .ace_support.ace_type,
+.ace-chrome .ace_support.ace_class
+.ace-chrome .ace_support.ace_other {
+  color: rgb(109, 121, 222);
+}
+
+.ace-chrome .ace_variable.ace_parameter {
+  font-style:italic;
+  color:#FD971F;
+}
+.ace-chrome .ace_keyword.ace_operator {
+  color: rgb(104, 118, 135);
+}
+
+.ace-chrome .ace_comment {
+  color: #236e24;
+}
+
+.ace-chrome .ace_comment.ace_doc {
+  color: #236e24;
+}
+
+.ace-chrome .ace_comment.ace_doc.ace_tag {
+  color: #236e24;
+}
+
+.ace-chrome .ace_constant.ace_numeric {
+  color: rgb(0, 0, 205);
+}
+
+.ace-chrome .ace_variable {
+  color: rgb(49, 132, 149);
+}
+
+.ace-chrome .ace_xml-pe {
+  color: rgb(104, 104, 91);
+}
+
+.ace-chrome .ace_entity.ace_name.ace_function {
+  color: #0000A2;
+}
+
+
+.ace-chrome .ace_heading {
+  color: rgb(12, 7, 255);
+}
+
+.ace-chrome .ace_list {
+  color:rgb(185, 6, 144);
+}
+
+.ace-chrome .ace_marker-layer .ace_selection {
+  background: rgb(181, 213, 255);
+}
+
+.ace-chrome .ace_marker-layer .ace_step {
+  background: rgb(252, 255, 0);
+}
+
+.ace-chrome .ace_marker-layer .ace_stack {
+  background: rgb(164, 229, 101);
+}
+
+.ace-chrome .ace_marker-layer .ace_bracket {
+  margin: -1px 0 0 -1px;
+  border: 1px solid rgb(192, 192, 192);
+}
+
+.ace-chrome .ace_marker-layer .ace_active-line {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+.ace-chrome .ace_gutter-active-line {
+    background-color : #dcdcdc;
+}
+
+.ace-chrome .ace_marker-layer .ace_selected-word {
+  background: rgb(250, 250, 255);
+  border: 1px solid rgb(200, 200, 250);
+}
+
+.ace-chrome .ace_storage,
+.ace-chrome .ace_keyword,
+.ace-chrome .ace_meta.ace_tag {
+  color: rgb(147, 15, 128);
+}
+
+.ace-chrome .ace_string.ace_regex {
+  color: rgb(255, 0, 0)
+}
+
+.ace-chrome .ace_string {
+  color: #1A1AA6;
+}
+
+.ace-chrome .ace_entity.ace_other.ace_attribute-name {
+  color: #994409;
+}
+
+.ace-chrome .ace_indent-guide {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;
+}
+  
+.ace-chrome .ace_indent-guide-active {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAZSURBVHjaYvj///9/hivKyv8BAAAA//8DACLqBhbvk+/eAAAAAElFTkSuQmCC") right repeat-y;
+}
+
+/*# sourceURL=ace/css/ace-chrome */</style><style id="autocompletion.css">
+.ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line {
+    background-color: #CAD6FA;
+    z-index: 1;
+}
+.ace_dark.ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line {
+    background-color: #3a674e;
+}
+.ace_editor.ace_autocomplete .ace_line-hover {
+    border: 1px solid #abbffe;
+    margin-top: -1px;
+    background: rgba(233,233,253,0.4);
+    position: absolute;
+    z-index: 2;
+}
+.ace_dark.ace_editor.ace_autocomplete .ace_line-hover {
+    border: 1px solid rgba(109, 150, 13, 0.8);
+    background: rgba(58, 103, 78, 0.62);
+}
+.ace_completion-meta {
+    opacity: 0.5;
+    margin-left: 0.9em;
+}
+.ace_completion-message {
+    margin-left: 0.9em;
+    color: blue;
+}
+.ace_editor.ace_autocomplete .ace_completion-highlight{
+    color: #2d69c7;
+}
+.ace_dark.ace_editor.ace_autocomplete .ace_completion-highlight{
+    color: #93ca12;
+}
+.ace_editor.ace_autocomplete {
+    width: 300px;
+    z-index: 200000;
+    border: 1px lightgray solid;
+    position: fixed;
+    box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+    line-height: 1.4;
+    background: #fefefe;
+    color: #111;
+}
+.ace_dark.ace_editor.ace_autocomplete {
+    border: 1px #484747 solid;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
+    line-height: 1.4;
+    background: #25282c;
+    color: #c1c1c1;
+}
+.ace_autocomplete .ace_text-layer  {
+    width: calc(100% - 8px);
+}
+.ace_autocomplete .ace_line {
+    display: flex;
+    align-items: center;
+}
+.ace_autocomplete .ace_line > * {
+    min-width: 0;
+    flex: 0 0 auto;
+}
+.ace_autocomplete .ace_line .ace_ {
+    flex: 0 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ace_autocomplete .ace_completion-spacer {
+    flex: 1;
+}
+.ace_autocomplete.ace_loading:after  {
+    content: "";
+    position: absolute;
+    top: 0px;
+    height: 2px;
+    width: 8%;
+    background: blue;
+    z-index: 100;
+    animation: ace_progress 3s infinite linear;
+    animation-delay: 300ms;
+    transform: translateX(-100%) scaleX(1);
+}
+@keyframes ace_progress {
+    0% { transform: translateX(-100%) scaleX(1) }
+    50% { transform: translateX(625%) scaleX(2) } 
+    100% { transform: translateX(1500%) scaleX(3) } 
+}
+@media (prefers-reduced-motion) {
+    .ace_autocomplete.ace_loading:after {
+        transform: translateX(625%) scaleX(2);
+        animation: none;
+     }
+}
+
+/*# sourceURL=ace/css/autocompletion.css */</style><style id="snippets.css">
+.ace_snippet-marker {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: rgba(194, 193, 208, 0.09);
+    border: 1px dotted rgba(211, 208, 235, 0.62);
+    position: absolute;
+}
+/*# sourceURL=ace/css/snippets.css */</style><style id="error_marker.css">
+    .error_widget_wrapper {
+        background: inherit;
+        color: inherit;
+        border:none
+    }
+    .error_widget {
+        border-top: solid 2px;
+        border-bottom: solid 2px;
+        margin: 5px 0;
+        padding: 10px 40px;
+        white-space: pre-wrap;
+    }
+    .error_widget.ace_error, .error_widget_arrow.ace_error{
+        border-color: #ff5a5a
+    }
+    .error_widget.ace_warning, .error_widget_arrow.ace_warning{
+        border-color: #F1D817
+    }
+    .error_widget.ace_info, .error_widget_arrow.ace_info{
+        border-color: #5a5a5a
+    }
+    .error_widget.ace_ok, .error_widget_arrow.ace_ok{
+        border-color: #5aaa5a
+    }
+    .error_widget_arrow {
+        position: absolute;
+        border: solid 5px;
+        border-top-color: transparent!important;
+        border-right-color: transparent!important;
+        border-left-color: transparent!important;
+        top: -5px;
+    }
+
+/*# sourceURL=ace/css/error_marker.css */</style><style id="ace-tm">.ace-tm .ace_gutter {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.ace-tm .ace_print-margin {
+  width: 1px;
+  background: #e8e8e8;
+}
+
+.ace-tm .ace_fold {
+    background-color: #6B72E6;
+}
+
+.ace-tm {
+  background-color: #FFFFFF;
+  color: black;
+}
+
+.ace-tm .ace_cursor {
+  color: black;
+}
+        
+.ace-tm .ace_invisible {
+  color: rgb(191, 191, 191);
+}
+
+.ace-tm .ace_storage,
+.ace-tm .ace_keyword {
+  color: blue;
+}
+
+.ace-tm .ace_constant {
+  color: rgb(197, 6, 11);
+}
+
+.ace-tm .ace_constant.ace_buildin {
+  color: rgb(88, 72, 246);
+}
+
+.ace-tm .ace_constant.ace_language {
+  color: rgb(88, 92, 246);
+}
+
+.ace-tm .ace_constant.ace_library {
+  color: rgb(6, 150, 14);
+}
+
+.ace-tm .ace_invalid {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: red;
+}
+
+.ace-tm .ace_support.ace_function {
+  color: rgb(60, 76, 114);
+}
+
+.ace-tm .ace_support.ace_constant {
+  color: rgb(6, 150, 14);
+}
+
+.ace-tm .ace_support.ace_type,
+.ace-tm .ace_support.ace_class {
+  color: rgb(109, 121, 222);
+}
+
+.ace-tm .ace_keyword.ace_operator {
+  color: rgb(104, 118, 135);
+}
+
+.ace-tm .ace_string {
+  color: rgb(3, 106, 7);
+}
+
+.ace-tm .ace_comment {
+  color: rgb(76, 136, 107);
+}
+
+.ace-tm .ace_comment.ace_doc {
+  color: rgb(0, 102, 255);
+}
+
+.ace-tm .ace_comment.ace_doc.ace_tag {
+  color: rgb(128, 159, 191);
+}
+
+.ace-tm .ace_constant.ace_numeric {
+  color: rgb(0, 0, 205);
+}
+
+.ace-tm .ace_variable {
+  color: rgb(49, 132, 149);
+}
+
+.ace-tm .ace_xml-pe {
+  color: rgb(104, 104, 91);
+}
+
+.ace-tm .ace_entity.ace_name.ace_function {
+  color: #0000A2;
+}
+
+
+.ace-tm .ace_heading {
+  color: rgb(12, 7, 255);
+}
+
+.ace-tm .ace_list {
+  color:rgb(185, 6, 144);
+}
+
+.ace-tm .ace_meta.ace_tag {
+  color:rgb(0, 22, 142);
+}
+
+.ace-tm .ace_string.ace_regex {
+  color: rgb(255, 0, 0)
+}
+
+.ace-tm .ace_marker-layer .ace_selection {
+  background: rgb(181, 213, 255);
+}
+.ace-tm.ace_multiselect .ace_selection.ace_start {
+  box-shadow: 0 0 3px 0px white;
+}
+.ace-tm .ace_marker-layer .ace_step {
+  background: rgb(252, 255, 0);
+}
+
+.ace-tm .ace_marker-layer .ace_stack {
+  background: rgb(164, 229, 101);
+}
+
+.ace-tm .ace_marker-layer .ace_bracket {
+  margin: -1px 0 0 -1px;
+  border: 1px solid rgb(192, 192, 192);
+}
+
+.ace-tm .ace_marker-layer .ace_active-line {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+.ace-tm .ace_gutter-active-line {
+    background-color : #dcdcdc;
+}
+
+.ace-tm .ace_marker-layer .ace_selected-word {
+  background: rgb(250, 250, 255);
+  border: 1px solid rgb(200, 200, 250);
+}
+
+.ace-tm .ace_indent-guide {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;
+}
+
+.ace-tm .ace_indent-guide-active {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAZSURBVHjaYvj///9/hivKyv8BAAAA//8DACLqBhbvk+/eAAAAAElFTkSuQmCC") right repeat-y;
+}
+
+/*# sourceURL=ace/css/ace-tm */</style><style id="ace_editor.css">
+.ace_br1 {border-top-left-radius    : 3px;}
+.ace_br2 {border-top-right-radius   : 3px;}
+.ace_br3 {border-top-left-radius    : 3px; border-top-right-radius:    3px;}
+.ace_br4 {border-bottom-right-radius: 3px;}
+.ace_br5 {border-top-left-radius    : 3px; border-bottom-right-radius: 3px;}
+.ace_br6 {border-top-right-radius   : 3px; border-bottom-right-radius: 3px;}
+.ace_br7 {border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px;}
+.ace_br8 {border-bottom-left-radius : 3px;}
+.ace_br9 {border-top-left-radius    : 3px; border-bottom-left-radius:  3px;}
+.ace_br10{border-top-right-radius   : 3px; border-bottom-left-radius:  3px;}
+.ace_br11{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-left-radius:  3px;}
+.ace_br12{border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}
+.ace_br13{border-top-left-radius    : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}
+.ace_br14{border-top-right-radius   : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}
+.ace_br15{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;}
+
+
+.ace_editor {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'Source Code Pro', 'source-code-pro', monospace;
+    direction: ltr;
+    text-align: left;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    forced-color-adjust: none;
+}
+
+.ace_scroller {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    bottom: 0;
+    background-color: inherit;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: text;
+}
+
+.ace_content {
+    position: absolute;
+    box-sizing: border-box;
+    min-width: 100%;
+    contain: style size layout;
+    font-variant-ligatures: no-common-ligatures;
+}
+.ace_invisible {
+    font-variant-ligatures: none;
+}
+
+.ace_keyboard-focus:focus {
+    box-shadow: inset 0 0 0 2px #5E9ED6;
+    outline: none;
+}
+
+.ace_dragging .ace_scroller:before{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    background: rgba(250, 250, 250, 0.01);
+    z-index: 1000;
+}
+.ace_dragging.ace_dark .ace_scroller:before{
+    background: rgba(0, 0, 0, 0.01);
+}
+
+.ace_gutter {
+    position: absolute;
+    overflow : hidden;
+    width: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    cursor: default;
+    z-index: 4;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    contain: style size layout;
+}
+
+.ace_gutter-active-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.ace_scroller.ace_scroll-left:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 17px 0 16px -16px rgba(0, 0, 0, 0.4) inset;
+    pointer-events: none;
+}
+
+.ace_gutter-cell, .ace_gutter-cell_svg-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-left: 19px;
+    padding-right: 6px;
+    background-repeat: no-repeat;
+}
+
+.ace_gutter-cell_svg-icons .ace_gutter_annotation {
+    margin-left: -14px;
+    float: left;
+}
+
+.ace_gutter-cell .ace_gutter_annotation {
+    margin-left: -19px;
+    float: left;
+}
+
+.ace_gutter-cell.ace_error, .ace_icon.ace_error, .ace_icon.ace_error_fold, .ace_gutter-cell.ace_security, .ace_icon.ace_security, .ace_icon.ace_security_fold {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABOFBMVEX/////////QRswFAb/Ui4wFAYwFAYwFAaWGAfDRymzOSH/PxswFAb/SiUwFAYwFAbUPRvjQiDllog5HhHdRybsTi3/Tyv9Tir+Syj/UC3////XurebMBIwFAb/RSHbPx/gUzfdwL3kzMivKBAwFAbbvbnhPx66NhowFAYwFAaZJg8wFAaxKBDZurf/RB6mMxb/SCMwFAYwFAbxQB3+RB4wFAb/Qhy4Oh+4QifbNRcwFAYwFAYwFAb/QRzdNhgwFAYwFAbav7v/Uy7oaE68MBK5LxLewr/r2NXewLswFAaxJw4wFAbkPRy2PyYwFAaxKhLm1tMwFAazPiQwFAaUGAb/QBrfOx3bvrv/VC/maE4wFAbRPBq6MRO8Qynew8Dp2tjfwb0wFAbx6eju5+by6uns4uH9/f36+vr/GkHjAAAAYnRSTlMAGt+64rnWu/bo8eAA4InH3+DwoN7j4eLi4xP99Nfg4+b+/u9B/eDs1MD1mO7+4PHg2MXa347g7vDizMLN4eG+Pv7i5evs/v79yu7S3/DV7/498Yv24eH+4ufQ3Ozu/v7+y13sRqwAAADLSURBVHjaZc/XDsFgGIBhtDrshlitmk2IrbHFqL2pvXf/+78DPokj7+Fz9qpU/9UXJIlhmPaTaQ6QPaz0mm+5gwkgovcV6GZzd5JtCQwgsxoHOvJO15kleRLAnMgHFIESUEPmawB9ngmelTtipwwfASilxOLyiV5UVUyVAfbG0cCPHig+GBkzAENHS0AstVF6bacZIOzgLmxsHbt2OecNgJC83JERmePUYq8ARGkJx6XtFsdddBQgZE2nPR6CICZhawjA4Fb/chv+399kfR+MMMDGOQAAAABJRU5ErkJggg==");
+    background-repeat: no-repeat;
+    background-position: 2px center;
+}
+
+.ace_gutter-cell.ace_warning, .ace_icon.ace_warning, .ace_icon.ace_warning_fold {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAmVBMVEX///8AAAD///8AAAAAAABPSzb/5sAAAAB/blH/73z/ulkAAAAAAAD85pkAAAAAAAACAgP/vGz/rkDerGbGrV7/pkQICAf////e0IsAAAD/oED/qTvhrnUAAAD/yHD/njcAAADuv2r/nz//oTj/p064oGf/zHAAAAA9Nir/tFIAAAD/tlTiuWf/tkIAAACynXEAAAAAAAAtIRW7zBpBAAAAM3RSTlMAABR1m7RXO8Ln31Z36zT+neXe5OzooRDfn+TZ4p3h2hTf4t3k3ucyrN1K5+Xaks52Sfs9CXgrAAAAjklEQVR42o3PbQ+CIBQFYEwboPhSYgoYunIqqLn6/z8uYdH8Vmdnu9vz4WwXgN/xTPRD2+sgOcZjsge/whXZgUaYYvT8QnuJaUrjrHUQreGczuEafQCO/SJTufTbroWsPgsllVhq3wJEk2jUSzX3CUEDJC84707djRc5MTAQxoLgupWRwW6UB5fS++NV8AbOZgnsC7BpEAAAAABJRU5ErkJggg==");
+    background-repeat: no-repeat;
+    background-position: 2px center;
+}
+
+.ace_gutter-cell.ace_info, .ace_icon.ace_info, .ace_gutter-cell.ace_hint, .ace_icon.ace_hint {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAJ0Uk5TAAB2k804AAAAPklEQVQY02NgIB68QuO3tiLznjAwpKTgNyDbMegwisCHZUETUZV0ZqOquBpXj2rtnpSJT1AEnnRmL2OgGgAAIKkRQap2htgAAAAASUVORK5CYII=");
+    background-repeat: no-repeat;
+    background-position: 2px center;
+}
+
+.ace_dark .ace_gutter-cell.ace_info, .ace_dark .ace_icon.ace_info, .ace_dark .ace_gutter-cell.ace_hint, .ace_dark .ace_icon.ace_hint {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAJFBMVEUAAAChoaGAgIAqKiq+vr6tra1ZWVmUlJSbm5s8PDxubm56enrdgzg3AAAAAXRSTlMAQObYZgAAAClJREFUeNpjYMAPdsMYHegyJZFQBlsUlMFVCWUYKkAZMxZAGdxlDMQBAG+TBP4B6RyJAAAAAElFTkSuQmCC");
+}
+
+.ace_icon_svg.ace_error {
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAxNiI+CjxnIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSJyZWQiIHNoYXBlLXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIj4KPGNpcmNsZSBmaWxsPSJub25lIiBjeD0iOCIgY3k9IjgiIHI9IjciIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPGxpbmUgeDE9IjExIiB5MT0iNSIgeDI9IjUiIHkyPSIxMSIvPgo8bGluZSB4MT0iMTEiIHkxPSIxMSIgeDI9IjUiIHkyPSI1Ii8+CjwvZz4KPC9zdmc+");
+    background-color: crimson;
+}
+.ace_icon_svg.ace_security {
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAgMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8ZyBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZT0iZGFya29yYW5nZSIgZmlsbD0ibm9uZSIgc2hhcGUtcmVuZGVyaW5nPSJnZW9tZXRyaWNQcmVjaXNpb24iPgogICAgICAgIDxwYXRoIGNsYXNzPSJzdHJva2UtbGluZWpvaW4tcm91bmQiIGQ9Ik04IDE0LjgzMDdDOCAxNC44MzA3IDIgMTIuOTA0NyAyIDguMDg5OTJWMy4yNjU0OEM1LjMxIDMuMjY1NDggNy45ODk5OSAxLjM0OTE4IDcuOTg5OTkgMS4zNDkxOEM3Ljk4OTk5IDEuMzQ5MTggMTAuNjkgMy4yNjU0OCAxNCAzLjI2NTQ4VjguMDg5OTJDMTQgMTIuOTA0NyA4IDE0LjgzMDcgOCAxNC44MzA3WiIvPgogICAgICAgIDxwYXRoIGQ9Ik0yIDguMDg5OTJWMy4yNjU0OEM1LjMxIDMuMjY1NDggNy45ODk5OSAxLjM0OTE4IDcuOTg5OTkgMS4zNDkxOCIvPgogICAgICAgIDxwYXRoIGQ9Ik0xMy45OSA4LjA4OTkyVjMuMjY1NDhDMTAuNjggMy4yNjU0OCA4IDEuMzQ5MTggOCAxLjM0OTE4Ii8+CiAgICAgICAgPHBhdGggY2xhc3M9InN0cm9rZS1saW5lam9pbi1yb3VuZCIgZD0iTTggNFY5Ii8+CiAgICAgICAgPHBhdGggY2xhc3M9InN0cm9rZS1saW5lam9pbi1yb3VuZCIgZD0iTTggMTBWMTIiLz4KICAgIDwvZz4KPC9zdmc+");
+    background-color: crimson;
+}
+.ace_icon_svg.ace_warning {
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAxNiI+CjxnIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSJkYXJrb3JhbmdlIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiI+Cjxwb2x5Z29uIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGZpbGw9Im5vbmUiIHBvaW50cz0iOCAxIDE1IDE1IDEgMTUgOCAxIi8+CjxyZWN0IHg9IjgiIHk9IjEyIiB3aWR0aD0iMC4wMSIgaGVpZ2h0PSIwLjAxIi8+CjxsaW5lIHgxPSI4IiB5MT0iNiIgeDI9IjgiIHkyPSIxMCIvPgo8L2c+Cjwvc3ZnPg==");
+    background-color: darkorange;
+}
+.ace_icon_svg.ace_info {
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAxNiI+CjxnIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSJibHVlIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiI+CjxjaXJjbGUgZmlsbD0ibm9uZSIgY3g9IjgiIGN5PSI4IiByPSI3IiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjxwb2x5bGluZSBwb2ludHM9IjggMTEgOCA4Ii8+Cjxwb2x5bGluZSBwb2ludHM9IjkgOCA2IDgiLz4KPGxpbmUgeDE9IjEwIiB5MT0iMTEiIHgyPSI2IiB5Mj0iMTEiLz4KPHJlY3QgeD0iOCIgeT0iNSIgd2lkdGg9IjAuMDEiIGhlaWdodD0iMC4wMSIvPgo8L2c+Cjwvc3ZnPg==");
+    background-color: royalblue;
+}
+.ace_icon_svg.ace_hint {
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAgMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8ZyBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZT0ic2lsdmVyIiBmaWxsPSJub25lIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiI+CiAgICAgICAgPHBhdGggY2xhc3M9InN0cm9rZS1saW5lam9pbi1yb3VuZCIgZD0iTTYgMTRIMTAiLz4KICAgICAgICA8cGF0aCBkPSJNOCAxMUg5QzkgOS40NzAwMiAxMiA4LjU0MDAyIDEyIDUuNzYwMDJDMTIuMDIgNC40MDAwMiAxMS4zOSAzLjM2MDAyIDEwLjQzIDIuNjcwMDJDOSAxLjY0MDAyIDcuMDAwMDEgMS42NDAwMiA1LjU3MDAxIDIuNjcwMDJDNC42MTAwMSAzLjM2MDAyIDMuOTggNC40MDAwMiA0IDUuNzYwMDJDNCA4LjU0MDAyIDcuMDAwMDEgOS40NzAwMiA3LjAwMDAxIDExSDhaIi8+CiAgICA8L2c+Cjwvc3ZnPg==");
+    background-color: silver;
+}
+
+.ace_icon_svg.ace_error_fold {
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAxNiIgZmlsbD0ibm9uZSI+CiAgPHBhdGggZD0ibSAxOC45Mjk4NTEsNy44Mjk4MDc2IGMgMC4xNDYzNTMsNi4zMzc0NjA0IC02LjMyMzE0Nyw3Ljc3Nzg0NDQgLTcuNDc3OTEyLDcuNzc3ODQ0NCAtMi4xMDcyNzI2LC0wLjEyODc1IDUuMTE3Njc4LDAuMzU2MjQ5IDUuMDUxNjk4LC03Ljg3MDA2MTggLTAuNjA0NjcyLC04LjAwMzk3MzQ5IC03LjA3NzI3MDYsLTcuNTYzMTE4OSAtNC44NTczLC03LjQzMDM5NTU2IDEuNjA2LC0wLjExNTE0MjI1IDYuODk3NDg1LDEuMjYyNTQ1OTYgNy4yODM1MTQsNy41MjI2MTI5NiB6IiBmaWxsPSJjcmltc29uIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0ibSA4LjExNDc1NjIsMi4wNTI5ODI4IGMgMy4zNDkxNjk4LDAgNi4wNjQxMzI4LDIuNjc2ODYyNyA2LjA2NDEzMjgsNS45Nzg5NTMgMCwzLjMwMjExMjIgLTIuNzE0OTYzLDUuOTc4OTIwMiAtNi4wNjQxMzI4LDUuOTc4OTIwMiAtMy4zNDkxNDczLDAgLTYuMDY0MTc3MiwtMi42NzY4MDggLTYuMDY0MTc3MiwtNS45Nzg5MjAyIDAuMDA1MzksLTMuMjk5ODg2MSAyLjcxNzI2NTYsLTUuOTczNjQwOCA2LjA2NDE3NzIsLTUuOTc4OTUzIHogbSAwLC0xLjczNTgyNzE5IGMgLTQuMzIxNDgzNiwwIC03LjgyNDc0MDM4LDMuNDU0MDE4NDkgLTcuODI0NzQwMzgsNy43MTQ3ODAxOSAwLDQuMjYwNzI4MiAzLjUwMzI1Njc4LDcuNzE0NzQ1MiA3LjgyNDc0MDM4LDcuNzE0NzQ1MiA0LjMyMTQ0OTgsMCA3LjgyNDY5OTgsLTMuNDU0MDE3IDcuODI0Njk5OCwtNy43MTQ3NDUyIDAsLTIuMDQ2MDkxNCAtMC44MjQzOTIsLTQuMDA4MzY3MiAtMi4yOTE3NTYsLTUuNDU1MTc0NiBDIDEyLjE4MDIyNSwxLjEyOTk2NDggMTAuMTkwMDEzLDAuMzE3MTU1NjEgOC4xMTQ3NTYyLDAuMzE3MTU1NjEgWiBNIDYuOTM3NDU2Myw4LjI0MDU5ODUgNC42NzE4Njg1LDEwLjQ4NTg1MiA2LjAwODY4MTQsMTEuODc2NzI4IDguMzE3MDAzNSw5LjYwMDc5MTEgMTAuNjI1MzM3LDExLjg3NjcyOCAxMS45NjIxMzgsMTAuNDg1ODUyIDkuNjk2NTUwOCw4LjI0MDU5ODUgMTEuOTYyMTM4LDYuMDA2ODA2NiAxMC41NzMyNDYsNC42Mzc0MzM1IDguMzE3MDAzNSw2Ljg3MzQyOTcgNi4wNjA3NjA3LDQuNjM3NDMzNSA0LjY3MTg2ODUsNi4wMDY4MDY2IFoiIGZpbGw9ImNyaW1zb24iIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4=");
+    background-color: crimson;
+}
+.ace_icon_svg.ace_security_fold {
+    -webkit-mask-image: url("data:image/svg+xml;base64,CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTcgMTQiIGZpbGw9Im5vbmUiPgogICAgPHBhdGggZD0iTTEwLjAwMDEgMTMuNjk5MkMxMC4wMDAxIDEzLjY5OTIgMTEuOTI0MSAxMy40NzYzIDEzIDEyLjY5OTJDMTQuNDEzOSAxMS42NzgxIDE2IDEwLjUgMTYuMTI1MSA2LjgxMTI2VjIuNTg5ODdDMTYuMTI1MSAyLjU0NzY4IDE2LjEyMjEgMi41MDYxOSAxNi4xMTY0IDIuNDY1NTlWMS43MTQ4NUgxNS4yNDE0TDE1LjIzMDcgMS43MTQ4NEwxNC42MjUxIDEuNjk5MjJWNi44MTEyM0MxNC42MjUxIDguNTEwNjEgMTQuNjI1MSA5LjQ2NDYxIDEyLjc4MjQgMTEuNzIxQzEyLjE1ODYgMTIuNDg0OCAxMC4wMDAxIDEzLjY5OTIgMTAuMDAwMSAxMy42OTkyWiIgZmlsbD0iY3JpbXNvbiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTcuMzM2MDkgMC4zNjc0NzVDNy4wMzIxNCAwLjE1MjY1MiA2LjYyNTQ4IDAuMTUzNjE0IDYuMzIyNTMgMC4zNjk5OTdMNi4zMDg2OSAwLjM3OTU1NEM2LjI5NTUzIDAuMzg4NTg4IDYuMjczODggMC40MDMyNjYgNi4yNDQxNyAwLjQyMjc4OUM2LjE4NDcxIDAuNDYxODYgNi4wOTMyMSAwLjUyMDE3MSA1Ljk3MzEzIDAuNTkxMzczQzUuNzMyNTEgMC43MzQwNTkgNS4zNzk5IDAuOTI2ODY0IDQuOTQyNzkgMS4xMjAwOUM0LjA2MTQ0IDEuNTA5NyAyLjg3NTQxIDEuODgzNzcgMS41ODk4NCAxLjg4Mzc3SDAuNzE0ODQ0VjIuNzU4NzdWNi45ODAxNUMwLjcxNDg0NCA5LjQ5Mzc0IDIuMjg4NjYgMTEuMTk3MyAzLjcwMjU0IDEyLjIxODVDNC40MTg0NSAxMi43MzU1IDUuMTI4NzQgMTMuMTA1MyA1LjY1NzMzIDEzLjM0NTdDNS45MjI4NCAxMy40NjY0IDYuMTQ1NjYgMTMuNTU1OSA2LjMwNDY1IDEzLjYxNjFDNi4zODQyMyAxMy42NDYyIDYuNDQ4MDUgMTMuNjY5IDYuNDkzNDkgMTMuNjg0OEM2LjUxNjIyIDEzLjY5MjcgNi41MzQzOCAxMy42OTg5IDYuNTQ3NjQgMTMuNzAzM0w2LjU2MzgyIDEzLjcwODdMNi41NjkwOCAxMy43MTA0TDYuNTcwOTkgMTMuNzExTDYuODM5ODQgMTMuNzUzM0w2LjU3MjQyIDEzLjcxMTVDNi43NDYzMyAxMy43NjczIDYuOTMzMzUgMTMuNzY3MyA3LjEwNzI3IDEzLjcxMTVMNy4xMDg3IDEzLjcxMUw3LjExMDYxIDEzLjcxMDRMNy4xMTU4NyAxMy43MDg3TDcuMTMyMDUgMTMuNzAzM0M3LjE0NTMxIDEzLjY5ODkgNy4xNjM0NiAxMy42OTI3IDcuMTg2MTkgMTMuNjg0OEM3LjIzMTY0IDEzLjY2OSA3LjI5NTQ2IDEzLjY0NjIgNy4zNzUwMyAxMy42MTYxQzcuNTM0MDMgMTMuNTU1OSA3Ljc1Njg1IDEzLjQ2NjQgOC4wMjIzNiAxMy4zNDU3QzguNTUwOTUgMTMuMTA1MyA5LjI2MTIzIDEyLjczNTUgOS45NzcxNSAxMi4yMTg1QzExLjM5MSAxMS4xOTczIDEyLjk2NDggOS40OTM3NyAxMi45NjQ4IDYuOTgwMThWMi43NTg4QzEyLjk2NDggMi43MTY2IDEyLjk2MTkgMi42NzUxMSAxMi45NTYxIDIuNjM0NTFWMS44ODM3N0gxMi4wODExQzEyLjA3NzUgMS44ODM3NyAxMi4wNzQgMS44ODM3NyAxMi4wNzA0IDEuODgzNzdDMTAuNzk3OSAxLjg4MDA0IDkuNjE5NjIgMS41MTEwMiA4LjczODk0IDEuMTI0ODZDOC43MzUzNCAxLjEyMzI3IDguNzMxNzQgMS4xMjE2OCA4LjcyODE0IDEuMTIwMDlDOC4yOTEwMyAwLjkyNjg2NCA3LjkzODQyIDAuNzM0MDU5IDcuNjk3NzkgMC41OTEzNzNDNy41Nzc3MiAwLjUyMDE3MSA3LjQ4NjIyIDAuNDYxODYgNy40MjY3NiAwLjQyMjc4OUM3LjM5NzA1IDAuNDAzMjY2IDcuMzc1MzkgMC4zODg1ODggNy4zNjIyNCAwLjM3OTU1NEw3LjM0ODk2IDAuMzcwMzVDNy4zNDg5NiAwLjM3MDM1IDcuMzQ4NDcgMC4zNzAwMiA3LjM0NTYzIDAuMzc0MDU0TDcuMzM3NzkgMC4zNjg2NTlMNy4zMzYwOSAwLjM2NzQ3NVpNOC4wMzQ3MSAyLjcyNjkxQzguODYwNCAzLjA5MDYzIDkuOTYwNjYgMy40NjMwOSAxMS4yMDYxIDMuNTg5MDdWNi45ODAxNUgxMS4yMTQ4QzExLjIxNDggOC42Nzk1MyAxMC4xNjM3IDkuOTI1MDcgOC45NTI1NCAxMC43OTk4QzguMzU1OTUgMTEuMjMwNiA3Ljc1Mzc0IDExLjU0NTQgNy4yOTc5NiAxMS43NTI3QzcuMTE2NzEgMTEuODM1MSA2Ljk2MDYyIDExLjg5OTYgNi44Mzk4NCAxMS45NDY5QzYuNzE5MDYgMTEuODk5NiA2LjU2Mjk3IDExLjgzNTEgNi4zODE3MyAxMS43NTI3QzUuOTI1OTUgMTEuNTQ1NCA1LjMyMzczIDExLjIzMDYgNC43MjcxNSAxMC43OTk4QzMuNTE2MDMgOS45MjUwNyAyLjQ2NDg0IDguNjc5NTUgMi40NjQ4NCA2Ljk4MDE4VjMuNTg5MDlDMy43MTczOCAzLjQ2MjM5IDQuODIzMDggMy4wODYzOSA1LjY1MDMzIDIuNzIwNzFDNi4xNDIyOCAyLjUwMzI0IDYuNTQ0ODUgMi4yODUzNyA2LjgzMjU0IDIuMTE2MjRDNy4xMjE4MSAyLjI4NTM1IDcuNTI3IDIuNTAzNTIgOC4wMjE5NiAyLjcyMTMxQzguMDI2MiAyLjcyMzE3IDguMDMwNDUgMi43MjUwNCA4LjAzNDcxIDIuNzI2OTFaTTUuOTY0ODQgMy40MDE0N1Y3Ljc3NjQ3SDcuNzE0ODRWMy40MDE0N0g1Ljk2NDg0Wk01Ljk2NDg0IDEwLjQwMTVWOC42NTE0N0g3LjcxNDg0VjEwLjQwMTVINS45NjQ4NFoiIGZpbGw9ImNyaW1zb24iIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4=");
+    background-color: crimson;
+}
+.ace_icon_svg.ace_warning_fold {
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyMCAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNC43NzY5IDE0LjczMzdMOC42NTE5MiAyLjQ4MzY5QzguMzI5NDYgMS44Mzg3NyA3LjQwOTEzIDEuODM4NzcgNy4wODY2NyAyLjQ4MzY5TDAuOTYxNjY5IDE0LjczMzdDMC42NzA3NzUgMTUuMzE1NSAxLjA5MzgzIDE2IDEuNzQ0MjkgMTZIMTMuOTk0M0MxNC42NDQ4IDE2IDE1LjA2NzggMTUuMzE1NSAxNC43NzY5IDE0LjczMzdaTTMuMTYwMDcgMTQuMjVMNy44NjkyOSA0LjgzMTU2TDEyLjU3ODUgMTQuMjVIMy4xNjAwN1pNOC43NDQyOSAxMS42MjVWMTMuMzc1SDYuOTk0MjlWMTEuNjI1SDguNzQ0MjlaTTYuOTk0MjkgMTAuNzVWNy4yNUg4Ljc0NDI5VjEwLjc1SDYuOTk0MjlaIiBmaWxsPSIjRUM3MjExIi8+CjxwYXRoIGQ9Ik0xMS4xOTkxIDIuOTUyMzhDMTAuODgwOSAyLjMxNDY3IDEwLjM1MzcgMS44MDUyNiA5LjcwNTUgMS41MDlMMTEuMDQxIDEuMDY5NzhDMTEuNjg4MyAwLjk0OTgxNCAxMi4zMzcgMS4yNzI2MyAxMi42MzE3IDEuODYxNDFMMTcuNjEzNiAxMS44MTYxQzE4LjM1MjcgMTMuMjkyOSAxNy41OTM4IDE1LjA4MDQgMTYuMDE4IDE1LjU3NDVDMTYuNDA0NCAxNC40NTA3IDE2LjMyMzEgMTMuMjE4OCAxNS43OTI0IDEyLjE1NTVMMTEuMTk5MSAyLjk1MjM4WiIgZmlsbD0iI0VDNzIxMSIvPgo8L3N2Zz4=");
+    background-color: darkorange;
+}
+
+.ace_scrollbar {
+    contain: strict;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 6;
+}
+
+.ace_scrollbar-inner {
+    position: absolute;
+    cursor: text;
+    left: 0;
+    top: 0;
+}
+
+.ace_scrollbar-v{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    top: 0;
+}
+
+.ace_scrollbar-h {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    left: 0;
+}
+
+.ace_print-margin {
+    position: absolute;
+    height: 100%;
+}
+
+.ace_text-input {
+    position: absolute;
+    z-index: 0;
+    width: 0.5em;
+    height: 1em;
+    opacity: 0;
+    background: transparent;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    resize: none;
+    outline: none;
+    overflow: hidden;
+    font: inherit;
+    padding: 0 1px;
+    margin: 0 -1px;
+    contain: strict;
+    -ms-user-select: text;
+    -moz-user-select: text;
+    -webkit-user-select: text;
+    user-select: text;
+    /*with `pre-line` chrome inserts &nbsp; instead of space*/
+    white-space: pre!important;
+}
+.ace_text-input.ace_composition {
+    background: transparent;
+    color: inherit;
+    z-index: 1000;
+    opacity: 1;
+}
+.ace_composition_placeholder { color: transparent }
+.ace_composition_marker { 
+    border-bottom: 1px solid;
+    position: absolute;
+    border-radius: 0;
+    margin-top: 1px;
+}
+
+[ace_nocontext=true] {
+    transform: none!important;
+    filter: none!important;
+    clip-path: none!important;
+    mask : none!important;
+    contain: none!important;
+    perspective: none!important;
+    mix-blend-mode: initial!important;
+    z-index: auto;
+}
+
+.ace_layer {
+    z-index: 1;
+    position: absolute;
+    overflow: hidden;
+    /* workaround for chrome bug https://github.com/ajaxorg/ace/issues/2312*/
+    word-wrap: normal;
+    white-space: pre;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    /* setting pointer-events: auto; on node under the mouse, which changes
+        during scroll, will break mouse wheel scrolling in Safari */
+    pointer-events: none;
+}
+
+.ace_gutter-layer {
+    position: relative;
+    width: auto;
+    text-align: right;
+    pointer-events: auto;
+    height: 1000000px;
+    contain: style size layout;
+}
+
+.ace_text-layer {
+    font: inherit !important;
+    position: absolute;
+    height: 1000000px;
+    width: 1000000px;
+    contain: style size layout;
+}
+
+.ace_text-layer > .ace_line, .ace_text-layer > .ace_line_group {
+    contain: style size layout;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.ace_hidpi .ace_text-layer,
+.ace_hidpi .ace_gutter-layer,
+.ace_hidpi .ace_content,
+.ace_hidpi .ace_gutter {
+    contain: strict;
+}
+.ace_hidpi .ace_text-layer > .ace_line, 
+.ace_hidpi .ace_text-layer > .ace_line_group {
+    contain: strict;
+}
+
+.ace_cjk {
+    display: inline-block;
+    text-align: center;
+}
+
+.ace_cursor-layer {
+    z-index: 4;
+}
+
+.ace_cursor {
+    z-index: 4;
+    position: absolute;
+    box-sizing: border-box;
+    border-left: 2px solid;
+    /* workaround for smooth cursor repaintng whole screen in chrome */
+    transform: translatez(0);
+}
+
+.ace_multiselect .ace_cursor {
+    border-left-width: 1px;
+}
+
+.ace_slim-cursors .ace_cursor {
+    border-left-width: 1px;
+}
+
+.ace_overwrite-cursors .ace_cursor {
+    border-left-width: 0;
+    border-bottom: 1px solid;
+}
+
+.ace_hidden-cursors .ace_cursor {
+    opacity: 0.2;
+}
+
+.ace_hasPlaceholder .ace_hidden-cursors .ace_cursor {
+    opacity: 0;
+}
+
+.ace_smooth-blinking .ace_cursor {
+    transition: opacity 0.18s;
+}
+
+.ace_animate-blinking .ace_cursor {
+    animation-duration: 1000ms;
+    animation-timing-function: step-end;
+    animation-name: blink-ace-animate;
+    animation-iteration-count: infinite;
+}
+
+.ace_animate-blinking.ace_smooth-blinking .ace_cursor {
+    animation-duration: 1000ms;
+    animation-timing-function: ease-in-out;
+    animation-name: blink-ace-animate-smooth;
+}
+    
+@keyframes blink-ace-animate {
+    from, to { opacity: 1; }
+    60% { opacity: 0; }
+}
+
+@keyframes blink-ace-animate-smooth {
+    from, to { opacity: 1; }
+    45% { opacity: 1; }
+    60% { opacity: 0; }
+    85% { opacity: 0; }
+}
+
+.ace_marker-layer .ace_step, .ace_marker-layer .ace_stack {
+    position: absolute;
+    z-index: 3;
+}
+
+.ace_marker-layer .ace_selection {
+    position: absolute;
+    z-index: 5;
+}
+
+.ace_marker-layer .ace_bracket {
+    position: absolute;
+    z-index: 6;
+}
+
+.ace_marker-layer .ace_error_bracket {
+    position: absolute;
+    border-bottom: 1px solid #DE5555;
+    border-radius: 0;
+}
+
+.ace_marker-layer .ace_active-line {
+    position: absolute;
+    z-index: 2;
+}
+
+.ace_marker-layer .ace_selected-word {
+    position: absolute;
+    z-index: 4;
+    box-sizing: border-box;
+}
+
+.ace_line .ace_fold {
+    box-sizing: border-box;
+
+    display: inline-block;
+    height: 11px;
+    margin-top: -2px;
+    vertical-align: middle;
+
+    background-image:
+        url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),
+        url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACJJREFUeNpi+P//fxgTAwPDBxDxD078RSX+YeEyDFMCIMAAI3INmXiwf2YAAAAASUVORK5CYII=");
+    background-repeat: no-repeat, repeat-x;
+    background-position: center center, top left;
+    color: transparent;
+
+    border: 1px solid black;
+    border-radius: 2px;
+
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.ace_dark .ace_fold {
+}
+
+.ace_fold:hover{
+    background-image:
+        url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),
+        url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACBJREFUeNpi+P//fz4TAwPDZxDxD5X4i5fLMEwJgAADAEPVDbjNw87ZAAAAAElFTkSuQmCC");
+}
+
+.ace_tooltip {
+    background-color: #f5f5f5;
+    border: 1px solid gray;
+    border-radius: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    color: black;
+    padding: 3px 4px;
+    position: fixed;
+    z-index: 999999;
+    box-sizing: border-box;
+    cursor: default;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: normal;
+    font-style: normal;
+    font-weight: normal;
+    letter-spacing: normal;
+    pointer-events: none;
+    overflow: auto;
+    max-width: min(33em, 66vw);
+    overscroll-behavior: contain;
+}
+.ace_tooltip pre {
+    white-space: pre-wrap;
+}
+
+.ace_tooltip.ace_dark {
+    background-color: #636363;
+    color: #fff;
+}
+
+.ace_tooltip:focus {
+    outline: 1px solid #5E9ED6;
+}
+
+.ace_icon {
+    display: inline-block;
+    width: 18px;
+    vertical-align: top;
+}
+
+.ace_icon_svg {
+    display: inline-block;
+    width: 12px;
+    vertical-align: top;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 12px;
+    -webkit-mask-position: center;
+}
+
+.ace_folding-enabled > .ace_gutter-cell, .ace_folding-enabled > .ace_gutter-cell_svg-icons {
+    padding-right: 13px;
+}
+
+.ace_fold-widget {
+    box-sizing: border-box;
+
+    margin: 0 -12px 0 1px;
+    display: none;
+    width: 11px;
+    vertical-align: top;
+
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42mWKsQ0AMAzC8ixLlrzQjzmBiEjp0A6WwBCSPgKAXoLkqSot7nN3yMwR7pZ32NzpKkVoDBUxKAAAAABJRU5ErkJggg==");
+    background-repeat: no-repeat;
+    background-position: center;
+
+    border-radius: 3px;
+    
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.ace_folding-enabled .ace_fold-widget {
+    display: inline-block;   
+}
+
+.ace_fold-widget.ace_end {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42m3HwQkAMAhD0YzsRchFKI7sAikeWkrxwScEB0nh5e7KTPWimZki4tYfVbX+MNl4pyZXejUO1QAAAABJRU5ErkJggg==");
+}
+
+.ace_fold-widget.ace_closed {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAGCAYAAAAG5SQMAAAAOUlEQVR42jXKwQkAMAgDwKwqKD4EwQ26sSOkVWjgIIHAzPiCgaqiqnJHZnKICBERHN194O5b9vbLuAVRL+l0YWnZAAAAAElFTkSuQmCCXA==");
+}
+
+.ace_fold-widget:hover {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+.ace_fold-widget:active {
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+/**
+ * Dark version for fold widgets
+ */
+.ace_dark .ace_fold-widget {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHklEQVQIW2P4//8/AzoGEQ7oGCaLLAhWiSwB146BAQCSTPYocqT0AAAAAElFTkSuQmCC");
+}
+.ace_dark .ace_fold-widget.ace_end {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH0lEQVQIW2P4//8/AxQ7wNjIAjDMgC4AxjCVKBirIAAF0kz2rlhxpAAAAABJRU5ErkJggg==");
+}
+.ace_dark .ace_fold-widget.ace_closed {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAFCAYAAACAcVaiAAAAHElEQVQIW2P4//+/AxAzgDADlOOAznHAKgPWAwARji8UIDTfQQAAAABJRU5ErkJggg==");
+}
+.ace_dark .ace_fold-widget:hover {
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.ace_dark .ace_fold-widget:active {
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.ace_inline_button {
+    border: 1px solid lightgray;
+    display: inline-block;
+    margin: -1px 8px;
+    padding: 0 5px;
+    pointer-events: auto;
+    cursor: pointer;
+}
+.ace_inline_button:hover {
+    border-color: gray;
+    background: rgba(200,200,200,0.2);
+    display: inline-block;
+    pointer-events: auto;
+}
+
+.ace_fold-widget.ace_invalid {
+    background-color: #FFB4B4;
+    border-color: #DE5555;
+}
+
+.ace_fade-fold-widgets .ace_fold-widget {
+    transition: opacity 0.4s ease 0.05s;
+    opacity: 0;
+}
+
+.ace_fade-fold-widgets:hover .ace_fold-widget {
+    transition: opacity 0.05s ease 0.05s;
+    opacity:1;
+}
+
+.ace_underline {
+    text-decoration: underline;
+}
+
+.ace_bold {
+    font-weight: bold;
+}
+
+.ace_nobold .ace_bold {
+    font-weight: normal;
+}
+
+.ace_italic {
+    font-style: italic;
+}
+
+
+.ace_error-marker {
+    background-color: rgba(255, 0, 0,0.2);
+    position: absolute;
+    z-index: 9;
+}
+
+.ace_highlight-marker {
+    background-color: rgba(255, 255, 0,0.2);
+    position: absolute;
+    z-index: 8;
+}
+
+.ace_mobile-menu {
+    position: absolute;
+    line-height: 1.5;
+    border-radius: 4px;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    background: white;
+    box-shadow: 1px 3px 2px grey;
+    border: 1px solid #dcdcdc;
+    color: black;
+}
+.ace_dark > .ace_mobile-menu {
+    background: #333;
+    color: #ccc;
+    box-shadow: 1px 3px 2px grey;
+    border: 1px solid #444;
+
+}
+.ace_mobile-button {
+    padding: 2px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.ace_mobile-button:hover {
+    background-color: #eee;
+    opacity:1;
+}
+.ace_mobile-button:active {
+    background-color: #ddd;
+}
+
+.ace_placeholder {
+    position: relative;
+    font-family: arial;
+    transform: scale(0.9);
+    transform-origin: left;
+    white-space: pre;
+    opacity: 0.7;
+    margin: 0 10px;
+    z-index: 1;
+}
+
+.ace_ghost_text {
+    opacity: 0.5;
+    font-style: italic;
+}
+
+.ace_ghost_text_container > div {
+    white-space: pre;
+}
+
+.ghost_text_line_wrapped::after {
+    content: "↩";
+    position: absolute;
+}
+
+.ace_lineWidgetContainer.ace_ghost_text {
+    margin: 0px 4px
+}
+
+.ace_screenreader-only {
+    position:absolute;
+    left:-10000px;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+}
+
+.ace_hidden_token {
+    display: none;
+}
+/*# sourceURL=ace/css/ace_editor.css */</style><style id="ace_scrollbar.css">.ace_editor>.ace_sb-v div, .ace_editor>.ace_sb-h div{
+  position: absolute;
+  background: rgba(128, 128, 128, 0.6);
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+  z-index: 8;
+}
+.ace_editor>.ace_sb-v, .ace_editor>.ace_sb-h {
+  position: absolute;
+  z-index: 6;
+  background: none;
+  overflow: hidden!important;
+}
+.ace_editor>.ace_sb-v {
+  z-index: 6;
+  right: 0;
+  top: 0;
+  width: 12px;
+}
+.ace_editor>.ace_sb-v div {
+  z-index: 8;
+  right: 0;
+  width: 100%;
+}
+.ace_editor>.ace_sb-h {
+  bottom: 0;
+  left: 0;
+  height: 12px;
+}
+.ace_editor>.ace_sb-h div {
+  bottom: 0;
+  height: 100%;
+}
+.ace_editor>.ace_sb_grabbed {
+  z-index: 8;
+  background: #000;
+}
+/*# sourceURL=ace/css/ace_scrollbar.css */</style>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    
+
+    <title>integration_config.php - Arquivos - File Browser</title>
+
+    <meta name="robots" content="noindex,nofollow">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://srv1883-files.hstgr.io/ded5c87df5bf8736/static/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://srv1883-files.hstgr.io/ded5c87df5bf8736/static/img/icons/favicon-16x16.png">
+
+    <!-- Add to home screen for Android and modern mobile browsers -->
+    <link rel="manifest" id="manifestPlaceholder" crossorigin="use-credentials" href="blob:https://srv1883-files.hstgr.io/ba970192-19d9-4aba-b9c7-edc0af31f079">
+    <meta name="theme-color" content="#2979ff">
+
+    <!-- Add to home screen for Safari on iOS/iPadOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="assets">
+    <link rel="apple-touch-icon" href="https://srv1883-files.hstgr.io/ded5c87df5bf8736/static/img/icons/apple-touch-icon.png">
+
+    <!-- Add to home screen for Windows -->
+    <meta name="msapplication-TileImage" content="/ded5c87df5bf8736/static/img/icons/mstile-144x144.png">
+    <meta name="msapplication-TileColor" content="#2979ff">
+
+    <!-- Inject Some Variables and generate the manifest json -->
+    <script>
+      // We can assign JSON directly
+      window.FileBrowser = {"AuthLogoutURL":"/logout","AuthMethod":"proxy","BaseURL":"/ded5c87df5bf8736","CSS":false,"Color":"","DisableExternal":true,"DisableUsedPercentage":true,"EnableExec":true,"EnableThumbs":true,"LoginPage":false,"Name":"","NoAuth":false,"QuotaExists":true,"ReCaptcha":false,"ResizePreview":true,"Signup":false,"StaticURL":"/ded5c87df5bf8736/static","Theme":"","TmpDir":"","TrashDir":".trash","TusSettings":{"chunkSize":10485760,"retryCount":5},"Version":"v2.32.0-h3"};
+      // Global function to prepend static url
+      window.__prependStaticUrl = (url) => {
+        return `${window.FileBrowser.StaticURL}/${url.replace(/^\/+/, "")}`;
+      };
+      var dynamicManifest = {
+        name: window.FileBrowser.Name || "File Browser",
+        short_name: window.FileBrowser.Name || "File Browser",
+        icons: [
+          {
+            src: window.__prependStaticUrl("/img/icons/android-chrome-192x192.png"),
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: window.__prependStaticUrl("/img/icons/android-chrome-512x512.png"),
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+        start_url: window.location.origin + window.FileBrowser.BaseURL,
+        display: "standalone",
+        background_color: "#ffffff",
+        theme_color: window.FileBrowser.Color || "#455a64",
+      };
+
+      const stringManifest = JSON.stringify(dynamicManifest);
+      const blob = new Blob([stringManifest], { type: "application/json" });
+      const manifestURL = URL.createObjectURL(blob);
+      document
+        .querySelector("#manifestPlaceholder")
+        .setAttribute("href", manifestURL);
+    </script>
+
+    <style>
+      #loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        z-index: 9999;
+        transition: 0.1s ease opacity;
+        -webkit-transition: 0.1s ease opacity;
+      }
+
+      #loading.done {
+        opacity: 0;
+      }
+
+      #loading .spinner {
+        width: 70px;
+        text-align: center;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      #loading .spinner > div {
+        width: 18px;
+        height: 18px;
+        background-color: #333;
+        border-radius: 100%;
+        display: inline-block;
+        animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+      }
+
+      #loading .spinner .bounce1 {
+        animation-delay: -0.32s;
+      }
+
+      #loading .spinner .bounce2 {
+        animation-delay: -0.16s;
+      }
+
+      @keyframes sk-bouncedelay {
+        0%,
+        80%,
+        100% {
+          transform: scale(0);
+        }
+        40% {
+          transform: scale(1);
+        }
+      }
+    </style>
+    <script type="module" crossorigin="" src="./integration_config.php - Arquivos - File Browser_files/index-Dp_j-E8S.js.download"></script>
+    <link rel="modulepreload" crossorigin="" href="https://srv1883-files.hstgr.io/ded5c87df5bf8736/static/assets/dayjs-1F5ai5TR.js">
+    <link rel="modulepreload" crossorigin="" href="https://srv1883-files.hstgr.io/ded5c87df5bf8736/static/assets/i18n-CsiPK6b3.js">
+    <link rel="stylesheet" crossorigin="" href="./integration_config.php - Arquivos - File Browser_files/index-D1Z8QiOw.css">
+    <script type="module">import.meta.url;import("_").catch(()=>1);(async function*(){})().next();if(location.protocol!="file:"){window.__vite_is_modern_browser=true}</script>
+    <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy chunks, syntax error above and the same error below should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
+  <style type="text/css">.vue-number-input[data-v-188efc8c]{display:block;font-size:0;max-width:100%;overflow:hidden;position:relative}.vue-number-input__button[data-v-188efc8c]{background-color:#fff;border:0;border-radius:.25rem;bottom:1px;position:absolute;top:1px;width:2.5rem;z-index:1}.vue-number-input__button[data-v-188efc8c]:focus{outline:none}.vue-number-input__button[data-v-188efc8c]:hover:after,.vue-number-input__button[data-v-188efc8c]:hover:before{background-color:#0074d9}.vue-number-input__button[data-v-188efc8c]:disabled{opacity:.65}.vue-number-input__button[data-v-188efc8c]:disabled:after,.vue-number-input__button[data-v-188efc8c]:disabled:before{background-color:#ddd}.vue-number-input__button[data-v-188efc8c]:after,.vue-number-input__button[data-v-188efc8c]:before{background-color:#111;content:"";left:50%;position:absolute;top:50%;transform:translate(-50%,-50%);transition:background-color .15s}.vue-number-input__button[data-v-188efc8c]:before{height:1px;width:50%}.vue-number-input__button[data-v-188efc8c]:after{height:50%;width:1px}.vue-number-input__button--minus[data-v-188efc8c]{border-bottom-right-radius:0;border-right:1px solid #ddd;border-top-right-radius:0;left:1px}.vue-number-input__button--minus[data-v-188efc8c]:after{visibility:hidden}.vue-number-input__button--plus[data-v-188efc8c]{border-bottom-left-radius:0;border-left:1px solid #ddd;border-top-left-radius:0;right:1px}.vue-number-input__input[data-v-188efc8c]{-moz-appearance:textfield;background-color:#fff;border:1px solid #ddd;border-radius:.25rem;display:block;font-size:1rem;line-height:1.5;max-width:100%;min-height:1.5rem;min-width:3rem;padding:.4375rem .875rem;transition:border-color .15s;width:100%}.vue-number-input__input[data-v-188efc8c]::-webkit-inner-spin-button,.vue-number-input__input[data-v-188efc8c]::-webkit-outer-spin-button{-webkit-appearance:none}.vue-number-input__input[data-v-188efc8c]:focus{border-color:#0074d9;outline:none}.vue-number-input__input[data-v-188efc8c]:disabled,.vue-number-input__input[readonly][data-v-188efc8c]{background-color:#f8f8f8}.vue-number-input--inline[data-v-188efc8c]{display:inline-block}.vue-number-input--inline>input[data-v-188efc8c]{display:inline-block;width:12.5rem}.vue-number-input--center>input[data-v-188efc8c]{text-align:center}.vue-number-input--controls>input[data-v-188efc8c]{padding-left:3.375rem;padding-right:3.375rem}.vue-number-input--small>input[data-v-188efc8c]{border-radius:.1875rem;font-size:.875rem;padding:.25rem .5rem}.vue-number-input--small.vue-number-input--inline>input[data-v-188efc8c]{width:10rem}.vue-number-input--small.vue-number-input--controls>button[data-v-188efc8c]{width:2rem}.vue-number-input--small.vue-number-input--controls>input[data-v-188efc8c]{padding-left:2.5rem;padding-right:2.5rem}.vue-number-input--large>input[data-v-188efc8c]{border-radius:.3125rem;font-size:1.25rem;padding:.5rem 1rem}.vue-number-input--large.vue-number-input--inline>input[data-v-188efc8c]{width:15rem}.vue-number-input--large.vue-number-input--controls>button[data-v-188efc8c]{width:3rem}.vue-number-input--large.vue-number-input--controls>input[data-v-188efc8c]{padding-left:4rem;padding-right:4rem}</style><link rel="modulepreload" as="script" crossorigin="" href="https://srv1883-files.hstgr.io/ded5c87df5bf8736/static/assets/Editor-DRoNs8Ir.js"><script src="./integration_config.php - Arquivos - File Browser_files/theme-chrome.js.download"></script><script src="./integration_config.php - Arquivos - File Browser_files/mode-php.js.download"></script><script src="./integration_config.php - Arquivos - File Browser_files/theme-twilight.js.download"></script><script src="./integration_config.php - Arquivos - File Browser_files/php.js.download"></script></head>
+  <body style="">
+    <div id="app" data-v-app=""><div><div><!----><div class="overlay" style="display: none;"></div><nav class=""><button class="action" aria-label="Arquivos" title="Arquivos"><i class="material-icons">folder</i><span>Arquivos</span></button><div><button class="action" aria-label="Nova pasta" title="Nova pasta"><i class="material-icons">create_new_folder</i><span>Nova pasta</span></button><button class="action" aria-label="Novo arquivo" title="Novo arquivo"><i class="material-icons">note_add</i><span>Novo arquivo</span></button></div><div><a href="https://srv1883-files.hstgr.io/ded5c87df5bf8736/files/.trash" class="action" aria-label="Lixeira" title="Lixeira"><i class="material-icons">delete</i><span>Lixeira</span></a><!----></div><div id="quota"><div><div class="quota-label">Espaço</div><br><div><!----><div class="vue-simple-progress" style="background: rgb(238, 238, 238);"><!----><!----><div class="vue-simple-progress-bar" style="background: rgb(33, 150, 243); width: 0.02%; height: 4px; transition: 0.5s;"><!----></div></div><div class="vue-simple-progress-text" style="color: rgb(34, 34, 34); font-size: 11px; text-align: center; padding-top: 3px;">0.02%</div></div><div class="quota-metric">4.33 MiB / 25 GiB</div></div><br><div><div class="quota-label">Inodes</div><br><div><!----><div class="vue-simple-progress" style="background: rgb(238, 238, 238);"><!----><!----><div class="vue-simple-progress-bar" style="background: rgb(33, 150, 243); width: 0.25%; height: 4px; transition: 0.5s;"><!----></div></div><div class="vue-simple-progress-text" style="color: rgb(34, 34, 34); font-size: 11px; text-align: center; padding-top: 3px;">0.25%</div></div><div class="quota-metric">987 / 400000</div></div></div><div><button class="action" aria-label="Configurações" title="Configurações"><i class="material-icons">settings_applications</i><span>Configurações</span></button><!----></div><!----><p class="credits"><span><span>File Browser</span><span>  v2.32.0-h3</span></span><span><a>Ajuda</a></span></p></nav><main><div><!----><div class="breadcrumbs"><a href="https://srv1883-files.hstgr.io/ded5c87df5bf8736/files" class="" aria-label="Início" title="Início"><i class="material-icons">home</i></a><span><span class="chevron"><i class="material-icons">keyboard_arrow_right</i></span><a href="https://srv1883-files.hstgr.io/ded5c87df5bf8736/files/public_html/" class="">public_html</a></span><span><span class="chevron"><i class="material-icons">keyboard_arrow_right</i></span><a href="https://srv1883-files.hstgr.io/ded5c87df5bf8736/files/public_html/api/" class="">api</a></span><span><span class="chevron"><i class="material-icons">keyboard_arrow_right</i></span><a aria-current="page" href="https://srv1883-files.hstgr.io/ded5c87df5bf8736/files/public_html/api/integration_config.php/" class="router-link-active router-link-exact-active">integration_config.php</a></span></div><div id="editor-container"><header><!----><!----><button aria-label="Fechar" title="Fechar" class="action"><i class="material-icons">close</i><span>Fechar</span><!----></button><title>integration_config.php</title><button aria-label="Salvar" title="Salvar" class="action" id="save-button"><i class="material-icons">save</i><span>Salvar</span><!----></button><button aria-label="Preview" title="Preview" class="action" style="display: none;"><i class="material-icons">preview</i><span>Preview</span><!----></button><div id="dropdown" class=""></div><!----><div class="overlay" style="display: none;"></div></header><div class="breadcrumbs"><span to="/files" aria-label="Início" title="Início"><i class="material-icons">home</i></span><span><span class="chevron"><i class="material-icons">keyboard_arrow_right</i></span><span to="/files/public_html/">public_html</span></span><span><span class="chevron"><i class="material-icons">keyboard_arrow_right</i></span><span to="/files/public_html/api/">api</span></span><span><span class="chevron"><i class="material-icons">keyboard_arrow_right</i></span><span to="/files/public_html/api/integration_config.php/">integration_config.php</span></span></div><div id="preview-container" class="md_preview" style="display: none;"></div><form id="editor" class=" ace_editor ace-twilight ace_dark ace_focus ace_selecting"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-haspopup="false" aria-autocomplete="both" role="textbox" aria-label="Cursor at row 179" style="opacity: 0; font-size: 1px; height: 1px; width: 1px; top: 348px; left: 598px;"></textarea><div class="ace_gutter" aria-hidden="true" style="left: 0px; width: 53px;"><div class="ace_layer ace_gutter-layer ace_folding-enabled" style="height: 1e+06px; top: -2172px; left: 0px; width: 53px;"><div class="ace_gutter-cell " aria-hidden="false" style="height: 14px; top: 2170px;">156<span tabindex="-1" style="display: inline-block; height: 14px;" class="ace_fold-widget ace_start ace_open" role="button" aria-label="Toggle code folding, rows 156 through 163" aria-expanded="true" title="Fold code"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2184px;">157<span class="ace_fold-widget ace_start ace_open" tabindex="0" aria-expanded="true" title="Fold code" style="height: 14px; display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="false" style="height: 14px; top: 2198px;">158<span tabindex="-1" style="display: inline-block; height: 14px;" class="ace_fold-widget ace_start ace_open" role="button" aria-label="Toggle code folding, rows 158 through 161" aria-expanded="true" title="Fold code"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2212px;">159<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2226px;">160<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2240px;">161<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2254px;">162<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2268px;">163<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2282px;">164<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2296px;">165<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2310px;">166<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2324px;">167<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="false" style="height: 14px; top: 2338px;">168<span tabindex="-1" style="display: inline-block; height: 14px;" class="ace_fold-widget ace_start ace_open" role="button" aria-label="Toggle code folding, rows 168 through 170" aria-expanded="true" title="Fold code"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2352px;">169<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2366px;">170<span class="ace_fold-widget ace_start ace_open" tabindex="0" aria-expanded="true" title="Fold code" style="height: 14px; display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2380px;">171<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2394px;">172<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2408px;">173<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2422px;">174<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="false" style="height: 14px; top: 2436px;">175<span tabindex="-1" style="display: inline-block; height: 14px;" class="ace_fold-widget ace_start ace_open" role="button" aria-label="Toggle code folding, rows 175 through 193" aria-expanded="true" title="Fold code"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2450px;">176<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2464px;">177<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2478px;">178<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-active-line ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2492px;">179<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2506px;">180<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2520px;">181<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="false" style="height: 14px; top: 2534px;">182<span tabindex="-1" style="display: inline-block; height: 14px;" class="ace_fold-widget ace_start ace_open" role="button" aria-label="Toggle code folding, rows 182 through 193" aria-expanded="true" title="Fold code"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2548px;">183<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2562px;">184<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="false" style="height: 14px; top: 2576px;">185<span tabindex="-1" style="display: inline-block; height: 14px;" class="ace_fold-widget ace_start ace_open" role="button" aria-label="Toggle code folding, rows 185 through 192" aria-expanded="true" title="Fold code"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2590px;">186<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2604px;">187<span class="ace_fold-widget ace_start ace_open" tabindex="0" aria-expanded="true" title="Fold code" style="height: 14px; display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2618px;">188<span class="ace_fold-widget ace_start ace_open" tabindex="0" aria-expanded="true" title="Fold code" style="height: 14px; display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2632px;">189<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2646px;">190<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2660px;">191<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2674px;">192<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2688px;">193<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="false" style="height: 14px; top: 2702px;">194<span tabindex="-1" style="display: inline-block; height: 14px;" class="ace_fold-widget ace_start ace_open" role="button" aria-label="Toggle code folding, rows 194 through 197" aria-expanded="true" title="Fold code"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2716px;">195<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2730px;">196<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2744px;">197<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2758px;">198<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2772px;">199<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="false" style="height: 14px; top: 2786px;">200<span tabindex="-1" style="display: inline-block; height: 14px;" class="ace_fold-widget ace_start ace_open" role="button" aria-label="Toggle code folding, row 200" aria-expanded="true" title="Fold code"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2800px;">201<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2814px;">202<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2828px;">203<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2842px;">204<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="false" style="height: 14px; top: 2856px;">205<span tabindex="-1" style="display: inline-block; height: 14px;" class="ace_fold-widget ace_start ace_open" role="button" aria-label="Toggle code folding, rows 205 through 209" aria-expanded="true" title="Fold code"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2870px;">206<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2884px;">207<span class="ace_fold-widget ace_start ace_open" tabindex="0" aria-expanded="true" title="Fold code" style="height: 14px; display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2898px;">208<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2912px;">209<span class="ace_fold-widget ace_start ace_open" tabindex="0" aria-expanded="true" title="Fold code" style="height: 14px; display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2926px;">210<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2940px;">211<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 14px; top: 2954px;">212<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell  ace_error" aria-hidden="false" style="height: 14px; top: 2968px;">213<span tabindex="0" style="display: none;"></span><span tabindex="-1" style="display: block; height: 14px;" class="ace_gutter_annotation" aria-label="Error, read annotations row 213" role="button"><span class="ace_icon" style="height: 14px;"></span></span></div></div></div><div class="ace_scroller " style="line-height: 14px; left: 52.793px; right: 15px; bottom: 0px;"><div class="ace_content" style="top: -2px; left: 0px; width: 1852.21px; height: 838px;"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 532px; visibility: hidden;"></div></div><div class="ace_layer ace_marker-layer"><div class="ace_active-line" style="height: 14px; top: 322px; left: 0px; right: 0px;"></div></div><div class="ace_layer ace_text-layer" style="height: 1e+06px; margin: 0px 4px; top: -2170px; left: 0px;"><div class="ace_line_group" style="height: 14px; top: 2170px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    <span class="ace_keyword">if</span> <span class="ace_paren ace_lparen">(</span><span class="ace_keyword ace_operator">!</span><span class="ace_variable">$validation_result</span><span class="ace_paren ace_lparen">[</span><span class="ace_string">'success'</span><span class="ace_paren ace_rparen">])</span> <span class="ace_paren ace_lparen">{</span></div></div><div class="ace_line_group" style="height: 14px; top: 2184px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_support ace_function">http_response_code</span><span class="ace_paren ace_lparen">(</span><span class="ace_constant ace_numeric">400</span><span class="ace_paren ace_rparen">)</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2198px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_support ace_function">echo</span> <span class="ace_support ace_function">json_encode</span><span class="ace_paren ace_lparen">([</span></div></div><div class="ace_line_group" style="height: 14px; top: 2212px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_string">'success'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_constant ace_language">false</span><span class="ace_punctuation ace_operator">,</span> </div></div><div class="ace_line_group" style="height: 14px; top: 2226px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_string">'error'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_string">'Credenciais inválidas: '</span> . <span class="ace_paren ace_lparen">(</span><span class="ace_variable">$validation_result</span><span class="ace_paren ace_lparen">[</span><span class="ace_string">'error'</span><span class="ace_paren ace_rparen">]</span> ?? <span class="ace_string">'Erro desconhecido'</span><span class="ace_paren ace_rparen">)</span></div></div><div class="ace_line_group" style="height: 14px; top: 2240px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_paren ace_rparen">])</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2254px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_support ace_function">return</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2268px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    <span class="ace_paren ace_rparen">}</span></div></div><div class="ace_line_group" style="height: 14px; top: 2282px;"><div class="ace_line" style="height: 14px;">    <span class="ace_paren ace_rparen">}</span></div></div><div class="ace_line_group" style="height: 14px; top: 2296px;"><div class="ace_line" style="height: 14px;">    </div></div><div class="ace_line_group" style="height: 14px; top: 2310px;"><div class="ace_line" style="height: 14px;">    <span class="ace_comment">// Gerar novo webhook token se não existir</span></div></div><div class="ace_line_group" style="height: 14px; top: 2324px;"><div class="ace_line" style="height: 14px;">    <span class="ace_variable">$webhook_token</span> <span class="ace_keyword ace_operator">=</span> <span class="ace_variable">$integration_data</span><span class="ace_paren ace_lparen">[</span><span class="ace_string">'webhook_token'</span><span class="ace_paren ace_rparen">]</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2338px;"><div class="ace_line" style="height: 14px;">    <span class="ace_keyword">if</span> <span class="ace_paren ace_lparen">(</span><span class="ace_support ace_function">empty</span><span class="ace_paren ace_lparen">(</span><span class="ace_variable">$webhook_token</span><span class="ace_paren ace_rparen">))</span> <span class="ace_paren ace_lparen">{</span></div></div><div class="ace_line_group" style="height: 14px; top: 2352px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    <span class="ace_variable">$webhook_token</span> <span class="ace_keyword ace_operator">=</span> <span class="ace_support ace_function">bin2hex</span><span class="ace_paren ace_lparen">(</span><span class="ace_identifier">random_bytes</span><span class="ace_paren ace_lparen">(</span><span class="ace_constant ace_numeric">32</span><span class="ace_paren ace_rparen">))</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2366px;"><div class="ace_line" style="height: 14px;">    <span class="ace_paren ace_rparen">}</span></div></div><div class="ace_line_group" style="height: 14px; top: 2380px;"><div class="ace_line" style="height: 14px;">    </div></div><div class="ace_line_group" style="height: 14px; top: 2394px;"><div class="ace_line" style="height: 14px;">    <span class="ace_comment">// Atualizar credenciais</span></div></div><div class="ace_line_group" style="height: 14px; top: 2408px;"><div class="ace_line" style="height: 14px;">    <span class="ace_variable">$success</span> <span class="ace_keyword ace_operator">=</span> <span class="ace_variable">$integration</span><span class="ace_keyword ace_operator">-&gt;</span><span class="ace_identifier">updateCredentials</span><span class="ace_paren ace_lparen">(</span><span class="ace_variable">$integration_id</span><span class="ace_punctuation ace_operator">,</span> <span class="ace_variable">$name</span><span class="ace_punctuation ace_operator">,</span> <span class="ace_variable">$api_key</span><span class="ace_punctuation ace_operator">,</span> <span class="ace_variable">$api_secret</span><span class="ace_punctuation ace_operator">,</span> <span class="ace_variable">$webhook_token</span><span class="ace_paren ace_rparen">)</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2422px;"><div class="ace_line" style="height: 14px;">    </div></div><div class="ace_line_group" style="height: 14px; top: 2436px;"><div class="ace_line" style="height: 14px;">    <span class="ace_keyword">if</span> <span class="ace_paren ace_lparen">(</span><span class="ace_variable">$success</span><span class="ace_paren ace_rparen">)</span> <span class="ace_paren ace_lparen">{</span></div></div><div class="ace_line_group" style="height: 14px; top: 2450px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    <span class="ace_comment">// Buscar dados atualizados</span></div></div><div class="ace_line_group" style="height: 14px; top: 2464px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    <span class="ace_variable">$updated_integration</span> <span class="ace_keyword ace_operator">=</span> <span class="ace_variable">$integration</span><span class="ace_keyword ace_operator">-&gt;</span><span class="ace_identifier">findById</span><span class="ace_paren ace_lparen">(</span><span class="ace_variable">$integration_id</span><span class="ace_paren ace_rparen">)</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2478px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    </div></div><div class="ace_line_group" style="height: 14px; top: 2492px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    <span class="ace_comment">// Gerar nova webhook URL</span></div></div><div class="ace_line_group" style="height: 14px; top: 2506px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    <span class="ace_variable">$webhook_url</span> <span class="ace_keyword ace_operator">=</span> <span class="ace_identifier">BASE_URL</span> . <span class="ace_string">"/api/webhooks/"</span> . <span class="ace_variable">$platform</span> . <span class="ace_string">"/"</span> . <span class="ace_variable">$webhook_token</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2520px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    </div></div><div class="ace_line_group" style="height: 14px; top: 2534px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    <span class="ace_support ace_function">echo</span> <span class="ace_support ace_function">json_encode</span><span class="ace_paren ace_lparen">([</span></div></div><div class="ace_line_group" style="height: 14px; top: 2548px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_string">'success'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_constant ace_language">true</span><span class="ace_punctuation ace_operator">,</span></div></div><div class="ace_line_group" style="height: 14px; top: 2562px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_string">'message'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_string">'Integração configurada com sucesso'</span><span class="ace_punctuation ace_operator">,</span></div></div><div class="ace_line_group" style="height: 14px; top: 2576px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_string">'integration'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_paren ace_lparen">[</span></div></div><div class="ace_line_group" style="height: 14px; top: 2590px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_string">'id'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_variable">$updated_integration</span><span class="ace_paren ace_lparen">[</span><span class="ace_string">'id'</span><span class="ace_paren ace_rparen">]</span><span class="ace_punctuation ace_operator">,</span></div></div><div class="ace_line_group" style="height: 14px; top: 2604px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_string">'name'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_variable">$updated_integration</span><span class="ace_paren ace_lparen">[</span><span class="ace_string">'name'</span><span class="ace_paren ace_rparen">]</span><span class="ace_punctuation ace_operator">,</span></div></div><div class="ace_line_group" style="height: 14px; top: 2618px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_string">'platform'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_variable">$updated_integration</span><span class="ace_paren ace_lparen">[</span><span class="ace_string">'platform'</span><span class="ace_paren ace_rparen">]</span><span class="ace_punctuation ace_operator">,</span></div></div><div class="ace_line_group" style="height: 14px; top: 2632px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_string">'status'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_variable">$updated_integration</span><span class="ace_paren ace_lparen">[</span><span class="ace_string">'status'</span><span class="ace_paren ace_rparen">]</span><span class="ace_punctuation ace_operator">,</span></div></div><div class="ace_line_group" style="height: 14px; top: 2646px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_string">'webhook_url'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_variable">$webhook_url</span><span class="ace_punctuation ace_operator">,</span></div></div><div class="ace_line_group" style="height: 14px; top: 2660px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_string">'last_sync_at'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_variable">$updated_integration</span><span class="ace_paren ace_lparen">[</span><span class="ace_string">'last_sync_at'</span><span class="ace_paren ace_rparen">]</span></div></div><div class="ace_line_group" style="height: 14px; top: 2674px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_paren ace_rparen">]</span></div></div><div class="ace_line_group" style="height: 14px; top: 2688px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    <span class="ace_paren ace_rparen">])</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2702px;"><div class="ace_line" style="height: 14px;">    <span class="ace_paren ace_rparen">}</span> <span class="ace_keyword">else</span> <span class="ace_paren ace_lparen">{</span></div></div><div class="ace_line_group" style="height: 14px; top: 2716px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    <span class="ace_support ace_function">http_response_code</span><span class="ace_paren ace_lparen">(</span><span class="ace_constant ace_numeric">500</span><span class="ace_paren ace_rparen">)</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2730px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    <span class="ace_support ace_function">echo</span> <span class="ace_support ace_function">json_encode</span><span class="ace_paren ace_lparen">([</span><span class="ace_string">'success'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_constant ace_language">false</span><span class="ace_punctuation ace_operator">,</span> <span class="ace_string">'error'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_string">'Erro ao salvar configurações'</span><span class="ace_paren ace_rparen">])</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2744px;"><div class="ace_line" style="height: 14px;">    <span class="ace_paren ace_rparen">}</span></div></div><div class="ace_line_group" style="height: 14px; top: 2758px;"><div class="ace_line" style="height: 14px;"><span class="ace_paren ace_rparen">}</span></div></div><div class="ace_line_group" style="height: 14px; top: 2772px;"><div class="ace_line" style="height: 14px;"></div></div><div class="ace_line_group" style="height: 14px; top: 2786px;"><div class="ace_line" style="height: 14px;"><span class="ace_keyword">function</span> <span class="ace_identifier">handleDeleteIntegration</span><span class="ace_paren ace_lparen">(</span><span class="ace_variable">$integration</span><span class="ace_punctuation ace_operator">,</span> <span class="ace_variable">$user_id</span><span class="ace_paren ace_rparen">)</span> <span class="ace_paren ace_lparen">{</span></div></div><div class="ace_line_group" style="height: 14px; top: 2800px;"><div class="ace_line" style="height: 14px;">    <span class="ace_comment">// Para DELETE, ler do corpo da requisição OU da query string</span></div></div><div class="ace_line_group" style="height: 14px; top: 2814px;"><div class="ace_line" style="height: 14px;">    <span class="ace_variable">$input</span> <span class="ace_keyword ace_operator">=</span> <span class="ace_support ace_function">json_decode</span><span class="ace_paren ace_lparen">(</span><span class="ace_support ace_function">file_get_contents</span><span class="ace_paren ace_lparen">(</span><span class="ace_string">'php://input'</span><span class="ace_paren ace_rparen">)</span><span class="ace_punctuation ace_operator">,</span> <span class="ace_constant ace_language">true</span><span class="ace_paren ace_rparen">)</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2828px;"><div class="ace_line" style="height: 14px;">    <span class="ace_variable">$integration_id</span> <span class="ace_keyword ace_operator">=</span> <span class="ace_variable">$input</span><span class="ace_paren ace_lparen">[</span><span class="ace_string">'integration_id'</span><span class="ace_paren ace_rparen">]</span> ?? <span class="ace_variable ace_language">$_GET</span><span class="ace_paren ace_lparen">[</span><span class="ace_string">'integration_id'</span><span class="ace_paren ace_rparen">]</span> ?? <span class="ace_constant ace_language">null</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2842px;"><div class="ace_line" style="height: 14px;">    </div></div><div class="ace_line_group" style="height: 14px; top: 2856px;"><div class="ace_line" style="height: 14px;">    <span class="ace_keyword">if</span> <span class="ace_paren ace_lparen">(</span><span class="ace_keyword ace_operator">!</span><span class="ace_variable">$integration_id</span><span class="ace_paren ace_rparen">)</span> <span class="ace_paren ace_lparen">{</span></div></div><div class="ace_line_group" style="height: 14px; top: 2870px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    <span class="ace_support ace_function">http_response_code</span><span class="ace_paren ace_lparen">(</span><span class="ace_constant ace_numeric">400</span><span class="ace_paren ace_rparen">)</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2884px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    <span class="ace_support ace_function">echo</span> <span class="ace_support ace_function">json_encode</span><span class="ace_paren ace_lparen">([</span><span class="ace_string">'success'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_constant ace_language">false</span><span class="ace_punctuation ace_operator">,</span> <span class="ace_string">'error'</span> <span class="ace_keyword ace_operator">=&gt;</span> <span class="ace_string">'integration_id é obrigatório'</span><span class="ace_paren ace_rparen">])</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2898px;"><div class="ace_line" style="height: 14px;"><span class="ace_indent-guide">    </span>    <span class="ace_support ace_function">return</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2912px;"><div class="ace_line" style="height: 14px;">    <span class="ace_paren ace_rparen">}</span></div></div><div class="ace_line_group" style="height: 14px; top: 2926px;"><div class="ace_line" style="height: 14px;">    </div></div><div class="ace_line_group" style="height: 14px; top: 2940px;"><div class="ace_line" style="height: 14px;">    <span class="ace_comment">// Verificar se a integração pertence ao usuário</span></div></div><div class="ace_line_group" style="height: 14px; top: 2954px;"><div class="ace_line" style="height: 14px;">    <span class="ace_variable">$integration_data</span> <span class="ace_keyword ace_operator">=</span> <span class="ace_variable">$integration</span><span class="ace_keyword ace_operator">-&gt;</span><span class="ace_identifier">findById</span><span class="ace_paren ace_lparen">(</span><span class="ace_variable">$integration_id</span><span class="ace_paren ace_rparen">)</span><span class="ace_punctuation ace_operator">;</span></div></div><div class="ace_line_group" style="height: 14px; top: 2968px;"><div class="ace_line" style="height: 14px;">  </div></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_animate-blinking"><div class="ace_cursor" style="display: block; top: 322px; left: 222px; width: 7px; height: 14px; animation-duration: 1000ms;"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="width: 20px; height: 810px; bottom: 0px;"><div class="ace_scrollbar-inner" style="width: 20px; height: 2982px;">&nbsp;</div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px; left: 52.793px; right: 15px; width: 1852.21px;"><div class="ace_scrollbar-inner" style="height: 20px; width: 1852px;">&nbsp;</div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">הההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההה</div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div><div class="ace_tooltip" role="tooltip" style="display: none; pointer-events: auto;"></div></form></div></div><!----></main><!----><!----></div></div></div>
+
+    
+
+
+    
+    <script nomodule="">!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
+    <script nomodule="" crossorigin="" id="vite-legacy-polyfill" src="./integration_config.php - Arquivos - File Browser_files/polyfills-legacy-mGODC0nQ.js.download"></script>
+    <script nomodule="" crossorigin="" id="vite-legacy-entry" data-src="/ded5c87df5bf8736/static/assets/index-legacy-BjB3HfcY.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+  
+
+<div><div><div class="Vue-Toastification__container top-left"></div></div><div><div class="Vue-Toastification__container top-center"></div></div><div><div class="Vue-Toastification__container top-right"></div></div><div><div class="Vue-Toastification__container bottom-left"></div></div><div><div class="Vue-Toastification__container bottom-center"></div></div><div><div class="Vue-Toastification__container bottom-right"></div></div></div></body></html>
