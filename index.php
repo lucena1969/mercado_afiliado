@@ -103,6 +103,435 @@
 
     /* Section titles */
     .section-title { text-align:center; font-weight:800; letter-spacing:-.02em; margin: 8px 0 24px; font-size: clamp(1.4rem, 2.2vw, 1.8rem); color:#101828; }
+
+    /* How it works section */
+    .how-it-works {
+      padding: 72px 0;
+      background: linear-gradient(180deg, #fff 0%, #f9fafb 100%);
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-top: 48px;
+      position: relative;
+    }
+    .step {
+      text-align: center;
+      position: relative;
+    }
+    .step-number {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--mustard-600), var(--mustard-500));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(211,164,38,.3);
+    }
+    .step h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 12px;
+      color: var(--text);
+    }
+    .step p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .step-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 16px;
+      padding: 12px;
+      border-radius: 12px;
+      background: var(--mustard-100);
+      border: 1px solid #f1e4b3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: #8a6a03;
+    }
+    /* Arrow connector for desktop */
+    @media (min-width: 768px) {
+      .step:not(:last-child)::after {
+        content: '→';
+        position: absolute;
+        right: -30px;
+        top: 32px;
+        font-size: 2rem;
+        color: var(--mustard-400);
+        opacity: 0.4;
+      }
+    }
+    /* CTA section */
+    .cta-section {
+      text-align: center;
+      padding: 56px 0;
+      background: var(--bg);
+    }
+    .cta-section h2 {
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 800;
+      margin: 0 0 16px;
+      color: var(--text);
+    }
+    .cta-section p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin: 0 0 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-section .btn-primary {
+      font-size: 1.1rem;
+      padding: 16px 32px;
+    }
+    /* FAQ section */
+    .faq-section {
+      padding: 72px 0;
+      background: #fff;
+    }
+    .faq-container {
+      max-width: 800px;
+      margin: 48px auto 0;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--card-border);
+    }
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      padding: 24px 0;
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: color 0.2s ease;
+    }
+    .faq-question:hover {
+      color: var(--blue-600);
+    }
+    .faq-icon {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      margin-left: 16px;
+    }
+    .faq-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--mustard-600);
+      stroke-width: 2;
+    }
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      padding-bottom: 24px;
+    }
+    .faq-answer p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+    .faq-answer strong {
+      color: var(--text);
+    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      animation: fadeIn 0.2s ease;
+    }
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: #fff;
+      border-radius: 16px;
+      max-width: 800px;
+      max-height: 85vh;
+      width: 90%;
+      position: relative;
+      animation: slideUp 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-header {
+      padding: 24px 28px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .modal-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--muted);
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    .modal-close:hover {
+      background: var(--mustard-100);
+      color: var(--mustard-700);
+    }
+    .modal-body {
+      padding: 28px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .modal-body h3 {
+      color: var(--mustard-700);
+      font-size: 1.1rem;
+      margin: 24px 0 12px;
+    }
+    .modal-body h3:first-child {
+      margin-top: 0;
+    }
+    .modal-body p {
+      line-height: 1.7;
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+    .modal-body ul {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0 0 16px;
+      padding-left: 24px;
+    }
+    .modal-body strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .company-info {
+      background: var(--mustard-100);
+      border: 1px solid #f1e4b3;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    .company-info p {
+      margin: 0;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    /* Contact form in modal */
+    .contact-form {
+      display: grid;
+      gap: 16px;
+    }
+    .contact-form label {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--blue-600);
+    }
+    .contact-form button {
+      background: var(--blue-600);
+      color: #fff;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s ease;
+    }
+    .contact-form button:hover {
+      background: var(--blue-700);
+    }
+    .contact-info {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--card-border);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Screenshot preview section */
+    .preview-section {
+      padding: 72px 0;
+      background: var(--bg);
+    }
+    .preview-slider {
+      position: relative;
+      max-width: 1000px;
+      margin: 48px auto 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(17,24,39,.15);
+    }
+    .preview-slide {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    .preview-slide.active {
+      display: block;
+    }
+    .preview-slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+    }
+    .preview-dots {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .preview-dot {
+      width: 48px;
+      height: 8px;
+      border-radius: 4px;
+      background: var(--card-border);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      padding: 0;
+    }
+    .preview-dot.active {
+      background: var(--mustard-600);
+      width: 64px;
+    }
+    .preview-dot:hover {
+      background: var(--mustard-500);
+    }
+    .preview-caption {
+      text-align: center;
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .preview-caption strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1.05rem;
+    }
+    /* Arrow navigation */
+    .preview-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.9);
+      border: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .preview-arrow:hover {
+      background: #fff;
+      transform: translateY(-50%) scale(1.1);
+    }
+    .preview-arrow svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--mustard-700);
+      stroke-width: 3;
+    }
+    .preview-arrow.prev {
+      left: 20px;
+    }
+    .preview-arrow.next {
+      right: 20px;
+    }
+    @media (max-width: 768px) {
+      .preview-arrow {
+        width: 40px;
+        height: 40px;
+      }
+      .preview-arrow.prev {
+        left: 10px;
+      }
+      .preview-arrow.next {
+        right: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -181,17 +610,445 @@
     </div>
   </section>
 
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works">
+    <div class="container">
+      <h2 class="section-title">Como funciona? Simples em 3 passos</h2>
+      <div class="steps-grid">
+        <!-- Passo 1 -->
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h3>Crie sua conta grátis</h3>
+          <p>Cadastro em menos de 2 minutos. Não precisa cartão de crédito para começar a testar.</p>
+        </div>
+
+        <!-- Passo 2 -->
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+              <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+              <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <h3>Conecte suas plataformas</h3>
+          <p>Integre Hotmart, Monetizze e outras redes em poucos cliques. Configure o Pixel BR no seu domínio.</p>
+        </div>
+
+        <!-- Passo 3 -->
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+          </div>
+          <h3>Veja os resultados</h3>
+          <p>Acompanhe métricas em tempo real, otimize campanhas e reduza custo por lead com dados confiáveis.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREVIEW SECTION -->
+  <section class="preview-section">
+    <div class="container">
+      <h2 class="section-title">Veja o Mercado Afiliado em Ação</h2>
+      <p style="text-align: center; color: var(--muted); max-width: 700px; margin: 0 auto 0;">
+        Interface intuitiva e poderosa para gerenciar suas campanhas, integrações e métricas em tempo real
+      </p>
+
+      <div class="preview-slider">
+        <!-- Arrows -->
+        <button class="preview-arrow prev" onclick="changeSlide(-1)" aria-label="Anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button class="preview-arrow next" onclick="changeSlide(1)" aria-label="Próximo">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <!-- Slides -->
+        <div class="preview-slide active" data-caption="Dashboard Principal" data-description="Visão completa das suas métricas e performance">
+          <img src="<?= BASE_URL ?>/public/assets/images/dashboard-preview.png" alt="Dashboard Principal do Mercado Afiliado">
+        </div>
+        <div class="preview-slide" data-caption="Painel Unificado" data-description="Análise detalhada com gráficos e comparativos">
+          <img src="<?= BASE_URL ?>/public/assets/images/unified_panel-preview.png" alt="Painel Unificado do Mercado Afiliado">
+        </div>
+        <div class="preview-slide" data-caption="IntegraSync" data-description="Gerencie todas as suas integrações em um só lugar">
+          <img src="<?= BASE_URL ?>/public/assets/images/integrasync-preview.png" alt="IntegraSync - Integrações">
+        </div>
+      </div>
+
+      <!-- Dots Navigation -->
+      <div class="preview-dots">
+        <button class="preview-dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
+        <button class="preview-dot" onclick="goToSlide(1)" aria-label="Slide 2"></button>
+        <button class="preview-dot" onclick="goToSlide(2)" aria-label="Slide 3"></button>
+      </div>
+
+      <!-- Caption -->
+      <div class="preview-caption">
+        <strong id="preview-caption-title">Dashboard Principal</strong>
+        <span id="preview-caption-description">Visão completa das suas métricas e performance</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="section-title">Perguntas Frequentes</h2>
+      <div class="faq-container">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Como funciona o período de teste gratuito?</span>
+            <div class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p>Você tem <strong>14 dias gratuitos</strong> para testar todas as funcionalidades da plataforma, sem precisar informar cartão de crédito. Durante o teste, você pode conectar suas integrações, configurar o Pixel BR e explorar todos os recursos. Se gostar, basta escolher um plano. Se não, nada é cobrado.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Preciso ter conhecimento técnico para usar?</span>
+            <div class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p><strong>Não é necessário conhecimento técnico.</strong> Nossa plataforma foi criada para afiliados, não para programadores. As integrações são feitas com poucos cliques, e fornecemos guias passo a passo para cada configuração. Se precisar de ajuda, nosso suporte responde via WhatsApp.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Quais plataformas de afiliados são suportadas?</span>
+            <div class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p>Atualmente integramos com <strong>Hotmart, Monetizze, Eduzz, Braip</strong> e outras plataformas via webhook personalizado. O Pixel BR funciona com <strong>Meta Ads (Facebook/Instagram), Google Ads e TikTok Ads</strong> através de CAPI, Enhanced Conversions e Events API.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Os dados dos meus clientes estão seguros? É LGPD compliant?</span>
+            <div class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p><strong>Sim, somos 100% LGPD compliant.</strong> Todos os dados são criptografados, armazenados em servidores brasileiros e processados conforme a Lei Geral de Proteção de Dados. O Pixel BR coleta dados no seu próprio domínio, reduzindo riscos de bloqueio e garantindo conformidade com as políticas de privacidade.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Como funciona o cancelamento?</span>
+            <div class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p>O cancelamento é <strong>simples e feito com 1 clique</strong> direto no painel. Não há multa, fidelidade ou burocracia. Você pode cancelar a qualquer momento e manter acesso até o fim do período pago. Seus dados ficam disponíveis por 30 dias após o cancelamento para eventual exportação.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 6 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Qual é o investimento mensal?</span>
+            <div class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p>Os planos começam em <strong>R$ 79/mês</strong> e variam conforme o volume de eventos processados e número de integrações. Durante o teste gratuito, você pode avaliar qual plano atende melhor suas necessidades. Também oferecemos desconto para pagamento anual.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Pronto para escalar seus resultados?</h2>
+      <p>Junte-se aos afiliados que já estão otimizando suas campanhas com dados precisos</p>
+      <a class="btn btn-primary" href="/register" onclick="window.location.href='/register'; return false;">
+        Comece grátis agora →
+      </a>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer>
     <div class="container foot">
       <small>© 2025 Mercado Afiliado</small>
       <nav class="links" aria-label="Links de rodapé">
-        <a href="privacidade.html">Privacidade</a>
-        <a href="termos.html">Termos</a>
-        <a href="contato.html">Contato</a>
+        <a href="#" onclick="openModal('privacidadeModal'); return false;">Privacidade</a>
+        <a href="#" onclick="openModal('termosModal'); return false;">Termos</a>
+        <a href="#" onclick="openModal('contatoModal'); return false;">Contato</a>
       </nav>
     </div>
   </footer>
+
+  <!-- Modal Privacidade -->
+  <div id="privacidadeModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Política de Privacidade</h2>
+        <button class="modal-close" onclick="closeModal('privacidadeModal')">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="company-info">
+          <p><strong>Mercado Afiliado Serviços Online Ltda</strong><br>
+          QE 40, lote 8, sala 402, Brasília/DF<br>
+          Telefone: (61) 99916-3260 — E-mail: contato@mercadoafiliado.com.br</p>
+        </div>
+
+        <h3>1. Coleta de Informações</h3>
+        <p>Coletamos dados fornecidos pelo usuário no cadastro, bem como informações de uso, integrações e métricas de campanhas.</p>
+
+        <h3>2. Uso das Informações</h3>
+        <p>Os dados são utilizados para geração de relatórios, personalização da experiência, operação das integrações e cumprimento de obrigações legais.</p>
+
+        <h3>3. Compartilhamento</h3>
+        <p>Não compartilhamos dados pessoais com terceiros, salvo em casos de obrigação legal ou serviços técnicos essenciais para funcionamento da plataforma.</p>
+
+        <h3>4. Segurança</h3>
+        <p>Adotamos medidas de segurança técnicas e administrativas para proteger os dados contra acessos não autorizados ou uso indevido.</p>
+
+        <h3>5. Direitos do Usuário</h3>
+        <p>Em conformidade com a <strong>LGPD</strong>, o usuário pode solicitar acesso, correção ou exclusão de dados, além de revogar consentimentos. Para isso, basta enviar solicitação para <strong>contato@mercadoafiliado.com.br</strong>.</p>
+
+        <h3>6. Alterações</h3>
+        <p>Esta Política poderá ser atualizada periodicamente. A versão mais recente estará sempre disponível em nosso site.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Termos -->
+  <div id="termosModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Termos de Uso</h2>
+        <button class="modal-close" onclick="closeModal('termosModal')">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="company-info">
+          <p><strong>Mercado Afiliado Serviços Online Ltda</strong><br>
+          QE 40, lote 8, sala 402, Brasília/DF<br>
+          Telefone: (61) 99916-3260 — E-mail: contato@mercadoafiliado.com.br</p>
+        </div>
+
+        <h3>1. Aceitação dos Termos</h3>
+        <p>Ao utilizar a plataforma Mercado Afiliado, o usuário concorda integralmente com os presentes Termos de Uso e com todas as normas aplicáveis.</p>
+
+        <h3>2. Descrição do Serviço</h3>
+        <p>O Mercado Afiliado oferece soluções digitais voltadas para afiliados e infoprodutores, incluindo integrações com plataformas de afiliação, geração de UTMs, monitoramento de campanhas e rastreamento via <strong>Pixel BR</strong>.</p>
+
+        <h3>3. Responsabilidades do Usuário</h3>
+        <ul>
+          <li>Fornecer dados corretos e atualizados;</li>
+          <li>Manter a confidencialidade de login e senha;</li>
+          <li>Usar o serviço em conformidade com a legislação vigente e a LGPD;</li>
+          <li>Não realizar práticas que comprometam a segurança ou integridade da plataforma.</li>
+        </ul>
+
+        <h3>4. Pagamentos e Cancelamento</h3>
+        <p>O serviço é disponibilizado mediante assinatura. O usuário poderá <strong>cancelar a qualquer momento</strong>, respeitando o ciclo de cobrança vigente. O não pagamento implicará suspensão de acesso.</p>
+
+        <h3>5. Limitação de Responsabilidade</h3>
+        <p>O Mercado Afiliado não se responsabiliza por dados incorretos fornecidos pelo usuário ou por falhas externas (APIs de terceiros, integrações).</p>
+
+        <h3>6. Alterações nos Termos</h3>
+        <p>Reservamo-nos o direito de modificar estes Termos. O uso continuado da plataforma implica aceitação das mudanças.</p>
+
+        <h3>7. Legislação e Foro</h3>
+        <p>Estes Termos são regidos pelas leis brasileiras. Qualquer litígio será resolvido no foro de <strong>Brasília/DF</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Contato -->
+  <div id="contatoModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Fale Conosco</h2>
+        <button class="modal-close" onclick="closeModal('contatoModal')">×</button>
+      </div>
+      <div class="modal-body">
+        <form class="contact-form" id="form-contato-modal" onsubmit="enviarContato(event)">
+          <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+          </div>
+          <div>
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div>
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
+          </div>
+          <button type="submit">Enviar Mensagem</button>
+        </form>
+
+        <div class="contact-info">
+          <p><strong>Mercado Afiliado Serviços Online Ltda</strong><br>
+          QE 40, lote 8, sala 402, Brasília/DF<br>
+          Telefone: <strong>(61) 99916-3260</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Modal functions
+    function openModal(modalId) {
+      document.getElementById(modalId).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal on background click
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeModal(this.id);
+        }
+      });
+    });
+
+    // Close modal on ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal.active').forEach(modal => {
+          closeModal(modal.id);
+        });
+      }
+    });
+
+    // Contact form submission
+    function enviarContato(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const nome = form.nome.value;
+      const email = form.email.value;
+      const mensagem = form.mensagem.value;
+
+      // Aqui você pode adicionar o código para enviar via AJAX/fetch se desejar
+      // Por enquanto, apenas mostra o alert e redireciona
+
+      alert('✅ Mensagem enviada com sucesso!\n\nObrigado pelo contato, ' + nome + '.\nRetornaremos em breve.');
+
+      // Limpa o formulário
+      form.reset();
+
+      // Fecha o modal
+      closeModal('contatoModal');
+
+      // Opcional: redireciona para home (pode remover se não quiser redirecionar)
+      // window.location.href = '/';
+    }
+
+    // Preview slider
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.preview-slide');
+    const dots = document.querySelectorAll('.preview-dot');
+
+    function showSlide(index) {
+      // Remove active class from all
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+
+      // Add active class to current
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+
+      // Update caption
+      const caption = slides[index].dataset.caption;
+      const description = slides[index].dataset.description;
+      document.getElementById('preview-caption-title').textContent = caption;
+      document.getElementById('preview-caption-description').textContent = description;
+    }
+
+    function changeSlide(direction) {
+      currentSlide += direction;
+      if (currentSlide < 0) currentSlide = slides.length - 1;
+      if (currentSlide >= slides.length) currentSlide = 0;
+      showSlide(currentSlide);
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      showSlide(currentSlide);
+    }
+
+    // Auto-play slider (optional - uncomment to enable)
+    // setInterval(() => changeSlide(1), 5000);
+
+    // FAQ toggle function
+
+    function toggleFaq(button) {
+      const faqItem = button.parentElement;
+      const allItems = document.querySelectorAll('.faq-item');
+
+      // Se o item clicado já está ativo, fecha ele
+      if (faqItem.classList.contains('active')) {
+        faqItem.classList.remove('active');
+      } else {
+        // Fecha todos os outros
+        allItems.forEach(item => item.classList.remove('active'));
+        // Abre o clicado
+        faqItem.classList.add('active');
+      }
+    }
+  </script>
 
 </body>
 </html>

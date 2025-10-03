@@ -61,7 +61,7 @@ $current_plan = getCurrentPlan($db, $user_data['id']);
                 <li><a href="<?= BASE_URL ?>/link-maestro" class="active">🎯 Link Maestro</a></li>
                 <li><a href="<?= BASE_URL ?>/pixel">🎯 Pixel BR</a></li>
                 <li><a href="#" onclick="showComingSoon('Alerta Queda')">🚨 Alerta Queda</a></li>
-                <li><a href="#" onclick="showComingSoon('CAPI Bridge')">🌉 CAPI Bridge</a></li>
+                <li><a href="#" onclick="showComingSoon('CAPI Bridge')"><i data-lucide="bridge" style="width: 16px; height: 16px; margin-right: 6px;"></i>CAPI Bridge</a></li>
                 <li><a href="#" onclick="showComingSoon('Cohort Reembolso')">💰 Cohort Reembolso</a></li>
                 <li><a href="#" onclick="showComingSoon('Offer Radar')">🎯 Offer Radar</a></li>
                 <li><a href="#" onclick="showComingSoon('UTM Templates')">🏷️ UTM Templates</a></li>

@@ -20,7 +20,9 @@
       "Bash(php:*)",
       "Bash(find:*)",
       "Bash(git add:*)",
-      "Bash(git commit -m \"$(cat <<''EOF''\nAtualização geral: botão login, componentes, layout e integrações\n\n- Alterado botão \"Ver demo\" para \"Login\" na home page\n- Adicionado componente header unificado\n- Implementados ícones Lucide nos menus\n- Criados arquivos CSS e JS para dashboard unificado\n- Adicionado simulador de pixel e rotas\n- Melhorias no layout das telas de dashboard, integrações e pixel\n- Correções de formatação e espaçamento em WebhookEvent.php\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+      "Bash(git commit -m \"$(cat <<''EOF''\nAtualização geral: botão login, componentes, layout e integrações\n\n- Alterado botão \"Ver demo\" para \"Login\" na home page\n- Adicionado componente header unificado\n- Implementados ícones Lucide nos menus\n- Criados arquivos CSS e JS para dashboard unificado\n- Adicionado simulador de pixel e rotas\n- Melhorias no layout das telas de dashboard, integrações e pixel\n- Correções de formatação e espaçamento em WebhookEvent.php\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": [],
