@@ -33,51 +33,40 @@ if ($is_trial && $user_subscription['trial_ends_at']) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - <?= APP_NAME ?></title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/dashboard-unified.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/dashboard-unified.js"></script>
 </head>
-<body style="background: #f9fafb;">
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="<?= BASE_URL ?>/dashboard" class="nav-brand">
-                    <div style="width: 32px; height: 32px; background: var(--color-primary); border-radius: 6px;"></div>
-                    Mercado Afiliado
-                </a>
-                <ul class="nav-links">
-                    <li>
-                        <span style="color: var(--color-gray);">
-                            Olá, <?= htmlspecialchars(explode(' ', $user_data['name'])[0]) ?>
-                        </span>
-                    </li>
-                    <li><a href="<?= BASE_URL ?>/logout">Sair</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<body>
+    <!-- Header principal com logo -->
+    <?php include __DIR__ . '/../../app/components/header.php'; ?>
 
-    <div class="container" style="display: grid; grid-template-columns: 250px 1fr; gap: 2rem; margin-top: 2rem;">
+    <div class="dashboard-wrapper">
         <!-- Sidebar -->
         <aside class="sidebar">
             <ul class="sidebar-menu">
-                <li><a href="<?= BASE_URL ?>/dashboard" class="active">📊 Dashboard</a></li>
-                <li><a href="<?= BASE_URL ?>/unified-panel">📈 Painel Unificado</a></li>
-                <li><a href="<?= BASE_URL ?>/integrations">🔗 IntegraSync</a></li>
-                <li><a href="<?= BASE_URL ?>/link-maestro">🎯 Link Maestro</a></li>
-                <li><a href="<?= BASE_URL ?>/pixel">🎯 Pixel BR</a></li>
-                <li><a href="#" onclick="showComingSoon('Alerta Queda')">🚨 Alerta Queda</a></li>
-                <li><a href="#" onclick="showComingSoon('CAPI Bridge')">🌉 CAPI Bridge</a></li>
-                <li><a href="#" onclick="showComingSoon('Cohort Reembolso')">💰 Cohort Reembolso</a></li>
-                <li><a href="#" onclick="showComingSoon('Offer Radar')">🎯 Offer Radar</a></li>
-                <li><a href="#" onclick="showComingSoon('UTM Templates')">🏷️ UTM Templates</a></li>
-                <li><a href="#" onclick="showComingSoon('Equipe')">👥 Equipe & Permissões</a></li>
-                <li><a href="#" onclick="showComingSoon('Exportar')">📋 Exporta+</a></li>
-                <li><a href="#" onclick="showComingSoon('Trilhas')">🎓 Trilhas Rápidas</a></li>
-                <li><a href="#" onclick="showComingSoon('LGPD')">🛡️ Auditoria LGPD</a></li>
+                <li><a href="<?= BASE_URL ?>/dashboard" class="active"><i data-lucide="bar-chart-3" style="width: 16px; height: 16px; margin-right: 6px;"></i>Dashboard</a></li>
+                <li><a href="<?= BASE_URL ?>/unified-panel"><i data-lucide="trending-up" style="width: 16px; height: 16px; margin-right: 6px;"></i>Painel Unificado</a></li>
+                <li><a href="<?= BASE_URL ?>/integrations"><i data-lucide="link" style="width: 16px; height: 16px; margin-right: 6px;"></i>IntegraSync</a></li>
+                <li><a href="<?= BASE_URL ?>/link-maestro"><i data-lucide="target" style="width: 16px; height: 16px; margin-right: 6px;"></i>Link Maestro</a></li>
+                <li><a href="<?= BASE_URL ?>/pixel"><i data-lucide="eye" style="width: 16px; height: 16px; margin-right: 6px;"></i>Pixel BR</a></li>
+                <li><a href="#" onclick="showComingSoon('Alerta Queda')"><i data-lucide="alert-triangle" style="width: 16px; height: 16px; margin-right: 6px;"></i>Alerta Queda</a></li>
+                <li><a href="#" onclick="showComingSoon('CAPI Bridge')"><i data-lucide="bridge" style="width: 16px; height: 16px; margin-right: 6px;"></i>CAPI Bridge</a></li>
             </ul>
         </aside>
 
-        <!-- Conteúdo principal -->
-        <main>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="panel-header">
+                <div>
+                    <h1><i data-lucide="bar-chart-3" style="width: 20px; height: 20px; margin-right: 8px;"></i>Dashboard</h1>
+                    <p>Bem-vindo, <?= htmlspecialchars(explode(' ', $user_data['name'])[0]) ?>! Visão geral das suas métricas</p>
+                </div>
+                <div>
+                    <a href="<?= BASE_URL ?>/logout" style="color: #64748b; text-decoration: none; font-size: 14px;">Sair</a>
+                </div>
+            </div>
             <!-- Mensagem de boas-vindas -->
             <?php if (isset($_SESSION['success_message'])): ?>
                 <div class="alert alert-success">
@@ -96,7 +85,7 @@ if ($is_trial && $user_subscription['trial_ends_at']) {
             <?php endif; ?>
 
             <!-- Cards de resumo -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            <div class="cards-grid">
                 <div class="card">
                     <div class="card-body" style="text-align: center;">
                         <div style="font-size: 2rem; font-weight: 800; color: var(--color-primary);"><?= $integration_stats['active'] ?></div>
@@ -272,10 +261,6 @@ if ($is_trial && $user_subscription['trial_ends_at']) {
         </main>
     </div>
 
-    <script>
-        function showComingSoon(feature) {
-            alert('🚧 ' + feature + ' estará disponível em breve!\n\nEstamos trabalhando duro para entregar essa funcionalidade o mais rápido possível.');
-        }
-    </script>
+    <!-- Os scripts já são carregados automaticamente pelo dashboard-unified.js -->
 </body>
 </html>

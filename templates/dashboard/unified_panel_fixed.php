@@ -64,6 +64,7 @@ try {
     <title>📈 Painel Unificado - <?= APP_NAME ?></title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
         /* Layout principal otimizado */
         .dashboard-wrapper {
@@ -322,13 +323,13 @@ try {
         <!-- Sidebar -->
         <aside class="sidebar">
             <ul class="sidebar-menu">
-                <li><a href="<?= BASE_URL ?>/dashboard">📊 Dashboard</a></li>
-                <li><a href="<?= BASE_URL ?>/unified-panel" class="active">📈 Painel Unificado</a></li>
-                <li><a href="<?= BASE_URL ?>/integrations">🔗 IntegraSync</a></li>
-                <li><a href="#" onclick="showComingSoon('Link Maestro')">🎯 Link Maestro</a></li>
-                <li><a href="<?= BASE_URL ?>/pixel">🎯 Pixel BR</a></li>
-                <li><a href="#" onclick="showComingSoon('Alerta Queda')">🚨 Alerta Queda</a></li>
-                <li><a href="#" onclick="showComingSoon('CAPI Bridge')">🌉 CAPI Bridge</a></li>
+                <li><a href="<?= BASE_URL ?>/dashboard"><i data-lucide="bar-chart-3" style="width: 16px; height: 16px; margin-right: 6px;"></i>Dashboard</a></li>
+                <li><a href="<?= BASE_URL ?>/unified-panel" class="active"><i data-lucide="trending-up" style="width: 16px; height: 16px; margin-right: 6px;"></i>Painel Unificado</a></li>
+                <li><a href="<?= BASE_URL ?>/integrations"><i data-lucide="link" style="width: 16px; height: 16px; margin-right: 6px;"></i>IntegraSync</a></li>
+                <li><a href="<?= BASE_URL ?>/link-maestro"><i data-lucide="target" style="width: 16px; height: 16px; margin-right: 6px;"></i>Link Maestro</a></li>
+                <li><a href="<?= BASE_URL ?>/pixel"><i data-lucide="eye" style="width: 16px; height: 16px; margin-right: 6px;"></i>Pixel BR</a></li>
+                <li><a href="#" onclick="showComingSoon('Alerta Queda')"><i data-lucide="alert-triangle" style="width: 16px; height: 16px; margin-right: 6px;"></i>Alerta Queda</a></li>
+                <li><a href="#" onclick="showComingSoon('CAPI Bridge')"><i data-lucide="bridge" style="width: 16px; height: 16px; margin-right: 6px;"></i>CAPI Bridge</a></li>
                 <li><a href="<?= BASE_URL ?>/logout">Sair</a></li>
             </ul>
         </aside>
@@ -541,6 +542,9 @@ try {
         function showComingSoon(feature) {
             alert(`${feature} - Em breve! 🚀`);
         }
+
+        // Inicializar ícones Lucide
+        lucide.createIcons();
     </script>
 </body>
 </html>

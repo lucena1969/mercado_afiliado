@@ -58,6 +58,7 @@ $routes = [
     'pixel' => $root_path . '/templates/pixel/index.php',
     'pixel/events' => $root_path . '/templates/pixel/events.php',
     'pixel/event-details' => $root_path . '/templates/pixel/event-details.php',
+    'pixel/simulator' => $root_path . '/templates/pixel/simulator.php',
     'link-maestro' => $root_path . '/templates/link_maestro/index.php',
     'auth/google' => $root_path . '/api/auth/oauth.php',
     'auth/google/callback' => $root_path . '/api/auth/oauth.php',

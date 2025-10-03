@@ -120,7 +120,7 @@
 
       <div class="cta-row">
         <a class="btn btn-primary" href="/register" onclick="window.location.href='/register'; return false;">Comece agora</a>
-        <a class="btn btn-ghost" href="/login" onclick="window.location.href='/login'; return false;">Ver demo</a>
+        <a class="btn btn-ghost" href="/login" onclick="window.location.href='/login'; return false;">Login</a>
       </div>
 
       <div class="pill-row" aria-label="Provas de valor">

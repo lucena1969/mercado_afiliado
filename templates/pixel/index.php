@@ -44,16 +44,46 @@ if ($activeConfig) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pixel BR - <?= APP_NAME ?></title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/dashboard-unified.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/dashboard-unified.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header class="page-header">
-            <h1>🎯 Pixel BR</h1>
-            <p>Sistema de tracking compatível com LGPD</p>
-        </header>
+    <!-- Header principal com logo -->
+    <?php include __DIR__ . '/../../app/components/header.php'; ?>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="<?= BASE_URL ?>/dashboard"><i data-lucide="bar-chart-3" style="width: 16px; height: 16px; margin-right: 6px;"></i>Dashboard</a></li>
+                <li><a href="<?= BASE_URL ?>/unified-panel"><i data-lucide="trending-up" style="width: 16px; height: 16px; margin-right: 6px;"></i>Painel Unificado</a></li>
+                <li><a href="<?= BASE_URL ?>/integrations"><i data-lucide="link" style="width: 16px; height: 16px; margin-right: 6px;"></i>IntegraSync</a></li>
+                <li><a href="<?= BASE_URL ?>/link-maestro"><i data-lucide="target" style="width: 16px; height: 16px; margin-right: 6px;"></i>Link Maestro</a></li>
+                <li><a href="<?= BASE_URL ?>/pixel" class="active"><i data-lucide="eye" style="width: 16px; height: 16px; margin-right: 6px;"></i>Pixel BR</a></li>
+                <li><a href="#" onclick="showComingSoon('Alerta Queda')"><i data-lucide="alert-triangle" style="width: 16px; height: 16px; margin-right: 6px;"></i>Alerta Queda</a></li>
+                <li><a href="#" onclick="showComingSoon('CAPI Bridge')"><i data-lucide="bridge" style="width: 16px; height: 16px; margin-right: 6px;"></i>CAPI Bridge</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="panel-header">
+                <div>
+                    <h1><i data-lucide="eye" style="width: 20px; height: 20px; margin-right: 8px;"></i>Pixel BR</h1>
+                    <p>Sistema de tracking compatível com LGPD</p>
+                </div>
+                <div>
+                    <a href="<?= BASE_URL ?>/pixel/simulator" class="btn btn-primary">
+                        <i data-lucide="play-circle" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                        Simulador
+                    </a>
+                </div>
+            </div>
 
         <?php if ($activeConfig): ?>
-        <div class="stats-grid">
+        <div class="cards-grid">
             <div class="card">
                 <div class="card-body">
                     <h3><?= number_format($eventsSummary['total_events'] ?? 0) ?></h3>
@@ -87,6 +117,7 @@ if ($activeConfig) {
                 <button class="tab-button" onclick="showTab('snippet')">Código</button>
                 <button class="tab-button" onclick="showTab('bridges')">Bridges</button>
                 <button class="tab-button" onclick="showTab('events')">Eventos</button>
+                <button class="tab-button" onclick="window.location.href='<?= BASE_URL ?>/pixel/simulator'">🧪 Simulador</button>
             </div>
 
             <!-- Tab: Configuração -->
@@ -452,5 +483,7 @@ if ($activeConfig) {
             gap: 1rem;
         }
     </style>
+        </main>
+    </div>
 </body>
 </html>

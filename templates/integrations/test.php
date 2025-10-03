@@ -1,12 +1,12 @@
 <?php
 // Verificar autenticação
-require_once '../config/app.php';
-require_once '../app/controllers/AuthController.php';
+require_once dirname(__DIR__, 2) . '/config/app.php';
+require_once dirname(__DIR__, 2) . '/app/controllers/AuthController.php';
 
 $auth = new AuthController();
 $auth->requireAuth();
 
-require_once '../config/database.php';
+require_once dirname(__DIR__, 2) . '/config/database.php';
 $database = new Database();
 $db = $database->getConnection();
 
@@ -31,23 +31,24 @@ $recent_logs = $syncLog->getByUser($user_data['id'], 20);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste de Integrações - <?= APP_NAME ?></title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/dashboard-unified.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="<?= BASE_URL ?>/public/assets/js/dashboard-unified.js"></script>
 </head>
-<body style="background: #f9fafb;">
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="<?= BASE_URL ?>/dashboard" class="nav-brand">
-                    <div style="width: 32px; height: 32px; background: var(--color-primary); border-radius: 6px;"></div>
-                    Mercado Afiliado
-                </a>
-                <ul class="nav-links">
-                    <li><a href="<?= BASE_URL ?>/integrations">← Integrações</a></li>
-                    <li><a href="<?= BASE_URL ?>/logout">Sair</a></li>
-                </ul>
+<body style="background: #f8fafc;">
+    <!-- Header principal com logo -->
+    <?php include __DIR__ . '/../../app/components/header.php'; ?>
+
+    <!-- Breadcrumb -->
+    <div style="background: white; border-bottom: 1px solid #e2e8f0; padding: 0.75rem 0; margin-top: 60px;">
+        <div class="container" style="max-width: 1000px; margin: 0 auto; padding: 0 1rem;">
+            <nav style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: #64748b;">
+                <a href="<?= BASE_URL ?>/integrations" style="color: #3b82f6; text-decoration: none;">← Integrações</a>
+                <span>/</span>
+                <span>Teste & Logs</span>
             </nav>
         </div>
-    </header>
+    </div>
 
     <div class="container" style="max-width: 1000px; margin: 2rem auto; padding: 0 1rem;">
         <!-- Header da página -->
@@ -73,7 +74,7 @@ $recent_logs = $syncLog->getByUser($user_data['id'], 20);
                     <div style="display: grid; gap: 1rem;">
                         <?php foreach ($integrations as $int): ?>
                             <div style="border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1rem;">
-                                <div style="display: flex; justify-content: between; align-items: center;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
                                     <div style="flex: 1;">
                                         <h3 style="font-weight: 600; margin-bottom: 0.5rem;"><?= htmlspecialchars($int['name']) ?></h3>
                                         <p style="color: var(--color-gray); font-size: var(--font-size-sm); margin-bottom: 0.5rem;">
@@ -264,6 +265,13 @@ $recent_logs = $syncLog->getByUser($user_data['id'], 20);
         setInterval(() => {
             location.reload();
         }, 30000);
+
+        // Inicializar ícones Lucide
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
     </script>
 </body>
 </html>

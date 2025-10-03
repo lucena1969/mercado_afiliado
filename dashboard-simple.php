@@ -268,7 +268,7 @@ $first_name = explode(' ', $user_name)[0];
                     </div>
                     <h3 class="feature-title">Link Maestro</h3>
                     <p class="feature-description">Padronize UTMs, encurte links e rastreie cliques com consistência. Relatórios por campanha, anúncio e criativo.</p>
-                    <a href="#" class="btn">Acessar Links</a>
+                    <a href="<?= BASE_URL ?>/link-maestro" class="btn">Acessar Links</a>
                 </div>
 
                 <!-- Pixel BR -->
