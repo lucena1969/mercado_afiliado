@@ -9,10 +9,10 @@ class PlanValidationService {
     // Limites por plano
     const PLAN_LIMITS = [
         'starter' => [
-            'short_links' => 0,
-            'utm_templates' => 0,
-            'clicks_per_month' => 0,
-            'analytics_retention_days' => 0
+            'short_links' => 100, // TEMPORÁRIO: 100 links para testes (era 0)
+            'utm_templates' => 10, // TEMPORÁRIO: 10 templates para testes (era 0)
+            'clicks_per_month' => 10000, // TEMPORÁRIO: 10k cliques para testes (era 0)
+            'analytics_retention_days' => 30 // TEMPORÁRIO: 30 dias para testes (era 0)
         ],
         'pro' => [
             'short_links' => 1000,
