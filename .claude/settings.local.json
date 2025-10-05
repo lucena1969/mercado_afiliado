@@ -24,7 +24,9 @@
       "Bash(git push:*)",
       "Bash(git checkout:*)",
       "Bash(git remote set-url:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(tree:*)",
+      "WebFetch(domain:developers.eduzz.com)"
     ],
     "deny": [],
     "ask": [],

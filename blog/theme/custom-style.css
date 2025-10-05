@@ -1,0 +1,622 @@
+/**
+ * CSS Customizado - Blog Mercado Afiliado
+ *
+ * Como usar:
+ * 1. Copie todo este arquivo
+ * 2. WordPress Admin → Aparência → Personalizar
+ * 3. Additional CSS → Colar aqui
+ * 4. Publicar
+ */
+
+/* ========================================
+   VARIÁVEIS DE CORES DA PLATAFORMA
+   ======================================== */
+
+:root {
+    --primary: #e7b73b;
+    --primary-dark: #b38609;
+    --primary-light: #fff4d6;
+    --blue: #2563eb;
+    --blue-dark: #1d4ed8;
+    --green: #16a34a;
+    --text: #1f2937;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #fcfbf7;
+    --bg-gray: #f9fafb;
+    --shadow: 0 6px 16px rgba(17, 24, 39, 0.08);
+    --radius: 14px;
+}
+
+/* ========================================
+   HEADER - IGUAL À PLATAFORMA
+   ======================================== */
+
+.site-header {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.inside-header {
+    padding: 1rem 0;
+}
+
+/* Logo */
+.site-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.site-logo img {
+    max-height: 40px;
+    width: auto;
+}
+
+/* Menu Principal */
+.main-navigation {
+    font-weight: 500;
+}
+
+.main-navigation a {
+    color: var(--text);
+    transition: color 0.2s ease;
+    padding: 0.5rem 1rem;
+}
+
+.main-navigation a:hover {
+    color: var(--blue);
+}
+
+/* Botão "Teste Grátis" no Menu */
+.menu-item-teste-gratis a,
+.menu-item-teste-gratis > a {
+    background: var(--blue) !important;
+    color: #fff !important;
+    padding: 0.6rem 1.2rem !important;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.2s;
+    margin-left: 0.5rem;
+}
+
+.menu-item-teste-gratis a:hover {
+    background: var(--blue-dark) !important;
+}
+
+/* ========================================
+   LAYOUT GERAL
+   ======================================== */
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.site-content {
+    padding: 3rem 0;
+}
+
+/* Container */
+.grid-container {
+    max-width: 1200px;
+}
+
+/* ========================================
+   ARTIGOS - LISTA
+   ======================================== */
+
+.post {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(17, 24, 39, 0.12);
+}
+
+/* Título do Post */
+.entry-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0 0 1rem;
+    line-height: 1.2;
+}
+
+.entry-title a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.entry-title a:hover {
+    color: var(--blue);
+}
+
+/* Meta Info (data, autor) */
+.entry-meta {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.entry-meta a {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.entry-meta a:hover {
+    color: var(--blue);
+}
+
+/* Excerpt */
+.entry-summary {
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+/* Botão "Leia Mais" */
+.read-more-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--primary);
+    color: #fff;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+    margin-top: 1rem;
+}
+
+.read-more-button:hover {
+    background: var(--primary-dark);
+}
+
+/* ========================================
+   ARTIGO INDIVIDUAL
+   ======================================== */
+
+/* Imagem Destacada */
+.featured-image {
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.featured-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Conteúdo do Artigo */
+.entry-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text);
+}
+
+.entry-content h2,
+.entry-content h3,
+.entry-content h4 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.entry-content h2 {
+    font-size: 2rem;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 0.5rem;
+}
+
+.entry-content h3 {
+    font-size: 1.5rem;
+}
+
+.entry-content p {
+    margin-bottom: 1.5rem;
+}
+
+.entry-content a {
+    color: var(--blue);
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.entry-content a:hover {
+    color: var(--blue-dark);
+}
+
+/* Listas */
+.entry-content ul,
+.entry-content ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+}
+
+.entry-content li {
+    margin-bottom: 0.5rem;
+}
+
+/* Blockquotes */
+.entry-content blockquote {
+    background: var(--primary-light);
+    border-left: 4px solid var(--primary);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+    font-style: italic;
+}
+
+/* Code Blocks */
+.entry-content pre {
+    background: var(--text);
+    color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 2rem 0;
+}
+
+.entry-content code {
+    background: var(--bg-gray);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: 'Monaco', 'Courier New', monospace;
+}
+
+.entry-content pre code {
+    background: none;
+    padding: 0;
+}
+
+/* Tabelas */
+.entry-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.entry-content th,
+.entry-content td {
+    padding: 1rem;
+    border: 1px solid var(--border);
+    text-align: left;
+}
+
+.entry-content th {
+    background: var(--primary-light);
+    font-weight: 600;
+}
+
+/* Imagens no Conteúdo */
+.entry-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 2rem 0;
+    box-shadow: var(--shadow);
+}
+
+/* ========================================
+   CTA BOXES (DENTRO DO ARTIGO)
+   ======================================== */
+
+.cta-box {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #fff;
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    margin: 3rem 0;
+    text-align: center;
+}
+
+.cta-box h3 {
+    color: #fff !important;
+    margin: 0 0 1rem !important;
+    font-size: 1.5rem;
+    border: none !important;
+    padding: 0 !important;
+}
+
+.cta-box p {
+    margin: 0 0 1.5rem;
+    font-size: 1.1rem;
+    opacity: 0.95;
+}
+
+.cta-box .btn {
+    display: inline-block;
+    background: #fff;
+    color: var(--primary-dark);
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cta-box .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* CTA Info (Amarelo Claro) */
+.cta-info {
+    background: var(--primary-light);
+    border-left: 4px solid var(--primary);
+    color: var(--text);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+}
+
+.cta-info h4 {
+    color: var(--primary-dark);
+    margin: 0 0 0.5rem;
+}
+
+/* ========================================
+   SIDEBAR
+   ======================================== */
+
+.sidebar {
+    position: sticky;
+    top: 2rem;
+}
+
+.widget {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.widget-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+    color: var(--text);
+}
+
+/* Widget CTA */
+.widget-cta {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #fff;
+    padding: 2rem;
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+    border: none;
+}
+
+.widget-cta h3 {
+    color: #fff;
+    margin: 0 0 1rem;
+}
+
+.widget-cta p {
+    font-size: 0.95rem;
+    margin: 0 0 1.5rem;
+    opacity: 0.95;
+}
+
+.widget-cta .cta-button {
+    display: block;
+    background: #fff;
+    color: var(--primary-dark);
+    padding: 0.8rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.widget-cta .cta-button:hover {
+    transform: translateY(-2px);
+}
+
+/* Links da Sidebar */
+.widget ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.widget li {
+    border-bottom: 1px solid var(--border);
+    padding: 0.8rem 0;
+}
+
+.widget li:last-child {
+    border-bottom: none;
+}
+
+.widget a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+    display: block;
+}
+
+.widget a:hover {
+    color: var(--blue);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.site-footer {
+    background: #111827;
+    color: #e5e7eb;
+    padding: 2rem 0;
+    margin-top: 4rem;
+}
+
+.footer-widgets-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-widget h3 {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.footer-widget a {
+    color: #9ca3af;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-widget a:hover {
+    color: #fff;
+}
+
+.site-info {
+    border-top: 1px solid #374151;
+    padding-top: 2rem;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   BOTÕES GENÉRICOS
+   ======================================== */
+
+.btn-primary {
+    background: var(--blue);
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: var(--blue-dark);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--blue);
+    border: 2px solid var(--blue);
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background: var(--blue);
+    color: #fff;
+}
+
+/* ========================================
+   RESPONSIVO
+   ======================================== */
+
+@media (max-width: 768px) {
+
+    /* Header Mobile */
+    .main-navigation {
+        padding: 1rem 0;
+    }
+
+    /* Posts */
+    .post {
+        padding: 1.5rem;
+    }
+
+    .entry-title {
+        font-size: 1.5rem;
+    }
+
+    /* Artigo */
+    .entry-content {
+        font-size: 1rem;
+    }
+
+    .entry-content h2 {
+        font-size: 1.6rem;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        position: static;
+        margin-top: 3rem;
+    }
+
+    /* CTA Box */
+    .cta-box {
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* ========================================
+   UTILITÁRIOS
+   ======================================== */
+
+/* Texto centralizado */
+.text-center {
+    text-align: center;
+}
+
+/* Espaçamento */
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+/* ========================================
+   ANIMAÇÕES
+   ======================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.post,
+.widget {
+    animation: fadeIn 0.5s ease-out;
+}

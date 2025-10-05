@@ -1,0 +1,21 @@
+ClientID: dcb60b24-664d-431d-aa1e-d9196f21a0d0
+Secret: e0fb1f2f5523ce3f66e54e1165e2ed2ff2e2daa69be0739717aa02bbf52458aa
+
+
+App Info
+Client ID	dcb60b24-664d-431d-aa1e-d9196f21a0d0
+Nome	Mercado Afiliado Teste
+Status	Desenvolvimento
+Status da Moderação	
+Aprovado
+Descrição	Hub de integrações Eduzz
+Website	https://mercadoafiliado.com.br
+Escopos	webhook_write, webhook_read
+
+Revelar Access Token
+Copie seu Access Token ou oo Exemplo de requisição:
+
+Access Token
+edzpap_eoiNigYee6i0Ts3finqQXOrUbx1Re3Erk3y6Kl1AlLPH4YZRVmhWdHD5IiKt5xTC6GKOZWcb4t4c0a2HSCB
+Exemplo de requisição
+curl --request GET --url https://api.eduzz.com/accounts/v1/me --header 'accept: application/json' --header 'authorization: Bearer edzpap_eoiNigYee6i0Ts3finqQXOrUbx1Re3Erk3y6Kl1AlLPH4YZRVmhWdHD5IiKt5xTC6GKOZWcb4t4c0a2HSCB'
