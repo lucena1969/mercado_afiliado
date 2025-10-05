@@ -367,7 +367,9 @@ class WebhookController {
             case 'eduzz':
                 return new EduzzService($integration_data['api_key']);
             case 'braip':
-                return new BraipService($integration_data['api_key']);
+                // Extrair auth_key do config_json se disponível
+                $auth_key = $config['auth_key'] ?? $integration_data['api_secret'] ?? null;
+                return new BraipService($integration_data['api_key'], $auth_key);
             default:
                 throw new Exception('Plataforma não suportada: ' . $platform);
         }
@@ -411,6 +413,65 @@ class WebhookController {
                 'produto_id' => 'TEST_PRODUCT_2',
                 'produto_nome' => 'Curso de Teste',
                 'data_venda' => date('Y-m-d H:i:s')
+            ],
+            'eduzz' => [
+                'id' => 'TEST_' . uniqid(),
+                'event' => 'myeduzz.invoice_paid',
+                'sentDate' => date('c'),
+                'data' => [
+                    'id' => 'TEST_' . uniqid(),
+                    'status' => 'paid',
+                    'createdAt' => date('Y-m-d H:i:s'),
+                    'paidAt' => date('Y-m-d H:i:s'),
+                    'paymentMethod' => 'creditCard',
+                    'installments' => 1,
+                    'buyer' => [
+                        'name' => 'Carlos Teste',
+                        'email' => 'carlos@teste.com',
+                        'document' => '98765432100',
+                        'cellphone' => '11987654321'
+                    ],
+                    'paid' => [
+                        'value' => 197.00,
+                        'currency' => 'BRL'
+                    ],
+                    'items' => [
+                        [
+                            'productId' => 'TEST_PRODUCT_3',
+                            'name' => 'Curso Eduzz Teste'
+                        ]
+                    ],
+                    'utm' => [
+                        'source' => 'facebook',
+                        'campaign' => 'teste',
+                        'medium' => 'cpc'
+                    ]
+                ]
+            ],
+            'braip' => [
+                'trans_id' => 'TEST_' . uniqid(),
+                'trans_status' => 'approved',
+                'trans_value' => '297.00',
+                'trans_currency' => 'BRL',
+                'trans_payment_method' => 'credit_card',
+                'trans_installments' => '3',
+                'trans_date' => date('Y-m-d H:i:s'),
+                'client_name' => 'Ana Teste',
+                'client_email' => 'ana@teste.com',
+                'client_document' => '11122233344',
+                'client_cel' => '11999887766',
+                'prod_id' => 'TEST_PRODUCT_4',
+                'prod_name' => 'Produto Braip Teste',
+                'prod_value' => '297.00',
+                'commission_percentage' => '40',
+                'commission_value' => '118.80',
+                'aff_id' => 'TEST_AFF_1',
+                'aff_name' => 'Afiliado Teste',
+                'aff_email' => 'afiliado@teste.com',
+                'utm_source' => 'instagram',
+                'utm_campaign' => 'lancamento',
+                'utm_medium' => 'stories',
+                'basic_authentication' => 'test_auth_key_12345'
             ]
         ];
 
