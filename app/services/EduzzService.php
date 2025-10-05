@@ -1,148 +1,146 @@
 <?php
 /**
  * Service Eduzz - Cliente para API da Eduzz
+ * Baseado na documentação oficial: https://developers.eduzz.com
+ * API Base: https://api.eduzz.com
+ * Autenticação: Bearer Token (OAuth2)
  */
 
 class EduzzService {
-    private $api_key;
-    private $base_url = 'https://api.eduzz.com';
-    
-    public function __construct($api_key) {
-        $this->api_key = $api_key;
+    private $access_token;
+    private $api_base = 'https://api.eduzz.com';
+    private $accounts_api_base = 'https://accounts-api.eduzz.com';
+
+    public function __construct($access_token) {
+        $this->access_token = $access_token;
     }
 
-    // Buscar produtos do afiliado
-    public function getProducts() {
-        $url = $this->base_url . '/contents?' . http_build_query([
-            'api_key' => $this->api_key
-        ]);
-
-        $response = $this->makeRequest('GET', $url);
-        
-        return $response;
-    }
-
-    // Buscar vendas
-    public function getSales($start_date = null, $end_date = null, $page = 1) {
-        $params = [
-            'api_key' => $this->api_key,
-            'page' => $page
-        ];
-        
-        if ($start_date) {
-            $params['start_date'] = $start_date;
-        }
-        if ($end_date) {
-            $params['end_date'] = $end_date;
-        }
-
-        $url = $this->base_url . '/sales?' . http_build_query($params);
-
-        $response = $this->makeRequest('GET', $url);
-        
-        return $response;
-    }
-
-    // Buscar vendas por período
-    public function getSalesByPeriod($days = 30) {
-        $end_date = date('Y-m-d');
-        $start_date = date('Y-m-d', strtotime("-{$days} days"));
-        
-        return $this->getSales($start_date, $end_date);
-    }
-
-    // Validar credenciais
+    /**
+     * Validar credenciais (Bearer Token)
+     */
     public function validateCredentials() {
         try {
-            $response = $this->getProducts();
-            return isset($response['data']) || isset($response['contents']);
+            $response = $this->getUserData();
+            return isset($response['id']) && isset($response['email']);
         } catch (Exception $e) {
             return false;
         }
     }
 
-    // Processar webhook da Eduzz
+    /**
+     * Obter dados do usuário autenticado
+     * GET /accounts/v1/me
+     */
+    public function getUserData() {
+        $url = $this->api_base . '/accounts/v1/me';
+        return $this->makeRequest('GET', $url);
+    }
+
+    /**
+     * Processar webhook da Eduzz
+     * Formato: {id, event, data, sentDate}
+     * Evento principal: myeduzz.invoice_paid
+     */
     public function processWebhook($payload) {
-        if (!isset($payload['event_type']) && !isset($payload['status'])) {
+        if (!isset($payload['event']) || !isset($payload['data'])) {
             throw new Exception('Estrutura de webhook inválida');
         }
 
-        $event_type = $payload['event_type'] ?? $payload['status'];
-        
-        // Mapear evento para formato padrão
-        switch ($event_type) {
-            case 'sale_completed':
-            case 'payment_approved':
-            case 'approved':
-                return $this->mapSaleData($payload, 'approved');
-                
-            case 'sale_cancelled':
-            case 'payment_cancelled':
-            case 'cancelled':
-                return $this->mapSaleData($payload, 'cancelled');
-                
-            case 'sale_refunded':
-            case 'payment_refunded':
-            case 'refunded':
-                return $this->mapSaleData($payload, 'refunded');
-                
-            case 'chargeback':
-                return $this->mapSaleData($payload, 'chargeback');
-                
-            default:
-                throw new Exception('Tipo de evento não suportado: ' . $event_type);
+        $event = $payload['event'];
+        $data = $payload['data'];
+
+        // Processar apenas evento de venda paga
+        if ($event === 'myeduzz.invoice_paid') {
+            return $this->mapInvoicePaidData($data);
         }
+
+        throw new Exception('Tipo de evento não suportado: ' . $event);
     }
 
-    // Mapear dados da venda para formato padrão
-    private function mapSaleData($data, $status) {
-        // Eduzz pode ter estruturas diferentes dependendo da versão da API
-        $sale_data = $data['sale'] ?? $data;
-        $customer_data = $sale_data['customer'] ?? $sale_data;
-        $product_data = $sale_data['product'] ?? $sale_data;
-        
+    /**
+     * Mapear dados de invoice_paid para formato padrão
+     */
+    private function mapInvoicePaidData($data) {
+        $buyer = $data['buyer'] ?? [];
+        $affiliate = $data['affiliate'] ?? null;
+        $utm = $data['utm'] ?? [];
+        $items = $data['items'] ?? [];
+        $first_item = !empty($items) ? $items[0] : [];
+
         return [
-            'external_sale_id' => $sale_data['id'] ?? $sale_data['sale_id'] ?? $sale_data['transaction_id'],
-            'customer_name' => $customer_data['name'] ?? $customer_data['customer_name'],
-            'customer_email' => $customer_data['email'] ?? $customer_data['customer_email'],
-            'customer_document' => $customer_data['document'] ?? $customer_data['customer_document'],
-            'amount' => $sale_data['value'] ?? $sale_data['amount'] ?? $sale_data['price'] ?? 0,
-            'commission_amount' => $sale_data['commission_value'] ?? $sale_data['commission'] ?? 0,
-            'currency' => 'BRL',
-            'status' => $status,
-            'payment_method' => $sale_data['payment_method'] ?? null,
-            'conversion_date' => $sale_data['created_at'] ?? $sale_data['sale_date'],
-            'approval_date' => $status === 'approved' ? ($sale_data['approved_at'] ?? null) : null,
-            'refund_date' => $status === 'refunded' ? date('Y-m-d H:i:s') : null,
-            'external_product_id' => $product_data['id'] ?? $product_data['product_id'],
-            'product_name' => $product_data['name'] ?? $product_data['product_name'],
-            'utm_source' => $sale_data['utm_source'] ?? null,
-            'utm_medium' => $sale_data['utm_medium'] ?? null,
-            'utm_campaign' => $sale_data['utm_campaign'] ?? null,
-            'utm_content' => $sale_data['utm_content'] ?? null,
-            'utm_term' => $sale_data['utm_term'] ?? null,
+            'external_sale_id' => $data['id'] ?? null,
+            'customer_name' => $buyer['name'] ?? null,
+            'customer_email' => $buyer['email'] ?? null,
+            'customer_document' => $buyer['document'] ?? null,
+            'amount' => isset($data['paid']['value']) ? (float)$data['paid']['value'] : 0,
+            'commission_amount' => 0, // A Eduzz não envia comissão diretamente
+            'currency' => $data['paid']['currency'] ?? 'BRL',
+            'status' => $this->mapStatus($data['status'] ?? ''),
+            'payment_method' => $this->mapPaymentMethod($data['paymentMethod'] ?? ''),
+            'conversion_date' => $data['createdAt'] ?? date('Y-m-d H:i:s'),
+            'approval_date' => $data['paidAt'] ?? null,
+            'external_product_id' => $first_item['productId'] ?? null,
+            'product_name' => $first_item['name'] ?? null,
+            'utm_source' => $utm['source'] ?? null,
+            'utm_medium' => $utm['medium'] ?? null,
+            'utm_campaign' => $utm['campaign'] ?? null,
+            'utm_content' => $utm['content'] ?? null,
+            'utm_term' => null,
             'metadata_json' => json_encode($data)
         ];
     }
 
-    // Fazer requisição HTTP
+    /**
+     * Mapear status
+     */
+    private function mapStatus($status) {
+        $status_map = [
+            'paid' => 'approved',
+            'refunded' => 'refunded',
+            'cancelled' => 'cancelled',
+            'waiting_payment' => 'pending',
+            'chargeback' => 'chargeback'
+        ];
+
+        return $status_map[$status] ?? 'pending';
+    }
+
+    /**
+     * Mapear método de pagamento
+     */
+    private function mapPaymentMethod($payment_method) {
+        $method_map = [
+            'creditCard' => 'credit_card',
+            'pix' => 'pix',
+            'bankslip' => 'boleto',
+            'combinedPayment' => 'combined',
+            'installmentBankslip' => 'boleto_parcelado'
+        ];
+
+        return $method_map[$payment_method] ?? $payment_method;
+    }
+
+    /**
+     * Fazer requisição HTTP
+     */
     private function makeRequest($method, $url, $data = null, $headers = []) {
         $ch = curl_init();
-        
+
         $default_headers = [
-            'Content-Type: application/json',
             'Accept: application/json',
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $this->access_token,
             'User-Agent: MercadoAfiliado/1.0'
         ];
-        
+
         $headers = array_merge($default_headers, $headers);
-        
+
         curl_setopt_array($ch, [
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYPEER => true,
         ]);
 
         if ($method === 'POST') {
@@ -168,75 +166,62 @@ class EduzzService {
         return json_decode($response, true);
     }
 
-    // Buscar comissões
-    public function getCommissions($start_date = null, $end_date = null) {
-        $params = ['api_key' => $this->api_key];
-        
-        if ($start_date) {
-            $params['start_date'] = $start_date;
-        }
-        if ($end_date) {
-            $params['end_date'] = $end_date;
-        }
+    /**
+     * Obter token OAuth2 a partir de código de autorização
+     */
+    public static function getAccessToken($client_id, $client_secret, $code, $redirect_uri) {
+        $ch = curl_init();
 
-        $url = $this->base_url . '/commissions?' . http_build_query($params);
-
-        $response = $this->makeRequest('GET', $url);
-        
-        return $response;
-    }
-
-    // Mapear produtos da Eduzz para formato padrão
-    public function mapProductData($product_data) {
-        return [
-            'external_id' => $product_data['id'] ?? $product_data['content_id'],
-            'name' => $product_data['name'] ?? $product_data['title'],
-            'category' => $product_data['category'] ?? null,
-            'price' => $product_data['price'] ?? $product_data['value'] ?? 0,
-            'currency' => 'BRL',
-            'commission_percentage' => $product_data['commission_percentage'] ?? 0,
-            'status' => 'active',
-            'metadata_json' => json_encode($product_data)
+        $data = [
+            'client_id' => $client_id,
+            'client_secret' => $client_secret,
+            'code' => $code,
+            'redirect_uri' => $redirect_uri,
+            'grant_type' => 'authorization_code'
         ];
-    }
 
-    // Buscar detalhes de uma venda específica
-    public function getSaleDetails($sale_id) {
-        $url = $this->base_url . '/sales/' . $sale_id . '?' . http_build_query([
-            'api_key' => $this->api_key
+        curl_setopt_array($ch, [
+            CURLOPT_URL => 'https://accounts-api.eduzz.com/oauth/token',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => json_encode($data),
+            CURLOPT_HTTPHEADER => [
+                'Accept: application/json',
+                'Content-Type: application/json'
+            ],
+            CURLOPT_SSL_VERIFYPEER => true,
         ]);
 
-        $response = $this->makeRequest('GET', $url);
-        
-        return $response;
-    }
+        $response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $error = curl_error($ch);
+        curl_close($ch);
 
-    // Buscar estatísticas
-    public function getStats($start_date = null, $end_date = null) {
-        $params = ['api_key' => $this->api_key];
-        
-        if ($start_date) {
-            $params['start_date'] = $start_date;
-        }
-        if ($end_date) {
-            $params['end_date'] = $end_date;
+        if ($error) {
+            throw new Exception('Erro cURL: ' . $error);
         }
 
-        $url = $this->base_url . '/analytics?' . http_build_query($params);
+        if ($http_code !== 200) {
+            throw new Exception('Erro ao obter token: ' . $response);
+        }
 
-        $response = $this->makeRequest('GET', $url);
-        
-        return $response;
+        return json_decode($response, true);
     }
 
-    // Buscar categorias de produtos
-    public function getCategories() {
-        $url = $this->base_url . '/categories?' . http_build_query([
-            'api_key' => $this->api_key
-        ]);
+    /**
+     * Gerar URL de autorização OAuth2
+     */
+    public static function getAuthorizationUrl($client_id, $redirect_uri, $scopes = ['webhook_read', 'webhook_write']) {
+        $params = [
+            'client_id' => $client_id,
+            'responseType' => 'code',
+            'redirectTo' => $redirect_uri
+        ];
 
-        $response = $this->makeRequest('GET', $url);
-        
-        return $response;
+        if (!empty($scopes)) {
+            $params['scope'] = implode(' ', $scopes);
+        }
+
+        return 'https://accounts.eduzz.com/oauth/authorize?' . http_build_query($params);
     }
 }
