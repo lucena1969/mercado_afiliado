@@ -26,7 +26,12 @@
       "Bash(git remote set-url:*)",
       "Bash(git commit:*)",
       "Bash(tree:*)",
-      "WebFetch(domain:developers.eduzz.com)"
+      "WebFetch(domain:developers.eduzz.com)",
+      "WebSearch",
+      "WebFetch(domain:thiagoprogramador.com)",
+      "WebFetch(domain:docs.eadplataforma.com)",
+      "Bash(zip:*)",
+      "Bash(chmod:*)"
     ],
     "deny": [],
     "ask": [],
