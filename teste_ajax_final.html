@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste AJAX Final</title>
+    <style>
+        body { font-family: Arial; background: #f5f5f5; padding: 20px; }
+        .container { background: white; padding: 30px; border-radius: 8px; max-width: 1000px; margin: 0 auto; }
+        h1 { color: #2c3e50; }
+        button { background: #3498db; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 14px; margin: 5px; }
+        button:hover { background: #2980b9; }
+        .result { padding: 15px; margin: 15px 0; border-radius: 6px; font-family: monospace; font-size: 13px; white-space: pre-wrap; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        pre { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 6px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Teste AJAX Final - Dashboard Executivo</h1>
+
+        <div class="info result">
+            <strong>📋 Este teste vai:</strong><br>
+            1. Fazer requisição AJAX POST para process_relatorios.php<br>
+            2. Mostrar exatamente o que acontece<br>
+            3. Identificar se o problema é no .htaccess ou em outro lugar
+        </div>
+
+        <button onclick="testarAjax()">▶️ Testar Requisição AJAX</button>
+        <button onclick="testarFetch()">▶️ Testar com Fetch API</button>
+        <button onclick="testarXHR()">▶️ Testar com XMLHttpRequest</button>
+
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        async function testarFetch() {
+            const container = document.getElementById('resultado');
+            container.innerHTML = '<div class="result info">⏳ Testando com Fetch API...</div>';
+
+            console.clear();
+            console.log('🚀 Iniciando teste Fetch...');
+
+            try {
+                const bodyData = 'acao=dashboard_executivo_geral&ano=2025';
+                console.log('📤 Body:', bodyData);
+
+                const response = await fetch('process_relatorios.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: bodyData
+                });
+
+                console.log('📡 Status:', response.status);
+                console.log('📋 Headers:', [...response.headers.entries()]);
+
+                const responseText = await response.text();
+                console.log('📄 Resposta:', responseText);
+
+                let html = '<div class="result info">';
+                html += '<strong>Status HTTP:</strong> ' + response.status + '<br>';
+                html += '<strong>Content-Type:</strong> ' + response.headers.get('Content-Type') + '<br>';
+                html += '<strong>Tamanho:</strong> ' + responseText.length + ' bytes<br>';
+                html += '</div>';
+
+                try {
+                    const jsonData = JSON.parse(responseText);
+
+                    if (jsonData.success) {
+                        html += '<div class="result success">';
+                        html += '<strong>🎉 SUCESSO! Dashboard funcionando!</strong><br><br>';
+                        html += 'Dados retornados:<br>';
+                        html += '- dados_planejadas: ' + (jsonData.dados_planejadas ? jsonData.dados_planejadas.length : 0) + ' registros<br>';
+                        html += '- dados_executadas: ' + (jsonData.dados_executadas ? jsonData.dados_executadas.length : 0) + ' registros<br>';
+                        html += '- dados_taxa_execucao: ' + (jsonData.dados_taxa_execucao ? jsonData.dados_taxa_execucao.length : 0) + ' registros<br>';
+                        html += '<br><strong>JSON completo:</strong><br>';
+                        html += '<pre>' + JSON.stringify(jsonData, null, 2) + '</pre>';
+                        html += '</div>';
+
+                        html += '<div class="result success">';
+                        html += '<strong>✅ SOLUÇÃO:</strong><br>';
+                        html += 'O process_relatorios.php está funcionando!<br>';
+                        html += 'O problema provavelmente está no relatorios_gerenciais.php<br>';
+                        html += 'ou no cache do navegador.';
+                        html += '</div>';
+                    } else {
+                        html += '<div class="result error">';
+                        html += '<strong>❌ Erro:</strong><br>';
+                        html += jsonData.message || 'Erro desconhecido';
+                        html += '</div>';
+                    }
+                } catch (e) {
+                    html += '<div class="result error">';
+                    html += '<strong>❌ Resposta não é JSON válido:</strong><br>';
+                    html += 'Erro: ' + e.message + '<br><br>';
+                    html += '<strong>Primeiros 500 caracteres:</strong><br>';
+                    html += '<pre>' + escapeHtml(responseText.substring(0, 500)) + '</pre>';
+                    html += '</div>';
+                }
+
+                container.innerHTML = html;
+
+            } catch (error) {
+                console.error('❌ Erro:', error);
+                container.innerHTML = '<div class="result error">❌ Erro: ' + error.message + '</div>';
+            }
+        }
+
+        function testarXHR() {
+            const container = document.getElementById('resultado');
+            container.innerHTML = '<div class="result info">⏳ Testando com XMLHttpRequest...</div>';
+
+            console.clear();
+            console.log('🚀 Iniciando teste XHR...');
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'process_relatorios.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onload = function() {
+                console.log('📡 Status:', xhr.status);
+                console.log('📄 Resposta:', xhr.responseText);
+
+                let html = '<div class="result info">';
+                html += '<strong>Status HTTP:</strong> ' + xhr.status + '<br>';
+                html += '<strong>Tamanho:</strong> ' + xhr.responseText.length + ' bytes<br>';
+                html += '</div>';
+
+                try {
+                    const jsonData = JSON.parse(xhr.responseText);
+
+                    if (jsonData.success) {
+                        html += '<div class="result success">';
+                        html += '<strong>🎉 SUCESSO com XMLHttpRequest!</strong><br>';
+                        html += '<pre>' + JSON.stringify(jsonData, null, 2) + '</pre>';
+                        html += '</div>';
+                    } else {
+                        html += '<div class="result error">❌ Erro: ' + (jsonData.message || 'Desconhecido') + '</div>';
+                    }
+                } catch (e) {
+                    html += '<div class="result error">❌ Não é JSON válido<br><pre>' + escapeHtml(xhr.responseText.substring(0, 500)) + '</pre></div>';
+                }
+
+                container.innerHTML = html;
+            };
+
+            xhr.onerror = function() {
+                console.error('❌ Erro de rede');
+                container.innerHTML = '<div class="result error">❌ Erro de rede ao fazer requisição</div>';
+            };
+
+            xhr.send('acao=dashboard_executivo_geral&ano=2025');
+        }
+
+        function testarAjax() {
+            testarFetch();
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Auto-executar ao carregar
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ Página carregada');
+        });
+    </script>
+</body>
+</html>

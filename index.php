@@ -1,107 +1,592 @@
+<?php
+require_once 'config.php';
+require_once 'functions.php';
+
+if (session_status() === PHP_SESSION_NONE) { session_start(); } // se ainda não iniciou
+
+if (isset($_SESSION['usuario_id'])) {
+    header('Location: ' . rtrim(SITE_URL, '/') . '/selecao_modulos.php');
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mercado Afiliado — Performance inteligente</title>
-  <meta name="description" content="Landing do Mercado Afiliado: UTMs inteligentes, integrações e Pixel BR server-side." />
-  <meta name="keywords" content="afiliados, marketing digital, UTMs, pixel server-side, integrações Hotmart, Monetizze" />
-  <meta name="author" content="Mercado Afiliado" />
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema CGLIC</title>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 30px 35px;
+            border-radius: 24px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            width: 100%;
+            max-width: 450px;
+            max-height: 95vh;
+            overflow-y: auto;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 35px 70px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 
+                0 10px 25px rgba(30, 60, 114, 0.3),
+                0 0 0 4px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .logo-icon:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 15px 35px rgba(30, 60, 114, 0.4),
+                0 0 0 4px rgba(255, 255, 255, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .logo-title {
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-subtitle {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        .form-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-radius: 14px;
+            padding: 4px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .form-tab {
+            flex: 1;
+            padding: 10px 16px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            color: #64748b;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 14px;
+        }
+
+        .form-tab:hover {
+            color: #475569;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-tab.active {
+            background: white;
+            color: #1e3c72;
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.1),
+                0 1px 3px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            transform: translateY(-1px);
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 13px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #bdc3c7;
+            font-size: 16px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px 12px 45px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        .form-group input::placeholder {
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2a5298;
+            background: white;
+            box-shadow: 
+                0 0 0 3px rgba(42, 82, 152, 0.1),
+                0 4px 12px rgba(0, 0, 0, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .form-group input:focus + .input-wrapper i {
+            color: #2a5298;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 
+                0 8px 20px rgba(30, 60, 114, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 15px 35px rgba(30, 60, 114, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+            box-shadow: 
+                0 8px 20px rgba(30, 60, 114, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .loading {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .loading.show + .btn-text {
+            opacity: 0;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .alert-success {
+            background-color: #d1e7dd;
+            border-color: #198754;
+            color: #0f5132;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .forgot-password a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .logo-title {
+                font-size: 24px;
+            }
+            
+            .form-group input {
+                padding: 12px 12px 12px 45px;
+                font-size: 16px;
+            }
+            
+            .btn-primary {
+                padding: 12px;
+                font-size: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="login-container">
+        <div class="logo-section">
+            <div class="logo-icon">
+                <i data-lucide="building"></i>
+            </div>
+            <h1 class="logo-title">CGLIC</h1>
+            <p class="logo-subtitle">Sistema de Licitações</p>
+        </div>
 
-  <!-- HERO -->
-  <header class="hero">
-    <div class="container">
-      <div class="brand">
-        <div class="brand-mark" aria-hidden="true"></div>
-        <strong>Mercado Afiliado</strong>
-      </div>
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger">
+                <i data-lucide="alert-circle"></i>
+                <?php echo htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?>
+            </div>
+        <?php endif; ?>
 
-      <h1>Performance que aprende com seus dados</h1>
-      <p class="sub">
-        UTMs inteligentes, integrações automáticas e <strong>Pixel BR server-side</strong> para alimentar Meta/Google/TikTok com eventos confiáveis — menos custo por lead, mais escala.
-      </p>
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="alert alert-success">
+                <i data-lucide="check-circle"></i>
+                <?php echo htmlspecialchars($_SESSION['success']); unset($_SESSION['success']); ?>
+            </div>
+        <?php endif; ?>
 
-      <div class="cta-row">
-        <a class="btn btn-primary" href="/register" aria-label="Começar agora no Mercado Afiliado">Comece agora</a>
-        <a class="btn btn-ghost" href="/login" aria-label="Ver demonstração do Mercado Afiliado">Ver demo</a>
-      </div>
+        <div class="form-tabs">
+            <div class="form-tab active" onclick="showForm('login')">
+                <i data-lucide="log-in"></i> Login
+            </div>
+            <div class="form-tab" onclick="showForm('cadastro')">
+                <i data-lucide="user-plus"></i> Cadastro
+            </div>
+        </div>
 
-      <div class="pill-row" aria-label="Provas de valor">
-        <span class="pill">Sem cartão no teste</span>
-        <span class="pill">LGPD-ready</span>
-        <span class="pill">CAPI/EC/Events API</span>
-      </div>
+        <!-- Formulário de Login -->
+        <div id="form-login" class="form-section active">
+            <form action="process.php" method="POST" onsubmit="showLoading()">
+                <input type="hidden" name="acao" value="login">
+                <?php echo getCSRFInput(); ?>
+                
+                <div class="form-group">
+                    <label for="email-login">Email</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="mail"></i>
+                        <input type="email" id="email-login" name="email" required 
+                               placeholder="seu.email@exemplo.com" autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="senha-login">Senha</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="lock"></i>
+                        <input type="password" id="senha-login" name="senha" required 
+                               placeholder="Digite sua senha" autocomplete="current-password">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <div class="loading">
+                        <i data-lucide="loader-2" class="spin"></i>
+                    </div>
+                    <span class="btn-text">
+                        <i data-lucide="log-in"></i> Entrar
+                    </span>
+                </button>
+            </form>
+        </div>
+        
+        <!-- Formulário de Cadastro -->
+        <div id="form-cadastro" class="form-section">
+            <form action="process.php" method="POST" onsubmit="showLoading(); return validateCadastro()">
+                <input type="hidden" name="acao" value="cadastro">
+                <?php echo getCSRFInput(); ?>
+                
+                <div class="form-group">
+                    <label for="nome-cadastro">Nome Completo</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="user"></i>
+                        <input type="text" id="nome-cadastro" name="nome" required 
+                               placeholder="Seu nome completo" autocomplete="name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email-cadastro">Email</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="mail"></i>
+                        <input type="email" id="email-cadastro" name="email" required 
+                               placeholder="seu.email@exemplo.com" autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="senha-cadastro">Senha</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="lock"></i>
+                        <input type="password" id="senha-cadastro" name="senha" required 
+                               placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmar-senha">Confirmar Senha</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="lock"></i>
+                        <input type="password" id="confirmar-senha" name="confirmar_senha" required 
+                               placeholder="Digite a senha novamente" autocomplete="new-password">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <div class="loading">
+                        <i data-lucide="loader-2" class="spin"></i>
+                    </div>
+                    <span class="btn-text">
+                        <i data-lucide="user-plus"></i> Criar Conta
+                    </span>
+                </button>
+            </form>
+        </div>
+
+        <div class="forgot-password">
+            <a href="#" onclick="alert('Entre em contato com o administrador do sistema')">
+                Esqueceu sua senha?
+            </a>
+        </div>
     </div>
-  </header>
 
-  <!-- MAIN -->
-  <main>
-    <!-- FEATURES -->
-    <section class="features container">
-      <h2 class="section-title">Ferramentas que o afiliado sente no bolso</h2>
-      <div class="grid">
+    <script>
+        // Inicializar ícones Lucide
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
 
-        <!-- Link Maestro -->
-        <article class="card">
-          <div class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M10 13a5 5 0 0 1 0-7l1-1a5 5 0 0 1 7 7l-1 1"></path>
-              <path d="M14 11a5 5 0 0 1 0 7l-1 1a5 5 0 0 1-7-7l1-1"></path>
-            </svg>
-          </div>
-          <h3>Link Maestro</h3>
-          <p>Padronize UTMs, encurte links e rastreie cliques com consistência. Relatórios por campanha, anúncio e criativo.</p>
-        </article>
+        function showForm(formType) {
+            // Ocultar todas as seções
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remover classe ativa de todas as abas
+            document.querySelectorAll('.form-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostrar seção selecionada
+            document.getElementById('form-' + formType).classList.add('active');
+            
+            // Ativar aba selecionada
+            event.target.closest('.form-tab').classList.add('active');
+        }
 
-        <!-- Pixel BR -->
-        <article class="card">
-          <div class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 3l7 4v5c0 5-3.5 9-7 9s-7-4-7-9V7l7-4z"></path>
-              <path d="M9 12l2 2 4-4"></path>
-            </svg>
-          </div>
-          <h3>Pixel BR (server-side)</h3>
-          <p>Coleta no seu domínio e envia via CAPI/Enhanced Conversions/Events API. Menos bloqueio, mais conversões confiáveis.</p>
-        </article>
+        function showLoading() {
+            document.querySelectorAll('.loading').forEach(loader => {
+                loader.classList.add('show');
+            });
+            
+            document.querySelectorAll('.btn-primary').forEach(btn => {
+                btn.disabled = true;
+            });
+        }
 
-        <!-- IntegraSync -->
-        <article class="card">
-          <div class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 7v6a3 3 0 1 0 6 0V7"></path>
-              <path d="M12 3v4"></path>
-              <path d="M7 12H3"></path>
-              <path d="M21 12h-4"></path>
-              <path d="M18.5 18.5l-2 2"></path>
-              <path d="M5.5 18.5l2 2"></path>
-            </svg>
-          </div>
-          <h3>IntegraSync</h3>
-          <p>Hotmart, Monetizze e outras plataformas em um só painel, com alertas de queda e reconciliação simples.</p>
-        </article>
-      </div>
+        function validateCadastro() {
+            const senha = document.getElementById('senha-cadastro').value;
+            const confirmarSenha = document.getElementById('confirmar-senha').value;
+            
+            if (senha.length < 6) {
+                alert('A senha deve ter pelo menos 6 caracteres');
+                return false;
+            }
+            
+            if (senha !== confirmarSenha) {
+                alert('As senhas não coincidem');
+                return false;
+            }
+            
+            return true;
+        }
 
-      <div class="strip">
-        <strong>Planos a partir de R$ 79/mês</strong> — teste grátis, cancele com 1 clique. Suporte humano no WhatsApp.
-      </div>
-    </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="container foot">
-      <small>© 2025 Mercado Afiliado</small>
-      <nav class="links" aria-label="Links de rodapé">
-        <a href="privacidade.html">Privacidade</a>
-        <a href="termos.html">Termos</a>
-        <a href="contato.html">Contato</a>
-      </nav>
-    </div>
-  </footer>
-
+        // Adicionar animação ao loading
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            .spin {
+                animation: spin 1s linear infinite;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+    <script src="assets/notifications.js"></script>
+    <script>
+        // Compatibilidade com sistema de alertas do index.php
+        document.addEventListener('DOMContentLoaded', function() {
+            const alerts = document.querySelectorAll('.alert-success, .alert-error');
+            alerts.forEach(function(alert) {
+                alert.classList.add('auto-hide-message');
+                
+                const autoHideDelay = 5000;
+                const autoHideTimer = setTimeout(function() {
+                    hideAlert(alert);
+                }, autoHideDelay);
+                
+                alert.addEventListener('click', function() {
+                    clearTimeout(autoHideTimer);
+                    hideAlert(alert);
+                });
+                
+                alert.style.cursor = 'pointer';
+            });
+            
+            function hideAlert(alertElement) {
+                alertElement.style.transition = 'all 0.3s ease';
+                alertElement.style.opacity = '0';
+                alertElement.style.transform = 'translateY(-10px)';
+                setTimeout(function() {
+                    if (alertElement.parentNode) {
+                        alertElement.parentNode.removeChild(alertElement);
+                    }
+                }, 300);
+            }
+        });
+    </script>
 </body>
 </html>

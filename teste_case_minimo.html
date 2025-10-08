@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Case Mínimo</title>
+</head>
+<body>
+    <h1>Teste Case Mínimo</h1>
+    <button onclick="testarCaseMinimo()">Testar Case Mínimo</button>
+    <div id="resultado"></div>
+
+    <script>
+    function testarCaseMinimo() {
+        console.log('Testando case mínimo...');
+
+        const formData = new FormData();
+        formData.append('acao', 'relatorio_execucao_pca');
+        formData.append('ano', '2025');
+
+        fetch('teste_case_minimo.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log('Status:', response.status);
+            console.log('Headers:', response.headers);
+            return response.text();
+        })
+        .then(text => {
+            console.log('Texto bruto:', text);
+            document.getElementById('resultado').innerHTML =
+                '<h3>Resposta:</h3><pre>' + text + '</pre>';
+
+            try {
+                const json = JSON.parse(text);
+                console.log('JSON válido:', json);
+            } catch (e) {
+                console.error('Erro JSON:', e);
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Ajax Direto</title>
+</head>
+<body>
+    <h1>Teste Ajax Direto</h1>
+    <button onclick="testarEndpoint()">Testar Endpoint</button>
+    <div id="resultado"></div>
+
+    <script>
+    function testarEndpoint() {
+        console.log('Testando endpoint relatorio_execucao_pca...');
+
+        const formData = new FormData();
+        formData.append('acao', 'relatorio_execucao_pca');
+        formData.append('ano', '2025');
+        formData.append('data_inicio', '');
+        formData.append('data_fim', '');
+        formData.append('area_requisitante_filtro', '');
+        formData.append('categoria_filtro', '');
+        formData.append('status_execucao_filtro', '');
+        formData.append('status_contratacao_filtro', '');
+        formData.append('situacao_original_filtro', '');
+        formData.append('tem_licitacao_filtro', '');
+        formData.append('valor_minimo', '');
+        formData.append('valor_maximo', '');
+
+        console.log('Enviando ação: relatorio_execucao_pca');
+
+        fetch('process.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log('Status:', response.status);
+            console.log('Headers:', response.headers);
+            return response.text();
+        })
+        .then(text => {
+            console.log('Texto bruto:', text);
+            document.getElementById('resultado').innerHTML =
+                '<h3>Resposta:</h3><pre>' + text + '</pre>';
+
+            try {
+                const json = JSON.parse(text);
+                console.log('JSON válido:', json);
+            } catch (e) {
+                console.error('Erro JSON:', e);
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            document.getElementById('resultado').innerHTML =
+                '<h3>Erro:</h3><pre>' + error + '</pre>';
+        });
+    }
+    </script>
+</body>
+</html>
