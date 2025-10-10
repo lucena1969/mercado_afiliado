@@ -8,7 +8,12 @@
       "Bash(fi)",
       "Bash(git init:*)",
       "Bash(git remote add:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdiciona infraestrutura SEO completa e páginas institucionais\n\nImplementações principais:\n- Páginas públicas: /sobre e /faq com conteúdo otimizado para SEO\n- Schema.org markup (SoftwareApplication e FAQPage) para IAs\n- Sitemap.xml com 25+ URLs para indexação\n- Robots.txt configurado para permitir bots de IA (GPTBot, Claude-Web, CCBot, PerplexityBot)\n- Meta tags otimizadas (Open Graph, Twitter Cards)\n- Google Search Console: verificação via HTML meta tag\n- Componentes reutilizáveis: header.php, footer.php, meta-tags.php\n- Sistema de roteamento: .htaccess e router.php configurados\n- CSS responsivo e profissional para páginas públicas\n- Pixel BR: simulador de eventos corrigido com pixel_id e API endpoint\n- Link Maestro: sistema de rastreamento de links\n- IntegraSync: integrações com Hotmart, Eduzz, Facebook CAPI\n- Documentação: INSTRUCOES-SEO.md, guias de integração\n\nCorreções técnicas:\n- Fix router.php: adiciona parâmetro route aos redirects\n- Fix .htaccess: configuração correta para mod_rewrite\n- Fix sobre.php e faq.php: estilos do header inline\n- Fix simulador Pixel BR: evento de teste funcionando\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(git fetch:*)",
+      "Bash(git pull:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": [],
