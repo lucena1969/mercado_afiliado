@@ -1,0 +1,242 @@
+# Robots.txt para Mercado Afiliado
+# Gerado em: 09/01/2025
+# Otimizado para SEO tradicional + AI Search Engines
+
+# ============================================
+# REGRAS GERAIS - Todos os Bots
+# ============================================
+
+User-agent: *
+
+# PERMITIR - Páginas públicas
+Allow: /
+Allow: /login
+Allow: /register
+Allow: /sobre
+Allow: /recursos
+Allow: /precos
+Allow: /faq
+Allow: /contato
+Allow: /blog
+Allow: /docs
+Allow: /cases
+Allow: /politica-privacidade
+Allow: /termos-de-uso
+
+# PERMITIR - Assets públicos
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/img/
+Allow: /public/
+
+# BLOQUEAR - Áreas privadas (dashboard)
+Disallow: /dashboard
+Disallow: /panel
+Disallow: /unified-panel
+
+# BLOQUEAR - APIs e dados sensíveis
+Disallow: /api/
+
+# BLOQUEAR - Diretórios internos
+Disallow: /app/
+Disallow: /config/
+Disallow: /database/
+Disallow: /templates/
+Disallow: /vendor/
+
+# BLOQUEAR - Arquivos de sistema
+Disallow: /*.php
+Disallow: /*.sql
+Disallow: /*.env
+Disallow: /*.log
+
+# BLOQUEAR - Páginas de teste/desenvolvimento
+Disallow: /test
+Disallow: /dev
+Disallow: /temp
+Disallow: /tmp
+
+# ============================================
+# GOOGLE (Googlebot + Google Extended para IA)
+# ============================================
+
+User-agent: Googlebot
+Allow: /
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /app/
+Disallow: /config/
+
+# Google Extended - usado pelo Bard/Gemini
+User-agent: Google-Extended
+Allow: /
+Allow: /blog
+Allow: /docs
+Allow: /faq
+Allow: /sobre
+Disallow: /dashboard
+Disallow: /api/
+
+# ============================================
+# OPENAI (ChatGPT)
+# ============================================
+
+User-agent: GPTBot
+Allow: /
+Allow: /blog
+Allow: /docs
+Allow: /faq
+Allow: /sobre
+Allow: /recursos
+Disallow: /dashboard
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /blog
+Allow: /docs
+Allow: /faq
+Allow: /sobre
+Disallow: /dashboard
+Disallow: /api/
+
+# ============================================
+# ANTHROPIC (Claude)
+# ============================================
+
+User-agent: anthropic-ai
+Allow: /
+Allow: /blog
+Allow: /docs
+Allow: /faq
+Allow: /sobre
+Allow: /recursos
+Disallow: /dashboard
+Disallow: /api/
+
+User-agent: Claude-Web
+Allow: /
+Allow: /blog
+Allow: /docs
+Disallow: /dashboard
+
+# ============================================
+# COMMON CRAWL (usado por várias IAs)
+# ============================================
+
+User-agent: CCBot
+Allow: /
+Allow: /blog
+Allow: /docs
+Allow: /faq
+Disallow: /dashboard
+Disallow: /api/
+
+# ============================================
+# PERPLEXITY AI
+# ============================================
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /blog
+Allow: /docs
+Allow: /faq
+Allow: /sobre
+Disallow: /dashboard
+Disallow: /api/
+
+# ============================================
+# BING / MICROSOFT (Copilot)
+# ============================================
+
+User-agent: bingbot
+Allow: /
+Disallow: /dashboard
+Disallow: /api/
+
+User-agent: msnbot
+Allow: /
+Disallow: /dashboard
+
+# ============================================
+# OUTROS BOTS DE IA
+# ============================================
+
+# Cohere (Coral AI)
+User-agent: cohere-ai
+Allow: /
+Allow: /blog
+Allow: /docs
+Disallow: /dashboard
+
+# YouBot (You.com)
+User-agent: YouBot
+Allow: /
+Allow: /blog
+Allow: /docs
+Disallow: /dashboard
+
+# Diffbot
+User-agent: Diffbot
+Allow: /
+Allow: /blog
+Disallow: /dashboard
+
+# ============================================
+# BOTS DE REDES SOCIAIS
+# ============================================
+
+# Facebook
+User-agent: facebookexternalhit
+Allow: /
+
+# Twitter
+User-agent: Twitterbot
+Allow: /
+
+# LinkedIn
+User-agent: LinkedInBot
+Allow: /
+
+# WhatsApp
+User-agent: WhatsApp
+Allow: /
+
+# Telegram
+User-agent: TelegramBot
+Allow: /
+
+# ============================================
+# BLOQUEAR BOTS MALICIOSOS/SCRAPERS
+# ============================================
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+# ============================================
+# SITEMAP
+# ============================================
+
+Sitemap: https://mercadoafiliado.com.br/sitemap.xml
+
+# ============================================
+# INFORMAÇÕES DE CONTATO (opcional)
+# ============================================
+
+# Para reportar problemas de crawling:
+# Email: contato@mercadoafiliado.com.br

@@ -1,0 +1,46 @@
+# Credenciais e configurações sensíveis
+credenciais/
+.env
+*.env.local
+config/database.php
+
+# Logs
+logs/
+*.log
+
+# Cache e temp
+*.tmp
+*.cache
+
+# Vendor e dependências
+vendor/
+node_modules/
+
+# Backups
+bkp/
+*.sql
+*.zip
+*.bak
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Uploads e arquivos temporários
+uploads/
+temp/
+tmp/
+
+# Arquivos de debug e teste
+test-*.php
+debug-*.php
+info-servidor.php
+verificar-seo.php
+testar-robots.php

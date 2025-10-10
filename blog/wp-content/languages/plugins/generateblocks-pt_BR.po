@@ -1,0 +1,274 @@
+# Translation of Plugins - GenerateBlocks - Stable (latest release) in Portuguese (Brazil)
+# This file is distributed under the same license as the Plugins - GenerateBlocks - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2022-10-04 17:11:08+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: pt_BR\n"
+"Project-Id-Version: Plugins - GenerateBlocks - Stable (latest release)\n"
+
+#: includes/class-rest.php:183 includes/class-rest.php:222
+msgid "Settings saved."
+msgstr "Configurações salvas."
+
+#: dist/blocks.js:3 dist/blocks.js:33 dist/blocks/media/index.js:1
+#: src/blocks/image/components/inspector-controls/ImageSettingsControl.js:52
+#: src/blocks/media/components/BlockSettings.jsx:210
+#: src/extend/inspector-control/controls/background-panel/components/size.js:7
+msgid "Size"
+msgstr "Tamanho"
+
+#: dist/blocks.js:3 dist/blocks.js:4 dist/blocks/element/index.js:1
+#: dist/blocks/element/index.js:4 dist/blocks/loop-item/index.js:1
+#: dist/blocks/looper/index.js:1 dist/blocks/looper/index.js:4
+#: dist/blocks/media/index.js:1 dist/blocks/query-page-numbers/index.js:1
+#: dist/blocks/query/index.js:1 dist/blocks/shape/index.js:1
+#: dist/blocks/text/index.js:1 dist/styles-builder.js:32
+#: src/block-context/grid.js:11
+#: src/blocks/element/components/BlockSettings.jsx:92
+#: src/blocks/looper/components/BlockSettings.jsx:54
+#: src/extend/inspector-control/controls/layout/index.js:151
+msgid "Layout"
+msgstr "Layout"
+
+#: dist/blocks.js:3 dist/blocks.js:4 dist/blocks/element/index.js:1
+#: dist/blocks/element/index.js:4 dist/blocks/loop-item/index.js:1
+#: dist/blocks/looper/index.js:1 dist/blocks/media/index.js:1
+#: dist/blocks/query-page-numbers/index.js:1 dist/blocks/query/index.js:1
+#: dist/blocks/shape/index.js:1 dist/blocks/text/index.js:1
+#: src/blocks/container/components/LegacyLayoutControls.js:123
+#: src/blocks/container/components/LegacyLayoutControls.js:146
+#: src/blocks/container/components/LegacyLayoutControls.js:166
+#: src/blocks/grid/components/InspectorControls.js:68
+#: src/blocks/grid/components/InspectorControls.js:84
+#: src/blocks/grid/components/InspectorControls.js:106
+#: src/blocks/grid/components/InspectorControls.js:123
+#: src/blocks/grid/components/InspectorControls.js:145
+#: src/blocks/grid/components/InspectorControls.js:162
+#: src/components/alignment-matrix/components/matrix.js:10
+#: src/components/alignment-toolbar/AlignmentToolbar.jsx:52
+#: src/extend/inspector-control/controls/icon/options.js:6
+msgid "Center"
+msgstr "Centralizado"
+
+#: dist/blocks.js:3 dist/blocks/element/index.js:4 dist/blocks/text/index.js:1
+#: src/components/alignment-toolbar/AlignmentToolbar.jsx:86
+#: src/extend/inspector-control/controls/typography/index.js:90
+msgid "Text Alignment"
+msgstr "Alinhamento do texto"
+
+#: dist/blocks/text/index.js:1 src/blocks/text/components/BlockSettings.jsx:132
+msgid "Icon Color"
+msgstr "Cor do ícone"
+
+#: dist/blocks.js:3 dist/blocks.js:15 dist/blocks.js:33
+#: dist/blocks/element/index.js:1 dist/blocks/loop-item/index.js:1
+#: dist/blocks/looper/index.js:1 dist/blocks/media/index.js:1
+#: dist/blocks/query-page-numbers/index.js:1 dist/blocks/query/index.js:1
+#: dist/blocks/shape/index.js:1 dist/blocks/text/index.js:1
+#: src/block-context/headline.js:103 src/blocks/button/block.js:73
+#: src/blocks/headline/block.js:75
+#: src/blocks/text/components/BlockSettings.jsx:90 src/blocks/text/edit.js:114
+#: src/blocks/text/edit.js:121 src/blocks/text/edit.js:127
+#: src/blocks/text/edit.js:129 src/blocks/text/index.js:25
+#: src/extend/inspector-control/controls/icon/index.js:28
+msgid "Icon"
+msgstr "Ícone"
+
+#: includes/class-render-blocks.php:122 dist/blocks.js:15
+#: src/blocks/button/block.js:42 src/blocks/button/block.js:79
+msgid "Button"
+msgstr "Botão"
+
+#: includes/dynamic-tags/class-dynamic-tags.php:234 dist/blocks.js:3
+#: dist/blocks.js:4 dist/blocks.js:6 dist/blocks/element/index.js:4
+#: dist/blocks/text/index.js:1 dist/pattern-library.js:2
+#: dist/styles-builder.js:32 dist/styles-builder.js:35
+#: src/blocks/container/components/LegacyLayoutControls.js:121
+#: src/blocks/container/components/LegacyLayoutControls.js:144
+#: src/blocks/container/components/LegacyLayoutControls.js:164
+#: src/blocks/grid/components/InspectorControls.js:66
+#: src/blocks/grid/components/InspectorControls.js:82
+#: src/blocks/grid/components/InspectorControls.js:104
+#: src/blocks/grid/components/InspectorControls.js:121
+#: src/blocks/grid/components/InspectorControls.js:143
+#: src/blocks/grid/components/InspectorControls.js:160
+#: src/components/alignment-toolbar/BlockWidth.jsx:41
+#: src/extend/block-controls/controls/alignment-matrix-control.js:70
+#: src/extend/dynamic-content/inspector-controls/LinkTypeControl.js:90
+#: src/extend/inspector-control/controls/borders/components/style-dropdown.js:27
+#: src/extend/inspector-control/controls/layout/components/Display.js:12
+#: src/extend/inspector-control/controls/layout/components/ThemeWidth.js:25
+#: src/extend/inspector-control/controls/layout/index.js:172
+#: src/extend/inspector-control/controls/layout/options.js:79
+#: src/extend/inspector-control/controls/layout/options.js:91
+#: src/extend/inspector-control/controls/typography/options.js:7
+#: src/extend/inspector-control/controls/typography/options.js:21
+#: src/pattern-library/components/manage-libraries.js:118
+msgid "Default"
+msgstr "Padrão"
+
+#: dist/blocks.js:15 dist/blocks/element/index.js:1
+#: dist/blocks/loop-item/index.js:1 dist/blocks/media/index.js:1
+#: dist/blocks/text/index.js:1
+#: src/blocks/button/components/BlockControls.js:157
+#: src/components/link-control/index.js:85
+#: src/components/url-controls/URLControls.jsx:136
+msgid "Add rel=\"sponsored\""
+msgstr "Adicionar rel=\"sponsored\""
+
+#: dist/blocks.js:15 dist/blocks/element/index.js:1
+#: dist/blocks/loop-item/index.js:1 dist/blocks/media/index.js:1
+#: dist/blocks/text/index.js:1
+#: src/blocks/button/components/BlockControls.js:147
+#: src/components/link-control/index.js:77
+#: src/components/url-controls/URLControls.jsx:109
+msgid "Add rel=\"nofollow\""
+msgstr "Adicionar rel=\"nofollow\""
+
+#: dist/blocks.js:15 dist/blocks/element/index.js:1
+#: dist/blocks/loop-item/index.js:1 dist/blocks/media/index.js:1
+#: dist/blocks/text/index.js:1
+#: src/blocks/button/components/BlockControls.js:137
+#: src/components/link-control/index.js:69
+#: src/components/url-controls/URLControls.jsx:91
+msgid "Open link in a new tab"
+msgstr "Abrir link em uma nova aba"
+
+#: dist/blocks.js:3 dist/blocks/shape/index.js:1 dist/blocks/text/index.js:1
+#: dist/components.js:1 dist/components.js:4 dist/styles-builder.js:32
+#: src/blocks/shape/components/BlockSettings.jsx:99
+#: src/blocks/text/components/BlockSettings.jsx:124
+#: src/components/icon-picker/index.js:141
+msgid "Clear"
+msgstr "Limpar"
+
+#: dist/blocks.js:3 dist/blocks/element/index.js:1
+#: dist/blocks/element/index.js:4 dist/blocks/loop-item/index.js:1
+#: dist/blocks/looper/index.js:1 dist/blocks/media/index.js:1
+#: dist/blocks/query-page-numbers/index.js:1 dist/blocks/query/index.js:1
+#: dist/blocks/shape/index.js:1 dist/blocks/text/index.js:1
+#: src/block-context/button.js:114
+#: src/blocks/grid/components/InspectorControls.js:83
+#: src/blocks/grid/components/InspectorControls.js:122
+#: src/blocks/grid/components/InspectorControls.js:161
+#: src/components/alignment-toolbar/AlignmentToolbar.jsx:47
+#: src/components/dimensions/labels.js:6
+#: src/extend/inspector-control/controls/borders/index.js:34
+msgid "Left"
+msgstr "Esquerda"
+
+#: dist/blocks.js:3 dist/blocks.js:4 dist/blocks/element/index.js:1
+#: dist/blocks/loop-item/index.js:1 dist/blocks/looper/index.js:1
+#: dist/blocks/media/index.js:1 dist/blocks/query-page-numbers/index.js:1
+#: dist/blocks/query/index.js:1 dist/blocks/shape/index.js:1
+#: dist/blocks/text/index.js:1
+#: src/blocks/container/components/LegacyLayoutControls.js:124
+#: src/blocks/container/components/LegacyLayoutControls.js:147
+#: src/blocks/container/components/LegacyLayoutControls.js:167
+#: src/blocks/grid/components/InspectorControls.js:69
+#: src/blocks/grid/components/InspectorControls.js:107
+#: src/blocks/grid/components/InspectorControls.js:146
+#: src/blocks/shape/components/ShapeDividerControls.jsx:60
+#: src/components/dimensions/labels.js:8
+#: src/extend/inspector-control/controls/borders/index.js:33
+#: src/extend/inspector-control/controls/icon/options.js:7
+#: src/extend/inspector-control/controls/shapes-panel/index.js:234
+msgid "Bottom"
+msgstr "Inferior"
+
+#: dist/blocks.js:3 dist/blocks/element/index.js:1
+#: dist/blocks/element/index.js:4 dist/blocks/loop-item/index.js:1
+#: dist/blocks/looper/index.js:1 dist/blocks/media/index.js:1
+#: dist/blocks/query-page-numbers/index.js:1 dist/blocks/query/index.js:1
+#: dist/blocks/shape/index.js:1 dist/blocks/text/index.js:1
+#: src/block-context/button.js:115
+#: src/blocks/grid/components/InspectorControls.js:85
+#: src/blocks/grid/components/InspectorControls.js:124
+#: src/blocks/grid/components/InspectorControls.js:163
+#: src/components/alignment-toolbar/AlignmentToolbar.jsx:57
+#: src/components/dimensions/labels.js:7
+#: src/extend/inspector-control/controls/borders/index.js:32
+msgid "Right"
+msgstr "Direita"
+
+#: dist/blocks.js:3 dist/blocks.js:4 dist/blocks/element/index.js:1
+#: dist/blocks/loop-item/index.js:1 dist/blocks/looper/index.js:1
+#: dist/blocks/media/index.js:1 dist/blocks/query-page-numbers/index.js:1
+#: dist/blocks/query/index.js:1 dist/blocks/shape/index.js:1
+#: dist/blocks/text/index.js:1
+#: src/blocks/container/components/LegacyLayoutControls.js:122
+#: src/blocks/container/components/LegacyLayoutControls.js:145
+#: src/blocks/container/components/LegacyLayoutControls.js:165
+#: src/blocks/grid/components/InspectorControls.js:67
+#: src/blocks/grid/components/InspectorControls.js:105
+#: src/blocks/grid/components/InspectorControls.js:144
+#: src/blocks/shape/components/ShapeDividerControls.jsx:59
+#: src/components/dimensions/labels.js:5
+#: src/extend/inspector-control/controls/borders/index.js:31
+#: src/extend/inspector-control/controls/icon/options.js:5
+#: src/extend/inspector-control/controls/shapes-panel/index.js:233
+msgid "Top"
+msgstr "Superior"
+
+#: includes/class-settings.php:52 includes/class-settings.php:53
+#: includes/dashboard.php:183 dist/block-styles.js:1 dist/settings.js:1
+#: src/settings.js:99
+msgid "Settings"
+msgstr "Configurações "
+
+#. Author URI of the plugin
+#: plugin.php
+msgid "https://tomusborne.com"
+msgstr "https://tomusborne.com"
+
+#. Author of the plugin
+#: plugin.php
+msgid "Tom Usborne"
+msgstr "Tom Usborne"
+
+#. Description of the plugin
+#: plugin.php
+msgid "A small collection of lightweight WordPress blocks that can accomplish nearly anything."
+msgstr "Uma pequena coleção de blocos leves do WordPress que podem realizar quase qualquer coisa."
+
+#. Plugin URI of the plugin
+#: plugin.php
+msgid "https://generateblocks.com"
+msgstr "https://generateblocks.com"
+
+#. Plugin Name of the plugin
+#: plugin.php includes/dashboard.php:20 includes/dashboard.php:21
+#: includes/general.php:326 dist/dashboard.js:1 dist/editor-sidebar.js:1
+#: src/dashboard.js:11 src/editor-sidebar/index.js:56
+#: src/editor-sidebar/index.js:67
+msgid "GenerateBlocks"
+msgstr "GenerateBlocks"
+
+#: includes/class-render-blocks.php:106 dist/blocks.js:15
+#: src/blocks/button-container/block.js:33
+#: src/blocks/button-container/block.js:62
+msgid "Buttons"
+msgstr "Botões"
+
+#: includes/class-render-blocks.php:114 dist/blocks.js:6 dist/blocks.js:33
+#: src/blocks/headline/block.js:42 src/blocks/headline/block.js:81
+#: src/blocks/headline/components/HeadlineContentRenderer.js:82
+msgid "Headline"
+msgstr "Título"
+
+#: includes/class-render-blocks.php:80 dist/blocks.js:1 dist/blocks.js:4
+#: src/blocks/grid/block.js:33 src/blocks/grid/block.js:61
+#: src/blocks/grid/components/LayoutSelector.js:60
+msgid "Grid"
+msgstr "Grade"
+
+#: includes/class-render-blocks.php:60 dist/blocks.js:4 dist/blocks.js:15
+#: src/blocks/container/block.js:36 src/blocks/container/block.js:70
+#: src/blocks/container/components/LegacyLayoutControls.js:43
+msgid "Container"
+msgstr "Contêiner"

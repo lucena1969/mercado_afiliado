@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(if [ -f \"C:\\xampp\\htdocs\\mercado_afiliado\\templates\\public\\sobre.php\" ])",
+      "Bash(then echo \"✅ sobre.php EXISTE\")",
+      "Bash(else echo \"❌ sobre.php NÃO EXISTE\")",
+      "Bash(fi)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": [],
+    "additionalDirectories": [
+      "C:\\xampp\\htdocs\\mercado_afiliado_hostinger\\templates\\integrations",
+      "C:\\xampp\\htdocs",
+      "C:\\c\\xampp\\htdocs\\mercado_afiliado\\templates\\auth"
+    ]
+  }
+}

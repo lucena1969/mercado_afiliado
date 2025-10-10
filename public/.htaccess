@@ -1,0 +1,7 @@
+# Configuração para a pasta public
+RewriteEngine On
+
+# Redirecionar todas as requisições para router.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ router.php?route=$1 [QSA,L]
