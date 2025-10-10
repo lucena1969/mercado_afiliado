@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Debug Case</title>
+</head>
+<body>
+    <h1>Teste Debug Case</h1>
+    <button onclick="testarDebugCase()">Testar Debug Case</button>
+    <div id="resultado"></div>
+
+    <script>
+    function testarDebugCase() {
+        console.log('Testando debug case...');
+
+        fetch('debug_case_direto.php', {
+            method: 'GET'
+        })
+        .then(response => {
+            console.log('Status:', response.status);
+            return response.text();
+        })
+        .then(text => {
+            console.log('Texto bruto:', text);
+            document.getElementById('resultado').innerHTML =
+                '<h3>Debug Case:</h3><pre>' + text + '</pre>';
+
+            try {
+                const json = JSON.parse(text);
+                console.log('JSON válido:', json);
+            } catch (e) {
+                console.error('Erro JSON:', e);
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+    }
+    </script>
+</body>
+</html>

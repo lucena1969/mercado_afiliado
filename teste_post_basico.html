@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste POST Básico</title>
+</head>
+<body>
+    <h1>Teste POST Básico</h1>
+    <button onclick="testarPOST()">Testar POST</button>
+    <button onclick="testarProcessPHP()">Testar process.php</button>
+    <div id="resultado"></div>
+
+    <script>
+    function testarPOST() {
+        console.log('Testando POST básico...');
+
+        const formData = new FormData();
+        formData.append('acao', 'relatorio_execucao_pca');
+        formData.append('ano', '2025');
+
+        fetch('teste_post_basico.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log('Status:', response.status);
+            return response.text();
+        })
+        .then(text => {
+            console.log('Texto bruto (POST básico):', text);
+            document.getElementById('resultado').innerHTML =
+                '<h3>POST Básico:</h3><pre>' + text + '</pre>';
+        });
+    }
+
+    function testarProcessPHP() {
+        console.log('Testando process.php...');
+
+        const formData = new FormData();
+        formData.append('acao', 'relatorio_execucao_pca');
+        formData.append('ano', '2025');
+
+        fetch('process.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log('Status process.php:', response.status);
+            return response.text();
+        })
+        .then(text => {
+            console.log('Texto bruto (process.php):', text);
+            document.getElementById('resultado').innerHTML +=
+                '<h3>process.php:</h3><pre>' + text + '</pre>';
+        });
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste JavaScript showSection</title>
+    <style>
+        .content-section {
+            display: none;
+            padding: 20px;
+            border: 2px solid #ccc;
+            margin: 20px;
+            background: #f0f0f0;
+        }
+        .content-section.active {
+            display: block;
+            border-color: #007cba;
+            background: #e6f3ff;
+        }
+        .nav-item {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #007cba;
+            color: white;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+        .nav-item.active {
+            background: #005a8b;
+        }
+    </style>
+</head>
+<body>
+    <h1>Teste da Função showSection</h1>
+    
+    <div style="margin: 20px 0;">
+        <button class="nav-item" onclick="showSection('dashboard')">Dashboard</button>
+        <button class="nav-item" onclick="showSection('relatorios')">Relatórios</button>
+        <button class="nav-item" onclick="showSection('usuarios')">Usuários</button>
+    </div>
+    
+    <div id="dashboard" class="content-section active">
+        <h2>📊 Seção Dashboard</h2>
+        <p>Esta é a seção do dashboard. Está ativa por padrão.</p>
+    </div>
+    
+    <div id="relatorios" class="content-section">
+        <h2>📄 Seção Relatórios</h2>
+        <p>Esta é a seção de relatórios que deveria aparecer quando clicada.</p>
+        <ul>
+            <li>Relatório por Modalidade</li>
+            <li>Relatório por Pregoeiro</li>
+            <li>Relatório de Prazos</li>
+            <li>Relatório Financeiro</li>
+        </ul>
+    </div>
+    
+    <div id="usuarios" class="content-section">
+        <h2>👥 Seção Usuários</h2>
+        <p>Esta é a seção de usuários para teste.</p>
+    </div>
+    
+    <div id="log" style="margin-top: 20px; padding: 10px; background: #f9f9f9; border: 1px solid #ddd;">
+        <h3>Log de Debug:</h3>
+        <div id="logContent"></div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            log('=== showSection chamada com ID: ' + sectionId);
+            
+            // Esconder todas as seções
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+                log('Removendo active de: ' + section.id);
+            });
+
+            // Remover classe ativa de todos os nav-items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Mostrar seção selecionada
+            const sectionElement = document.getElementById(sectionId);
+            if (!sectionElement) {
+                log('❌ ERRO: Seção não encontrada: ' + sectionId);
+                return;
+            }
+            
+            log('✅ Elemento encontrado: ' + sectionElement.id);
+            sectionElement.classList.add('active');
+            log('✅ Classe active adicionada a: ' + sectionId);
+
+            // Ativar nav-item clicado
+            const clickedElement = event.target.closest('.nav-item');
+            if (clickedElement) {
+                clickedElement.classList.add('active');
+                log('✅ Nav-item ativado');
+            }
+        }
+        
+        function log(message) {
+            const logDiv = document.getElementById('logContent');
+            const time = new Date().toLocaleTimeString();
+            logDiv.innerHTML += '<div>[' + time + '] ' + message + '</div>';
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        
+        window.showSection = showSection;
+        log('JavaScript carregado e função showSection definida');
+    </script>
+</body>
+</html>

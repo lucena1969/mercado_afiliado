@@ -1,0 +1,229 @@
+═══════════════════════════════════════════════════════════════════════
+   📦 SISTEMA DE LICITAÇÕES CGLIC - PACOTE COMPLETO PARA DEPLOY
+═══════════════════════════════════════════════════════════════════════
+
+📁 ARQUIVO: sistema_licitacao_cglic.zip
+📊 TAMANHO: 5.8 MB
+📂 ARQUIVOS: ~185 arquivos
+🌐 DOMÍNIO: https://cglic.net
+📁 DESTINO: public_html/
+
+═══════════════════════════════════════════════════════════════════════
+
+✅ O QUE ESTÁ INCLUÍDO NESTE ZIP:
+
+1. 🔧 Arquivos de Configuração
+   ✅ config.php              (credenciais do banco configuradas)
+   ✅ .htaccess               (segurança e HTTPS)
+   ✅ .env.production         (exemplo de configuração)
+
+2. 💻 Arquivos PHP do Sistema
+   ✅ index.php               (tela de login)
+   ✅ selecao_modulos.php     (menu principal)
+   ✅ dashboard.php           (módulo planejamento)
+   ✅ licitacao_dashboard.php (módulo licitações)
+   ✅ gestao_riscos.php       (gestão de riscos)
+   ✅ gerenciar_usuarios.php  (gestão de usuários)
+   ✅ functions.php           (funções principais)
+   ✅ process.php             (processamento)
+   ✅ + 50 outros arquivos PHP
+
+3. 🎨 Assets (CSS, JavaScript, Imagens)
+   ✅ assets/style.css
+   ✅ assets/dashboard.css
+   ✅ assets/dashboard.js
+   ✅ assets/ux-improvements.js
+   ✅ assets/mobile-improvements.js
+   ✅ + outros arquivos de frontend
+
+4. 🔌 APIs REST
+   ✅ api/backup_api_simple.php
+   ✅ api/get_licitacao.php
+   ✅ api/exportar_licitacoes.php
+   ✅ api/process_risco.php
+   ✅ + outras APIs
+
+5. 📊 Relatórios
+   ✅ relatorios/gerar_relatorio_planejamento.php
+   ✅ relatorios/gerar_relatorio_licitacao.php
+   ✅ relatorios/exportar_relatorio_riscos.php
+   ✅ + outros relatórios
+
+6. 🛠️ Utilitários
+   ✅ utils/historico_contratacao.php
+   ✅ utils/detalhes.php
+   ✅ utils/limpar_encoding.php
+
+7. 💾 Scripts SQL
+   ✅ database/sistema_licitacao_atualizado.SQL (SEM DEFINER - USE ESTE!)
+   ✅ database/sistema_licitacao_atualizado_COM_DEFINER.SQL (backup)
+   ✅ database/README_SQL.md
+   ✅ database/INSTRUCOES_DEPLOY.md
+
+8. 📚 Documentação Completa
+   ✅ GUIA_DEPLOY_CGLIC.md    (passo a passo detalhado)
+   ✅ RESUMO_DEPLOY.md        (checklist rápido)
+   ✅ CHANGELOG_CONFIG.md     (histórico de alterações)
+   ✅ CLAUDE.md               (documentação técnica completa)
+
+═══════════════════════════════════════════════════════════════════════
+
+❌ O QUE NÃO ESTÁ INCLUÍDO (arquivos excluídos):
+
+   ❌ node_modules/          (dependências - não necessário)
+   ❌ .git/                  (controle de versão - não necessário)
+   ❌ database/*.backup      (backups temporários)
+   ❌ logs/*.log             (logs antigos)
+   ❌ cache/*                (cache - será gerado no servidor)
+   ❌ uploads/*              (uploads - será criado no servidor)
+   ❌ backups/*              (backups - será criado no servidor)
+
+═══════════════════════════════════════════════════════════════════════
+
+🚀 PROCESSO DE DEPLOY - 4 PASSOS SIMPLES:
+
+PASSO 1: IMPORTAR O BANCO DE DADOS
+──────────────────────────────────
+1. Extrair o ZIP
+2. Acessar phpMyAdmin no painel da hospedagem
+3. Clicar em "Importar"
+4. Selecionar: database/sistema_licitacao_atualizado.SQL
+5. Charset: utf8mb4
+6. Clicar "Executar"
+7. Aguardar 2-3 minutos
+
+✅ Resultado esperado:
+   - Banco criado: u590097272_sistema_licita
+   - ~30 tabelas criadas
+   - Procedures e functions criados
+
+
+PASSO 2: UPLOAD DOS ARQUIVOS
+─────────────────────────────
+1. Extrair TODO o conteúdo do ZIP
+2. Conectar via FTP/SFTP em cglic.net
+3. Enviar TODOS os arquivos para public_html/
+4. Manter a estrutura de pastas
+
+📂 Estrutura final no servidor:
+   public_html/
+   ├── index.php
+   ├── config.php          ← ✅ Já configurado!
+   ├── .htaccess           ← ✅ Já configurado!
+   ├── assets/
+   ├── api/
+   ├── relatorios/
+   ├── utils/
+   └── database/
+
+
+PASSO 3: CRIAR PASTAS E PERMISSÕES
+───────────────────────────────────
+Via FileManager do painel ou SSH:
+
+mkdir -p public_html/uploads
+mkdir -p public_html/backups
+mkdir -p public_html/logs
+mkdir -p public_html/cache
+
+chmod 755 public_html/
+chmod 777 public_html/uploads/
+chmod 777 public_html/backups/
+chmod 777 public_html/logs/
+chmod 777 public_html/cache/
+
+
+PASSO 4: TESTAR O SISTEMA
+──────────────────────────
+1. Acessar: https://cglic.net
+2. Login: admin@cglic.gov.br
+3. Senha: admin123
+4. Verificar se módulos funcionam
+5. ⚠️ TROCAR A SENHA DO ADMIN!
+
+═══════════════════════════════════════════════════════════════════════
+
+🔐 CREDENCIAIS DO SISTEMA:
+
+Domínio:       https://cglic.net
+Banco:         u590097272_sistema_licita
+Usuário MySQL: u590097272_onesioneto
+Senha MySQL:   Numse!2020
+Login Admin:   admin@cglic.gov.br
+Senha Admin:   admin123 (TROCAR IMEDIATAMENTE!)
+
+═══════════════════════════════════════════════════════════════════════
+
+⚠️ IMPORTANTE:
+
+1. ✅ O config.php JÁ ESTÁ CONFIGURADO com as credenciais corretas
+2. ✅ O .htaccess JÁ ESTÁ CONFIGURADO com segurança e HTTPS
+3. ✅ O SQL está SEM DEFINER (compatível com hospedagem compartilhada)
+4. ⚠️ Crie as pastas: uploads, backups, logs, cache
+5. ⚠️ Configure permissões 777 nessas pastas
+6. ⚠️ Troque a senha do admin após primeiro login
+
+═══════════════════════════════════════════════════════════════════════
+
+📚 DOCUMENTAÇÃO:
+
+Dentro do ZIP você encontrará documentação completa:
+
+→ GUIA_DEPLOY_CGLIC.md     (passo a passo completo)
+→ RESUMO_DEPLOY.md         (checklist rápido)
+→ database/README_SQL.md   (guia dos arquivos SQL)
+→ CLAUDE.md                (documentação técnica completa)
+
+═══════════════════════════════════════════════════════════════════════
+
+🔧 PROBLEMAS COMUNS:
+
+Erro #1227 (DEFINER)
+→ Use database/sistema_licitacao_atualizado.SQL (sem DEFINER)
+
+CSS/JS não carregam
+→ Verificar permissões da pasta assets/ (755)
+→ Limpar cache do navegador (Ctrl+Shift+R)
+
+Página em branco
+→ Verificar logs/sistema.log ou error_log do servidor
+→ Verificar se banco foi importado corretamente
+
+Permission denied
+→ Verificar permissões 777 em uploads, backups, logs, cache
+
+═══════════════════════════════════════════════════════════════════════
+
+✅ CHECKLIST DE DEPLOY:
+
+[ ] Extrair ZIP
+[ ] Importar SQL no phpMyAdmin
+[ ] Verificar banco criado (~30 tabelas)
+[ ] Upload de TODOS os arquivos para public_html/
+[ ] Criar pastas: uploads, backups, logs, cache
+[ ] Configurar permissões 777 nessas pastas
+[ ] Testar https://cglic.net
+[ ] Login funciona?
+[ ] Módulos carregam?
+[ ] Trocar senha do admin
+[ ] ✅ DEPLOY COMPLETO!
+
+═══════════════════════════════════════════════════════════════════════
+
+📞 SUPORTE:
+
+Em caso de dúvidas:
+1. Consultar GUIA_DEPLOY_CGLIC.md (dentro do ZIP)
+2. Verificar logs do sistema (logs/sistema.log)
+3. Verificar error_log do servidor
+
+═══════════════════════════════════════════════════════════════════════
+
+🎯 BOA SORTE COM O DEPLOY!
+
+Sistema pronto para produção em https://cglic.net
+
+📌 Data do pacote: 06/10/2025
+🏷️ Versão: v2025.12 - Deploy cglic.net
+
+═══════════════════════════════════════════════════════════════════════

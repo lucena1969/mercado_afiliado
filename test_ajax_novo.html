@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Novo Endpoint</title>
+</head>
+<body>
+    <h1>Teste Novo Endpoint</h1>
+    <button onclick="testarEndpointNovo()">Testar Endpoint Novo</button>
+    <button onclick="testarEndpointOriginal()">Testar Endpoint Original</button>
+    <div id="resultado"></div>
+
+    <script>
+    function testarEndpointNovo() {
+        console.log('Testando endpoint novo...');
+
+        fetch('test_endpoint_direto.php', {
+            method: 'GET'
+        })
+        .then(response => {
+            console.log('Status novo:', response.status);
+            console.log('Headers novo:', response.headers);
+            return response.text();
+        })
+        .then(text => {
+            console.log('Texto bruto novo:', text);
+            document.getElementById('resultado').innerHTML =
+                '<h3>Resposta Novo:</h3><pre>' + text + '</pre>';
+
+            try {
+                const json = JSON.parse(text);
+                console.log('JSON válido novo:', json);
+            } catch (e) {
+                console.error('Erro JSON novo:', e);
+            }
+        })
+        .catch(error => {
+            console.error('Erro novo:', error);
+        });
+    }
+
+    function testarEndpointOriginal() {
+        console.log('Testando endpoint original...');
+
+        const formData = new FormData();
+        formData.append('acao', 'relatorio_execucao_pca');
+        formData.append('ano', '2025');
+        formData.append('data_inicio', '');
+        formData.append('data_fim', '');
+        formData.append('area_requisitante_filtro', '');
+        formData.append('categoria_filtro', '');
+        formData.append('status_execucao_filtro', '');
+        formData.append('status_contratacao_filtro', '');
+        formData.append('situacao_original_filtro', '');
+        formData.append('tem_licitacao_filtro', '');
+        formData.append('valor_minimo', '');
+        formData.append('valor_maximo', '');
+
+        fetch('process.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log('Status original:', response.status);
+            return response.text();
+        })
+        .then(text => {
+            console.log('Texto bruto original:', text);
+            document.getElementById('resultado').innerHTML +=
+                '<h3>Resposta Original:</h3><pre>' + text + '</pre>';
+
+            try {
+                const json = JSON.parse(text);
+                console.log('JSON válido original:', json);
+            } catch (e) {
+                console.error('Erro JSON original:', e);
+            }
+        })
+        .catch(error => {
+            console.error('Erro original:', error);
+        });
+    }
+    </script>
+</body>
+</html>

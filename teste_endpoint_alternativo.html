@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Endpoint Alternativo</title>
+</head>
+<body>
+    <h1>Teste Endpoint Alternativo PCA</h1>
+    <button onclick="testarAlternativo()">Testar Endpoint Alternativo</button>
+    <button onclick="testarOriginal()">Testar Endpoint Original</button>
+    <div id="resultado"></div>
+
+    <script>
+    function testarAlternativo() {
+        console.log('Testando endpoint alternativo...');
+
+        const formData = new FormData();
+        formData.append('ano', '2025');
+        formData.append('data_inicio', '');
+        formData.append('data_fim', '');
+        formData.append('area_requisitante_filtro', '');
+        formData.append('categoria_filtro', '');
+        formData.append('status_execucao_filtro', '');
+        formData.append('status_contratacao_filtro', '');
+        formData.append('situacao_original_filtro', '');
+        formData.append('tem_licitacao_filtro', '');
+        formData.append('valor_minimo', '');
+        formData.append('valor_maximo', '');
+
+        fetch('relatorio_pca_alternativo.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log('Status alternativo:', response.status);
+            console.log('Headers alternativo:', response.headers);
+            return response.text();
+        })
+        .then(text => {
+            console.log('Texto bruto alternativo:', text);
+            document.getElementById('resultado').innerHTML =
+                '<h3>Resposta Alternativo:</h3><pre>' + text + '</pre>';
+
+            try {
+                const json = JSON.parse(text);
+                console.log('JSON válido alternativo:', json);
+
+                // Testar se a estrutura está correta
+                if (json.success && json.data && json.data.estatisticas) {
+                    const stats = json.data.estatisticas;
+                    console.log('Contadores:', stats.contadores);
+                    console.log('Percentuais:', stats.percentuais_quantidade);
+
+                    if (stats.percentuais_quantidade && stats.percentuais_quantidade.em_atraso !== undefined) {
+                        console.log('✅ Estrutura JSON CORRETA!');
+                        document.getElementById('resultado').innerHTML +=
+                            '<div style="color: green; font-weight: bold;">✅ ESTRUTURA JSON CORRETA!</div>';
+                    } else {
+                        console.log('❌ Estrutura JSON incorreta');
+                        document.getElementById('resultado').innerHTML +=
+                            '<div style="color: red; font-weight: bold;">❌ ESTRUTURA JSON INCORRETA!</div>';
+                    }
+                }
+            } catch (e) {
+                console.error('Erro JSON alternativo:', e);
+                document.getElementById('resultado').innerHTML +=
+                    '<div style="color: red;">Erro JSON: ' + e.message + '</div>';
+            }
+        })
+        .catch(error => {
+            console.error('Erro alternativo:', error);
+            document.getElementById('resultado').innerHTML +=
+                '<div style="color: red;">Erro: ' + error + '</div>';
+        });
+    }
+
+    function testarOriginal() {
+        console.log('Testando endpoint original...');
+
+        const formData = new FormData();
+        formData.append('acao', 'relatorio_execucao_pca');
+        formData.append('ano', '2025');
+        formData.append('data_inicio', '');
+        formData.append('data_fim', '');
+        formData.append('area_requisitante_filtro', '');
+        formData.append('categoria_filtro', '');
+        formData.append('status_execucao_filtro', '');
+        formData.append('status_contratacao_filtro', '');
+        formData.append('situacao_original_filtro', '');
+        formData.append('tem_licitacao_filtro', '');
+        formData.append('valor_minimo', '');
+        formData.append('valor_maximo', '');
+
+        fetch('process.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log('Status original:', response.status);
+            return response.text();
+        })
+        .then(text => {
+            console.log('Texto bruto original:', text);
+            document.getElementById('resultado').innerHTML +=
+                '<h3>Resposta Original:</h3><pre>' + text + '</pre>';
+
+            try {
+                const json = JSON.parse(text);
+                console.log('JSON válido original:', json);
+
+                if (json.success && json.data && json.data.estatisticas) {
+                    const stats = json.data.estatisticas;
+                    console.log('Contadores orig:', stats.contadores);
+                    console.log('Percentuais orig:', stats.percentuais_quantidade);
+
+                    if (stats.percentuais_quantidade && stats.percentuais_quantidade.em_atraso !== undefined) {
+                        console.log('✅ Estrutura JSON original CORRETA!');
+                        document.getElementById('resultado').innerHTML +=
+                            '<div style="color: green; font-weight: bold;">✅ ESTRUTURA JSON ORIGINAL CORRETA!</div>';
+                    } else {
+                        console.log('❌ Estrutura JSON original incorreta');
+                        document.getElementById('resultado').innerHTML +=
+                            '<div style="color: red; font-weight: bold;">❌ ESTRUTURA JSON ORIGINAL INCORRETA!</div>';
+                    }
+                }
+            } catch (e) {
+                console.error('Erro JSON original:', e);
+                document.getElementById('resultado').innerHTML +=
+                    '<div style="color: red;">Erro JSON original: ' + e.message + '</div>';
+            }
+        })
+        .catch(error => {
+            console.error('Erro original:', error);
+            document.getElementById('resultado').innerHTML +=
+                '<div style="color: red;">Erro original: ' + error + '</div>';
+        });
+    }
+    </script>
+</body>
+</html>
