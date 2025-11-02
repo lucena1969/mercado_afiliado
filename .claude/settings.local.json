@@ -31,7 +31,11 @@
       "WebFetch(domain:thiagoprogramador.com)",
       "WebFetch(domain:docs.eadplataforma.com)",
       "Bash(zip:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(npx markdownlint:*)",
+      "Bash(npm install:*)",
+      "Bash(markdownlint:*)"
     ],
     "deny": [],
     "ask": [],
