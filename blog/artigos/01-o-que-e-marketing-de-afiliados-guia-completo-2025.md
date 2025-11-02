@@ -659,7 +659,7 @@ O **[Mercado Afiliado](https://mercadoafiliado.com.br)** ajuda você a:
 ---
 
 **Artigos Relacionados:**
-- [Como Rastrear Vendas de Afiliado Automaticamente](#)
+- [Como Rastrear Vendas de Afiliado Automaticamente](#)a j
 - [Links Curtos para Afiliados: Por Que e Como Usar](#)
 - [Hotmart vs Eduzz vs Monetizze vs Braip: Qual Escolher?](#)
 
